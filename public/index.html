@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Club Player</title>
+<style>
+:root{color-scheme:dark;--bg:#07110f;--panel:#101d19;--line:#263b32;--muted:#91a69b;--green:#b6f36b;--white:#f3f7f3;--red:#ff7777}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#1c382a 0,transparent 55%),var(--bg);color:var(--white);font:16px/1.5 Inter,ui-sans-serif,system-ui,Arial;min-height:100vh}
+main{max-width:900px;margin:auto;padding:28px 18px 60px}.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px}.brand{font-weight:900;letter-spacing:.12em;font-size:14px}.brand span{color:var(--green)}.pill{border:1px solid var(--line);border-radius:999px;padding:6px 12px;color:var(--muted);font-size:12px}
+h1{font-size:clamp(42px,8vw,70px);line-height:.98;letter-spacing:-.06em;margin:12px 0}.sub{color:var(--muted);max-width:540px}.panel{background:linear-gradient(145deg,#13221c,#0d1814);border:1px solid var(--line);border-radius:22px;padding:24px;margin-top:22px;box-shadow:0 18px 60px #0005}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:7px;margin:12px 0}label,.small{color:var(--muted);font-size:13px}input{width:100%;background:#08120e;border:1px solid #31483b;border-radius:12px;padding:14px;color:white;font:inherit;outline:none}input:focus{border-color:var(--green)}button{cursor:pointer;border:0;border-radius:12px;padding:13px 18px;background:var(--green);color:#12200d;font-weight:850;font-size:14px}button.secondary{background:#1a2a22;color:white;border:1px solid var(--line)}button.danger{background:#422323;color:#ffdede}button:disabled{opacity:.4;cursor:not-allowed}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.hidden{display:none!important}.code{font-size:26px;font-weight:900;letter-spacing:.18em;color:var(--green)}.players{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.player{border:1px solid var(--line);border-radius:999px;padding:7px 11px;font-size:13px}.player.active{border-color:var(--green);color:var(--green)}.player.out{opacity:.35;text-decoration:line-through}.turn{font-size:13px;color:var(--green);text-transform:uppercase;letter-spacing:.14em;font-weight:800}.prompt{font-size:clamp(23px,4vw,34px);font-weight:850;letter-spacing:-.03em;margin:8px 0 18px}.history{display:flex;flex-direction:column;gap:8px}.entry{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:10px;background:#0a1510;border:1px solid #1e3027}.entry b{font-size:14px}.entry small{color:var(--muted)}.message{color:var(--muted);min-height:24px;margin-top:10px}.error{color:var(--red)}.note{font-size:12px;color:var(--muted);margin-top:20px}.section-title{font-size:12px;letter-spacing:.13em;color:var(--muted);text-transform:uppercase;font-weight:800}.topline{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.panel{padding:18px}.top{margin-bottom:22px}}
+</style>
+</head>
+<body><main>
+<div class="top"><div class="brand">⚽ CLUB <span>PLAYER</span></div><div class="pill">ONLINE MULTIPLAYER</div></div>
+<section id="home">
+  <div class="section-title">The football knowledge game</div><h1>How far can<br>you go?</h1>
+  <p class="sub">Connect football clubs and players. Every answer has to be real. One wrong move — or no answer — and you're out.</p>
+  <div class="panel">
+    <div class="grid">
+      <div><div class="section-title">Create a room</div><div class="field"><label>Your name</label><input id="hostName" maxlength="24" placeholder="Enter your name"></div><button id="createBtn">Create game room ↗</button></div>
+      <div><div class="section-title">Join a room</div><div class="field"><label>Your name</label><input id="joinName" maxlength="24" placeholder="Enter your name"></div><div class="field"><label>Room code</label><input id="roomCode" maxlength="6" placeholder="ABC123" style="text-transform:uppercase"></div><button class="secondary" id="joinBtn">Join room</button></div>
+    </div>
+    <p class="note">2–8 players · Share the room code with friends · No account needed</p>
+  </div>
+</section>
+<section id="game" class="hidden">
+  <div class="topline"><div><div class="section-title">Room code</div><div class="code" id="code"></div></div><button class="secondary" id="copyBtn">Copy invite link</button></div>
+  <div class="panel">
+    <div class="topline"><div class="section-title">Players in room</div><div class="pill" id="count"></div></div>
+    <div class="players" id="players"></div>
+    <div id="lobbyControls"><p class="sub">Share the code above. When everyone has joined, the host can start.</p><button id="startBtn">Start game</button></div>
+    <div id="playControls" class="hidden">
+      <div class="turn" id="turnLabel"></div><div class="prompt" id="prompt"></div>
+      <div class="row"><input id="answer" placeholder="Type your answer..." style="flex:1;min-width:180px"><button id="submitBtn">Submit ↗</button><button class="danger" id="passBtn">I'm out</button></div>
+      <div class="message" id="message"></div>
+    </div>
+    <div id="finished" class="hidden"><h2 id="winner"></h2><button class="secondary" onclick="location.reload()">Back to home</button></div>
+  </div>
+  <div class="panel"><div class="section-title">Match history</div><div class="history" id="history"><p class="sub">The chain will appear here.</p></div></div>
+  <p class="note">Answers are checked against Wikidata. Its football career records are not complete, so a valid answer may occasionally be rejected.</p>
+</section>
+</main>
+<script>
+let socket, myId=null, roomCode=null, latest=null, isHost=false;
+const $=id=>document.getElementById(id);
+function connect(){return new Promise((resolve,reject)=>{
+ const proto=location.protocol==="https:"?"wss":"ws"; socket=new WebSocket(`${proto}://${location.host}`);
+ socket.onopen=resolve; socket.onerror=()=>reject(new Error("Could not connect to the game server."));
+ socket.onmessage=e=>{const m=JSON.parse(e.data);if(m.type==="joined"){myId=m.id;roomCode=m.code;$("code").textContent=m.code;$("home").classList.add("hidden");$("game").classList.remove("hidden");}
+ if(m.type==="state")render(m.state);if(m.type==="error")showError(m.message);
+ });});}
+function send(type,data={}){if(socket?.readyState===1)socket.send(JSON.stringify({type,...data}));}
+function showError(msg){$("message").textContent=msg;$("message").className="message error";}
+async function create(){try{await connect();isHost=true;send("create",{name:$("hostName").value});}catch(e){alert(e.message)}}
+async function join(){try{await connect();send("join",{name:$("joinName").value,code:$("roomCode").value});}catch(e){alert(e.message)}}
+function render(s){latest=s;$("count").textContent=`${s.players.length}/8`;const active=s.players[s.turn%s.players.length];
+ $("players").innerHTML=s.players.map(p=>`<span class="player ${p.id===active?.id&&s.status==="playing"?"active":""} ${!p.alive?"out":""}">${esc(p.name)}${p.id===myId?" (you)":""}${!p.connected?" · offline":""}</span>`).join("");
+ $("lobbyControls").classList.toggle("hidden",s.status!=="lobby");$("playControls").classList.toggle("hidden",s.status!=="playing");$("finished").classList.toggle("hidden",s.status!=="finished");
+ $("startBtn").classList.toggle("hidden",!isHost);$("startBtn").disabled=s.players.length<2;
+ if(s.status==="playing"){const mine=active?.id===myId;$("turnLabel").textContent=mine?"YOUR TURN":`${active?.name||"Player"}'S TURN`;$("prompt").textContent=s.phase==="startClub"?"Choose the starting club":s.phase==="player"?`Name a player who played for ${s.currentClub}`:`Name another club ${s.lastPlayer} played for`;$("answer").disabled=!mine;$("submitBtn").disabled=!mine;$("passBtn").disabled=!mine;$("message").textContent=s.message||"";$("message").className="message";}
+ if(s.status==="finished")$("winner").textContent=`🏆 ${s.winner} wins!`;
+ $("history").innerHTML=s.history.length?s.history.slice().reverse().map(h=>`<div class="entry"><b>${h.kind==="club"?"🏟":"⚽"} ${esc(h.name)}</b><small>${esc(h.by)}</small></div>`).join(""):'<p class="sub">The chain will appear here.</p>';
+}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+$("createBtn").onclick=create;$("joinBtn").onclick=join;$("startBtn").onclick=()=>send("start");$("submitBtn").onclick=submit;$("answer").onkeydown=e=>{if(e.key==="Enter")submit()};$("passBtn").onclick=()=>send("pass");
+function submit(){const v=$("answer").value.trim();if(!v)return;send("move",{value:v});$("answer").value="";}
+$("copyBtn").onclick=async()=>{const url=new URL(location.href);url.searchParams.set("room",roomCode);try{await navigator.clipboard.writeText(url.toString());$("copyBtn").textContent="Copied!";}catch{$("copyBtn").textContent="Code: "+roomCode;}};
+const preset=new URLSearchParams(location.search).get("room");if(preset)$("roomCode").value=preset;
+</script></body></html>
