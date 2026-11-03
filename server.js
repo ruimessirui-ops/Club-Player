@@ -109,7 +109,7 @@ function advance(room) {
 function normalizeName(s) { return clean(s).toLocaleLowerCase("en"); }
 function handleWrongAnswer(room, player, ws, err) {
   const message = err?.message || "That answer could not be verified.";
-  const temporary = /could not be reached|connection failed|temporarily busy|temporarily unavailable|temporarily rate-limiting|rate limit|HTTP 429|network|timed out|timeout|fetch failed|account is suspended|access.*suspended|API-Football returned HTTP 5/i.test(message);
+  const temporary = /could not be reached|connection failed|temporarily busy|temporarily unavailable|temporarily rate-limiting|rate limit|HTTP 429|couldn't verify both names in Wikidata|Wikidata is incomplete|network|timed out|timeout|fetch failed|account is suspended|access.*suspended|API-Football returned HTTP 5/i.test(message);
   if (!temporary) {
     player.hearts = Math.max(0, (player.hearts ?? 2) - 1);
     if (player.hearts === 0) {
@@ -360,12 +360,25 @@ async function verifyLink(clubName, playerName) {
     try {
       const data = await theSportsDbGet("lookupformerteams.php", { id: player.id });
       const formerTeams = data.formerteams || data.teams || [];
+      // TheSportsDB names this field strFormerTeam (not strTeam).
       const found = formerTeams.some(team =>
-        String(team.idTeam || team.id) === String(club.id) ||
-        normalizeName(team.strTeam || team.name || "") === normalizeName(club.name)
+        String(team.idFormerTeam || team.idTeam || team.id || "") === String(club.id) ||
+        normalizeName(team.strFormerTeam || team.strTeam || team.name || "") === normalizeName(club.name)
       );
-      // Continue to Wikidata below so we can check that the player has
-      // represented at least two different clubs in their career.
+      const distinctCareerTeams = new Set(formerTeams
+        .map(team => normalizeName(team.strFormerTeam || team.strTeam || team.name || ""))
+        .filter(Boolean));
+      if (found && distinctCareerTeams.size >= 1) {
+        const result = {
+          club: club.name,
+          player: player.name,
+          clubId: "thesportsdb:" + club.id,
+          playerId: "thesportsdb:" + player.id
+        };
+        verificationCache.set(verificationKey, result);
+        if (verificationCache.size > 2000) verificationCache.delete(verificationCache.keys().next().value);
+        return result;
+      }
     } catch (error) {
       console.error("TheSportsDB career lookup failed:", error.message);
     }
