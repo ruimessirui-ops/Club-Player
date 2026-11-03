@@ -9,13 +9,15 @@ const wss = new WebSocketServer({ server });
 app.use(express.static("public"));
 app.get("/health", (_, res) => res.json({ ok: true }));
 app.get("/api/search", async (req, res) => {
+  const q = clean(req.query.q);
+  const type = req.query.type === "club" ? "club" : "player";
+  if (q.length < 2) return res.json([]);
+  const cacheKey = type + ":" + q.toLowerCase();
+  const cached = searchCache.get(cacheKey);
+  if (cached) return res.json(cached);
   try {
-    const q = clean(req.query.q);
-    const type = req.query.type === "club" ? "club" : "player";
-    if (q.length < 2) return res.json([]);
-    const cacheKey = type + ":" + q.toLowerCase();
-    let filtered = searchCache.get(cacheKey);
-    if (!filtered) {
+    let items = [];
+    try {
       const results = await wikidataSearch(q);
       const relevant = results.filter(item => {
         const d = (item.description || "").toLowerCase();
@@ -23,13 +25,20 @@ app.get("/api/search", async (req, res) => {
           ? /football|soccer|sports club|sport club|football team|soccer team/.test(d)
           : /football|soccer/.test(d);
       });
-      // Keep suggestions available when Wikidata omits a useful description.
-      filtered = (relevant.length ? relevant : results).slice(0, 10);
-      searchCache.set(cacheKey, filtered);
-      if (searchCache.size > 250) searchCache.delete(searchCache.keys().next().value);
+      const ordered = [...relevant, ...results.filter(item => !relevant.includes(item))];
+      items = ordered.slice(0, 10).map(item => ({
+        id: item.id, label: item.label, description: item.description || "", source: "Wikidata"
+      }));
+    } catch (wikidataError) {
+      // Use Wikipedia search suggestions if Wikidata is temporarily unavailable.
+      items = await wikipediaSearch(q, type);
     }
-    res.json(filtered.map(item => ({ id: item.id, label: item.label, description: item.description || "" })));
-  } catch (err) { res.status(503).json({ error: "Search is temporarily unavailable." }); }
+    searchCache.set(cacheKey, items);
+    if (searchCache.size > 1000) searchCache.delete(searchCache.keys().next().value);
+    return res.json(items);
+  } catch (err) {
+    return res.status(503).json({ error: "Both football search sources are temporarily unavailable. Try again shortly." });
+  }
 });
 
 const rooms = new Map();
@@ -114,6 +123,23 @@ async function wikidataSearch(name) {
   wikidataSearchCache.set(key, results);
   if (wikidataSearchCache.size > 500) wikidataSearchCache.delete(wikidataSearchCache.keys().next().value);
   return results;
+}
+async function wikipediaSearch(name, type) {
+  const topic = type === "club" ? " football club" : " footballer";
+  const url = "https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=" +
+    encodeURIComponent(name + topic) + "&srlimit=10&format=json&origin=*";
+  const r = await fetch(url, {
+    headers: { "User-Agent": "ClubPlayerGame/1.0 (football club player game)" },
+    signal: AbortSignal.timeout(8000)
+  });
+  if (!r.ok) throw new Error("Wikipedia search unavailable.");
+  const data = await r.json();
+  return (data.query?.search || []).slice(0, 10).map(item => ({
+    id: null,
+    label: item.title,
+    description: (item.snippet || "").replace(/<[^>]*>/g, "").replace(/&quot;/g, '"').replace(/&#039;/g, "'"),
+    source: "Wikipedia"
+  }));
 }
 async function entity(id) {
   if (entityCache.has(id)) return entityCache.get(id);
