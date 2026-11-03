@@ -8,7 +8,7 @@
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#1c382a 0,transparent 55%),var(--bg);color:var(--white);font:16px/1.5 Inter,ui-sans-serif,system-ui,Arial;min-height:100vh}
 main{max-width:900px;margin:auto;padding:28px 18px 60px}.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px}.brand{font-weight:900;letter-spacing:.12em;font-size:14px}.brand span{color:var(--green)}.pill{border:1px solid var(--line);border-radius:999px;padding:6px 12px;color:var(--muted);font-size:12px}
 h1{font-size:clamp(42px,8vw,70px);line-height:.98;letter-spacing:-.06em;margin:12px 0}.sub{color:var(--muted);max-width:540px}.panel{background:linear-gradient(145deg,#13221c,#0d1814);border:1px solid var(--line);border-radius:22px;padding:24px;margin-top:22px;box-shadow:0 18px 60px #0005}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:7px;margin:12px 0}label,.small{color:var(--muted);font-size:13px}input{width:100%;background:#08120e;border:1px solid #31483b;border-radius:12px;padding:14px;color:white;font:inherit;outline:none}input:focus{border-color:var(--green)}button{cursor:pointer;border:0;border-radius:12px;padding:13px 18px;background:var(--green);color:#12200d;font-weight:850;font-size:14px}button.secondary{background:#1a2a22;color:white;border:1px solid var(--line)}button.danger{background:#422323;color:#ffdede}button:disabled{opacity:.4;cursor:not-allowed}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.hidden{display:none!important}.code{font-size:26px;font-weight:900;letter-spacing:.18em;color:var(--green)}.players{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.player{border:1px solid var(--line);border-radius:999px;padding:7px 11px;font-size:13px}.player.active{border-color:var(--green);color:var(--green)}.player.out{opacity:.35;text-decoration:line-through}.turn{font-size:13px;color:var(--green);text-transform:uppercase;letter-spacing:.14em;font-weight:800}.prompt{font-size:clamp(23px,4vw,34px);font-weight:850;letter-spacing:-.03em;margin:8px 0 18px}.history{display:flex;flex-direction:column;gap:8px}.entry{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:10px;background:#0a1510;border:1px solid #1e3027}.entry b{font-size:14px}.entry small{color:var(--muted)}.message{color:var(--muted);min-height:24px;margin-top:10px}.error{color:var(--red)}.note{font-size:12px;color:var(--muted);margin-top:20px}.section-title{font-size:12px;letter-spacing:.13em;color:var(--muted);text-transform:uppercase;font-weight:800}.topline{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:7px;margin:12px 0}label,.small{color:var(--muted);font-size:13px}input{width:100%;background:#08120e;border:1px solid #31483b;border-radius:12px;padding:14px;color:white;font:inherit;outline:none}input:focus{border-color:var(--green)}button{cursor:pointer;border:0;border-radius:12px;padding:13px 18px;background:var(--green);color:#12200d;font-weight:850;font-size:14px}button.secondary{background:#1a2a22;color:white;border:1px solid var(--line)}button.danger{background:#422323;color:#ffdede}button:disabled{opacity:.4;cursor:not-allowed}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.hidden{display:none!important}.code{font-size:26px;font-weight:900;letter-spacing:.18em;color:var(--green)}.players{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.player{border:1px solid var(--line);border-radius:999px;padding:7px 11px;font-size:13px}.player.active{border-color:var(--green);color:var(--green)}.player.out{opacity:.35;text-decoration:line-through}.turn{font-size:13px;color:var(--green);text-transform:uppercase;letter-spacing:.14em;font-weight:800}.prompt{font-size:clamp(23px,4vw,34px);font-weight:850;letter-spacing:-.03em;margin:8px 0 18px}.history{display:flex;flex-direction:column;gap:8px}.entry{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:10px;background:#0a1510;border:1px solid #1e3027}.entry b{font-size:14px}.entry small{color:var(--muted)}.message{color:var(--muted);min-height:24px;margin-top:10px}.suggestions{display:none;background:#0a1510;border:1px solid #31483b;border-radius:12px;margin-top:6px;overflow:hidden}.suggestions.show{display:block}.suggestion{display:block;width:100%;text-align:left;background:transparent;color:var(--white);border:0;border-radius:0;padding:10px 13px;font-weight:600}.suggestion:hover{background:#1a2a22}.suggestion small{display:block;color:var(--muted);font-weight:400}.error{color:var(--red)}.note{font-size:12px;color:var(--muted);margin-top:20px}.section-title{font-size:12px;letter-spacing:.13em;color:var(--muted);text-transform:uppercase;font-weight:800}.topline{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 @media(max-width:600px){.grid{grid-template-columns:1fr}.panel{padding:18px}.top{margin-bottom:22px}}
 </style>
 </head>
@@ -34,7 +34,7 @@ h1{font-size:clamp(42px,8vw,70px);line-height:.98;letter-spacing:-.06em;margin:1
     <div id="playControls" class="hidden">
       <div class="turn" id="turnLabel"></div><div class="prompt" id="prompt"></div>
       <div class="row"><input id="answer" placeholder="Type your answer..." style="flex:1;min-width:180px"><button id="submitBtn">Submit ↗</button><button class="danger" id="passBtn">I'm out</button></div>
-      <div class="message" id="message"></div>
+      <div class="suggestions" id="suggestions"></div><div class="message" id="message"></div>
     </div>
     <div id="finished" class="hidden"><h2 id="winner"></h2><button class="secondary" onclick="location.reload()">Back to home</button></div>
   </div>
@@ -65,7 +65,23 @@ function render(s){latest=s;$("count").textContent=`${s.players.length}/8`;const
 }
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 $("createBtn").onclick=create;$("joinBtn").onclick=join;$("startBtn").onclick=()=>send("start");$("submitBtn").onclick=submit;$("answer").onkeydown=e=>{if(e.key==="Enter")submit()};$("passBtn").onclick=()=>send("pass");
-function submit(){const v=$("answer").value.trim();if(!v)return;send("move",{value:v});$("answer").value="";}
+function submit(){const v=$("answer").value.trim();if(!v)return;send("move",{value:v});$("answer").value="";$("suggestions").classList.remove("show");$("suggestions").innerHTML="";}
+let searchTimer=null, searchRequest=0;
+function searchType(){return latest && (latest.phase==='startClub' || latest.phase==='nextClub') ? 'club' : 'player';}
+$('answer').addEventListener('input',()=>{
+  clearTimeout(searchTimer); const q=$('answer').value.trim(); const box=$('suggestions');
+  if(q.length<2 || $('answer').disabled){box.classList.remove('show');box.innerHTML='';return;}
+  searchTimer=setTimeout(async()=>{
+    const request=++searchRequest; const type=searchType();
+    try{const r=await fetch('/api/search?type='+type+'&q='+encodeURIComponent(q));const items=await r.json();
+      if(request!==searchRequest || $('answer').value.trim()!==q)return;
+      box.innerHTML=items.map(x=>'<button type="button" class="suggestion" data-label="'+esc(x.label)+'">'+esc(x.label)+'<small>'+esc(x.description)+'</small></button>').join('');
+      box.classList.toggle('show',items.length>0);
+      box.querySelectorAll('button').forEach(b=>b.onclick=()=>{$('answer').value=b.dataset.label;box.classList.remove('show');box.innerHTML='';});
+    }catch{box.classList.remove('show');}
+  },220);
+});
+document.addEventListener('click',e=>{if(!e.target.closest('#answer')&&!e.target.closest('#suggestions'))$('suggestions').classList.remove('show');});
 $("copyBtn").onclick=async()=>{const url=new URL(location.href);url.searchParams.set("room",roomCode);try{await navigator.clipboard.writeText(url.toString());$("copyBtn").textContent="Copied!";}catch{$("copyBtn").textContent="Code: "+roomCode;}};
 const preset=new URLSearchParams(location.search).get("room");if(preset)$("roomCode").value=preset;
 </script></body></html>
