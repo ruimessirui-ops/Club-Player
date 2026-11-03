@@ -32,16 +32,21 @@ app.get("/api/search", async (req, res) => {
         }));
       }
     } else {
-      // Keep autocomplete lightweight: one Wikidata search request, no per-result
-      // entity/country/league lookups. Detailed verification still happens on submit.
-      const results = await wikidataSearch(q);
-      const excluded = /women|woman|femen|femminile|ladies|girls|youth|under[- ]?\d{1,2}|reserve|academy|season|b team|ii team|iii team/i;
+      // Try Wikidata first, then fall back to Wikipedia if Wikidata is unavailable
+      // or returns no usable club suggestions. This keeps autocomplete working
+      // during Wikidata rate limits/outages.
+      let results = [];
+      try {
+        results = await wikidataSearch(q);
+      } catch (error) {
+        console.error("Wikidata club autocomplete failed; using Wikipedia fallback:", error.message);
+      }
+      const excluded = /women|woman|femen|femminile|ladies|girls|youth|under[- ]?\\d{1,2}|reserve|academy|season|b team|ii team|iii team/i;
       const seen = new Set();
       items = results.filter(item => {
         const label = item.label || "";
         const description = item.description || "";
-        const combined = label + " " + description;
-        if (excluded.test(combined)) return false;
+        if (excluded.test(label + " " + description)) return false;
         if (!/football|soccer/i.test(description)) return false;
         const key = normalizeName(label);
         if (!key || seen.has(key)) return false;
@@ -53,6 +58,26 @@ app.get("/api/search", async (req, res) => {
         description: item.description || "Football club",
         source: "Wikidata"
       }));
+      if (!items.length) {
+        try {
+          const fallback = await wikipediaSearch(q, "club");
+          items = fallback.filter(item => {
+            if (excluded.test(item.label + " " + item.description)) return false;
+            const key = normalizeName(item.label);
+            if (!key || seen.has(key)) return false;
+            seen.add(key);
+            return /football club|association football club|soccer club/i.test(item.description) ||
+              /football club/i.test(item.label);
+          }).slice(0, 10).map(item => ({
+            id: null, label: item.label,
+            country: "", league: "",
+            description: item.description || "Football club result",
+            source: "Wikipedia"
+          }));
+        } catch (error) {
+          console.error("Wikipedia club autocomplete fallback failed:", error.message);
+        }
+      }
     }
     searchCache.set(cacheKey, items);
     if (searchCache.size > 1000) searchCache.delete(searchCache.keys().next().value);
