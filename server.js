@@ -15,63 +15,67 @@ app.get("/api/search", async (req, res) => {
   const cacheKey = "football:" + type + ":" + q.toLowerCase();
   const cached = searchCache.get(cacheKey);
   if (cached) return res.json(cached);
+
+  const items = [];
+  const seen = new Set();
+  const addItem = item => {
+    const key = normalizeName(item.label || "");
+    if (!key || seen.has(key)) return;
+    seen.add(key);
+    items.push(item);
+  };
+
+  // Use TheSportsDB first because it is football-specific. Wikidata is a
+  // secondary source, not a single point of failure for autocomplete.
   try {
-    let items = [];
-    if (type === "player") {
-      try {
-        const data = await theSportsDbGet("searchplayers.php", { p: q });
-        items = (data.player || []).slice(0, 10).map(entry => ({
-          id: String(entry.idPlayer), label: entry.strPlayer,
-          description: "Football player", source: "TheSportsDB"
-        })).filter(entry => entry.id && entry.label);
-      } catch (error) { console.error("TheSportsDB player search failed:", error.message); }
-      if (!items.length) {
-        const results = await wikidataAutocompleteSearch(q);
-        const candidates = results.slice(0, 20);
-        const records = await entities(candidates.map(item => item.id));
-        const checked = candidates.filter((item, index) => isFootballEntity(records[index], "player"));
-        items = checked.filter(Boolean).slice(0, 10).map(item => ({
-          id: item.id, label: item.label, description: item.description || "Football player", source: "Wikidata"
-        }));
-      }
-    } else {
-      // Try Wikidata first, then fall back to Wikipedia if Wikidata is unavailable
-      // or returns no usable club suggestions. This keeps autocomplete working
-      // during Wikidata rate limits/outages.
-      let results = [];
-      try {
-        results = await wikidataAutocompleteSearch(q);
-      } catch (error) {
-        console.error("Wikidata club autocomplete failed; using Wikipedia fallback:", error.message);
-      }
-      const excluded = /women|woman|femen|femminile|ladies|girls|youth|under[- ]?\d{1,2}|reserve|academy|season|b team|ii team|iii team/i;
-      const seen = new Set();
-      const candidates = results.slice(0, 30).filter(item =>
-        !excluded.test((item.label || "") + " " + (item.description || ""))
-      );
-      const records = await entities(candidates.map(item => item.id));
-      const checked = candidates.filter((item, index) => isFootballEntity(records[index], "club"));
-      items = checked.filter(Boolean).filter(item => {
-        const key = normalizeName(item.label || "");
-        if (!key || seen.has(key)) return false;
-        seen.add(key);
-        return true;
-      }).slice(0, 10).map(item => ({
-        id: item.id, label: item.label,
-        country: "", league: "",
-        description: item.description || "Football club",
-        source: "Wikidata"
-      }));
-      // No Wikipedia fallback here: article search can return stadiums,
-      // cities or seasons. Only typed Wikidata football-club entities are valid.
+    const endpoint = type === "club" ? "searchteams.php" : "searchplayers.php";
+    const params = type === "club" ? { t: q } : { p: q };
+    const data = await theSportsDbGet(endpoint, params);
+    const rows = type === "club" ? (data.teams || []) : (data.player || []);
+    for (const entry of rows) {
+      const sport = String(entry.strSport || "").toLowerCase();
+      if (type === "club" && sport && sport !== "soccer" && sport !== "football") continue;
+      const id = type === "club" ? entry.idTeam : entry.idPlayer;
+      const label = type === "club" ? entry.strTeam : entry.strPlayer;
+      if (id && label) addItem({
+        id: String(id), label,
+        description: type === "club" ? "Football club" : "Football player",
+        source: "TheSportsDB"
+      });
     }
-    searchCache.set(cacheKey, items);
-    if (searchCache.size > 1000) searchCache.delete(searchCache.keys().next().value);
-    return res.json(items);
-  } catch (err) {
-    console.error("Football search failed:", err.message);
-    return res.status(503).json({ error: "Football search is temporarily unavailable. Try again shortly." });
+  } catch (error) {
+    console.error("TheSportsDB " + type + " autocomplete failed:", error.message);
   }
+
+  // Try Wikidata as well, so it can expand the small free-tier result set.
+  try {
+    const results = await wikidataAutocompleteSearch(q);
+    const excluded = /women|woman|femen|femminile|ladies|girls|youth|under[- ]?\\d{1,2}|reserve|academy|season|b team|ii team|iii team/i;
+    const candidates = results.slice(0, 50).filter(item =>
+      type !== "club" || !excluded.test((item.label || "") + " " + (item.description || ""))
+    );
+    const records = await entities(candidates.map(item => item.id));
+    for (let i = 0; i < candidates.length; i++) {
+      const item = candidates[i];
+      if (!isFootballEntity(records[i], type)) continue;
+      addItem({
+        id: item.id,
+        label: item.label,
+        country: "",
+        league: "",
+        description: item.description || (type === "club" ? "Football club" : "Football player"),
+        source: "Wikidata"
+      });
+      if (items.length >= 10) break;
+    }
+  } catch (error) {
+    console.error("Wikidata " + type + " autocomplete failed:", error.message);
+  }
+
+  // If one source is unavailable, keep useful results from the other source.
+  searchCache.set(cacheKey, items);
+  if (searchCache.size > 1000) searchCache.delete(searchCache.keys().next().value);
+  return res.json(items);
 });
 
 const rooms = new Map();
