@@ -13,16 +13,25 @@ app.get("/api/search", async (req, res) => {
     const q = clean(req.query.q);
     const type = req.query.type === "club" ? "club" : "player";
     if (q.length < 2) return res.json([]);
-    const results = await wikidataSearch(q);
-    const filtered = results.filter(item => {
-      const d = (item.description || "").toLowerCase();
-      return type === "club" ? /football club|association football club|sports club/.test(d) : /footballer|soccer player|football player/.test(d);
-    }).slice(0, 7);
+    const cacheKey = type + ":" + q.toLowerCase();
+    let filtered = searchCache.get(cacheKey);
+    if (!filtered) {
+      const results = await wikidataSearch(q);
+      filtered = results.filter(item => {
+        const d = (item.description || "").toLowerCase();
+        return type === "club"
+          ? /football club|association football club|sports club|football team|association football team|women's football club|men's football club/.test(d)
+          : /footballer|soccer player|football player|association football player/.test(d);
+      }).slice(0, 10);
+      searchCache.set(cacheKey, filtered);
+      if (searchCache.size > 250) searchCache.delete(searchCache.keys().next().value);
+    }
     res.json(filtered.map(item => ({ id: item.id, label: item.label, description: item.description || "" })));
   } catch (err) { res.status(503).json({ error: "Search is temporarily unavailable." }); }
 });
 
 const rooms = new Map();
+const searchCache = new Map();
 const clean = s => String(s || "").trim().replace(/\s+/g, " ").slice(0, 60);
 const roomCode = () => crypto.randomBytes(3).toString("hex").toUpperCase();
 
@@ -53,11 +62,11 @@ function normalizeName(s) { return clean(s).toLocaleLowerCase("en"); }
 
 // Resolve names with Wikidata search, then check football career club links (P54).
 async function wikidataSearch(name) {
-  const url = "https://www.wikidata.org/w/api.php?action=wbsearchentities&search="+encodeURIComponent(name)+"&language=en&format=json&limit=8&origin=*";
+  const url = "https://www.wikidata.org/w/api.php?action=wbsearchentities&search="+encodeURIComponent(name)+"&language=en&format=json&limit=30&origin=*";
   const r = await fetch(url, {headers:{"User-Agent":"ClubPlayerGame/1.0 (browser game)"}});
   if (!r.ok) throw new Error("Wikidata is temporarily unavailable.");
   const j = await r.json();
-  return (j.search || []).slice(0,8);
+  return (j.search || []).slice(0,30);
 }
 async function entity(id) {
   const r=await fetch("https://www.wikidata.org/wiki/Special:EntityData/"+id+".json", {headers:{"User-Agent":"ClubPlayerGame/1.0"}});
