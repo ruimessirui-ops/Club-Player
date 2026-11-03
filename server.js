@@ -37,7 +37,7 @@ app.get("/api/search", async (req, res) => {
       // during Wikidata rate limits/outages.
       let results = [];
       try {
-        results = await wikidataSearch(q);
+        results = await wikidataAutocompleteSearch(q);
       } catch (error) {
         console.error("Wikidata club autocomplete failed; using Wikipedia fallback:", error.message);
       }
