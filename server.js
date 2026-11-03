@@ -264,11 +264,32 @@ async function verifyLink(clubName, playerName) {
   }
   const playerEntity = await entity(wdPlayer.id);
   const clubClaims = playerEntity?.claims?.P54 || [];
-  const playedFor = clubClaims.map(x => x.mainsnak?.datavalue?.value?.id).filter(Boolean);
-  if (!playedFor.includes(wdClub.id)) {
-    throw new Error(wdPlayer.label + " is not listed as having played for " + wdClub.label + " in Wikidata. The database can be incomplete.");
+  const teamIds = clubClaims.map(x => x.mainsnak?.datavalue?.value?.id).filter(Boolean);
+
+  // Match the typed club name against labels/aliases of the player's actual
+  // P54 teams. Search results for broad names like "Arsenal" can rank a
+  // different Wikidata item first, so do not trust the first search result.
+  let matchedTeam = null;
+  for (const teamId of teamIds) {
+    try {
+      const teamEntity = await entity(teamId);
+      const teamLabels = labels(teamEntity);
+      const requested = normalizeName(clubName);
+      if (teamLabels.includes(requested) || teamLabels.some(label =>
+        label.startsWith(requested + " ") || requested.startsWith(label + " ")
+      )) {
+        matchedTeam = teamEntity;
+        break;
+      }
+    } catch (error) {
+      console.error("Could not load Wikidata team entity:", teamId, error.message);
+    }
   }
-  return { club: wdClub.label, player: wdPlayer.label, clubId: wdClub.id, playerId: wdPlayer.id };
+  if (!matchedTeam) {
+    throw new Error(wdPlayer.label + " is not listed as having played for " + clubName + " in Wikidata. The database can be incomplete.");
+  }
+  const matchedLabel = matchedTeam.labels?.en?.value || clubName;
+  return { club: matchedLabel, player: wdPlayer.label, clubId: matchedTeam.id, playerId: wdPlayer.id };
 }
 async function verifyPlayerForClub(playerName, clubName) {
   return verifyLink(clubName, playerName);
