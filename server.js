@@ -277,30 +277,39 @@ async function verifyLink(clubName, playerName) {
   const clubClaims = playerEntity?.claims?.P54 || [];
   const teamIds = [...new Set(clubClaims.map(x => x.mainsnak?.datavalue?.value?.id).filter(Boolean))];
 
-  // A valid chain needs a player with at least two career clubs, so the next
-  // player can name a different club. This excludes one-club players such as
-  // Bukayo Saka, Francesco Totti and Paolo Maldini.
-  if (teamIds.length < 2) {
-    throw new Error(wdPlayer.label + " cannot be used because Wikidata lists fewer than two clubs in their career.");
-  }
-
-  // Match the typed club name against labels/aliases of the player's actual
-  // P54 teams. Search results for broad names like "Arsenal" can rank a
-  // different Wikidata item first, so do not trust the first search result.
-  let matchedTeam = null;
+  // P54 can include national teams as well as clubs. Only count actual
+  // football clubs when enforcing the two-club minimum.
+  const careerClubs = [];
   for (const teamId of teamIds) {
     try {
       const teamEntity = await entity(teamId);
+      const description = (teamEntity.descriptions?.en?.value || "").toLowerCase();
       const teamLabels = labels(teamEntity);
-      const requested = normalizeName(clubName);
-      if (teamLabels.includes(requested) || teamLabels.some(label =>
-        label.startsWith(requested + " ") || requested.startsWith(label + " ")
-      )) {
-        matchedTeam = teamEntity;
-        break;
-      }
+      const isNationalTeam = /national (football|soccer) team|national association football team/.test(description);
+      const isFootballClub = /football club|association football club|soccer club/.test(description) ||
+        (teamEntity.claims?.P31 || []).some(claim =>
+          ["Q476028", "Q847017"].includes(claim.mainsnak?.datavalue?.value?.id)
+        );
+      if (!isNationalTeam && isFootballClub) careerClubs.push(teamEntity);
     } catch (error) {
       console.error("Could not load Wikidata team entity:", teamId, error.message);
+    }
+  }
+
+  if (careerClubs.length < 2) {
+    throw new Error(wdPlayer.label + " cannot be used because Wikidata lists fewer than two football clubs in their career.");
+  }
+
+  // Match only verified football clubs, not national teams or other teams.
+  let matchedTeam = null;
+  const requested = normalizeName(clubName);
+  for (const teamEntity of careerClubs) {
+    const teamLabels = labels(teamEntity);
+    if (teamLabels.includes(requested) || teamLabels.some(label =>
+      label.startsWith(requested + " ") || requested.startsWith(label + " ")
+    )) {
+      matchedTeam = teamEntity;
+      break;
     }
   }
   if (!matchedTeam) {
@@ -369,7 +378,7 @@ wss.on("connection", ws => {
             room.history.push({kind:"player",name:v.player,by:p.name});
             room.phase="nextClub";
             room.message=`${v.player} verified. ${p.name}, name another club ${v.player} played for.`;
-          } catch(err) { return send(ws,"error",{message:err.message}); }
+          } catch(err) { return handleWrongAnswer(room,p,ws,err); }
         } else if(room.phase==="nextClub") {
           try {
             const v=await verifyClubForPlayer(value,room.lastPlayer);
@@ -378,7 +387,7 @@ wss.on("connection", ws => {
             room.history.push({kind:"club",name:v.club,by:p.name});
             room.phase="player";
             room.message=`${v.club} verified. ${p.name}, name a player who played for this club.`;
-          } catch(err) { return send(ws,"error",{message:err.message}); }
+          } catch(err) { return handleWrongAnswer(room,p,ws,err); }
         }
         // With exactly 2 players, each player submits a club and then a player.
         // After the player is verified, the opponent chooses the next club.
