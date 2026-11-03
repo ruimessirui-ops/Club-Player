@@ -61,17 +61,52 @@ function advance(room) {
 function normalizeName(s) { return clean(s).toLocaleLowerCase("en"); }
 
 // Resolve names with Wikidata search, then check football career club links (P54).
+// Cache successful lookups and retry temporary Wikidata failures to reduce rate-limit issues.
+const wikidataSearchCache = new Map();
+const entityCache = new Map();
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+async function wikidataFetch(url) {
+  let lastError;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const r = await fetch(url, {
+        headers: { "User-Agent": "ClubPlayerGame/1.0 (football club player game)" },
+        signal: AbortSignal.timeout(10000)
+      });
+      if (r.ok) return r;
+      if (r.status !== 429 && r.status < 500) {
+        throw new Error("Wikidata rejected the lookup (HTTP " + r.status + ").");
+      }
+      lastError = new Error("Wikidata is temporarily busy (HTTP " + r.status + ").");
+    } catch (err) {
+      lastError = err;
+    }
+    if (attempt < 2) await delay(400 * (attempt + 1));
+  }
+  throw new Error("Wikidata could not be reached after 3 attempts. Please try again in a few seconds.");
+}
+
 async function wikidataSearch(name) {
+  const key = normalizeName(name);
+  if (wikidataSearchCache.has(key)) return wikidataSearchCache.get(key);
   const url = "https://www.wikidata.org/w/api.php?action=wbsearchentities&search="+encodeURIComponent(name)+"&language=en&format=json&limit=30&origin=*";
-  const r = await fetch(url, {headers:{"User-Agent":"ClubPlayerGame/1.0 (browser game)"}});
-  if (!r.ok) throw new Error("Wikidata is temporarily unavailable.");
+  const r = await wikidataFetch(url);
   const j = await r.json();
-  return (j.search || []).slice(0,30);
+  const results = (j.search || []).slice(0,30);
+  wikidataSearchCache.set(key, results);
+  if (wikidataSearchCache.size > 500) wikidataSearchCache.delete(wikidataSearchCache.keys().next().value);
+  return results;
 }
 async function entity(id) {
-  const r=await fetch("https://www.wikidata.org/wiki/Special:EntityData/"+id+".json", {headers:{"User-Agent":"ClubPlayerGame/1.0"}});
-  if(!r.ok) throw new Error("Could not check that entry.");
-  const j=await r.json(); return j.entities[id];
+  if (entityCache.has(id)) return entityCache.get(id);
+  const r = await wikidataFetch("https://www.wikidata.org/wiki/Special:EntityData/" + id + ".json");
+  const j = await r.json();
+  const result = j.entities[id];
+  if (!result) throw new Error("Wikidata returned no details for that entry. Please try again.");
+  entityCache.set(id, result);
+  if (entityCache.size > 500) entityCache.delete(entityCache.keys().next().value);
+  return result;
 }
 function labels(e) {
   const out=[e.labels?.en?.value, ...(e.aliases?.en||[]).map(x=>x.value)];
