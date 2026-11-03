@@ -261,7 +261,12 @@ function isFootballEntity(record, type) {
   const description = (record?.descriptions?.en?.value || "").toLowerCase();
   if (type === "club") {
     if (instanceTypes.some(id => ["Q27020041", "Q483110", "Q1076486", "Q515", "Q6256"].includes(id))) return false;
-    return instanceTypes.some(id => ["Q476028", "Q15944511"].includes(id));
+    const footballDescription = /football club|association football club|soccer club|football team|association football team|soccer team/.test(description);
+    const footballTypes = instanceTypes.some(id => ["Q476028", "Q15944511", "Q12973014"].includes(id));
+    // Some real clubs are typed only as a general sports club in Wikidata.
+    // Accept those only when their description clearly identifies football.
+    const generalSportsClub = instanceTypes.includes("Q847017") && footballDescription;
+    return footballTypes || footballDescription || generalSportsClub;
   }
   if (instanceTypes.includes("Q5") &&
       (occupations.includes("Q937857") || /association football player|footballer|soccer player/.test(description))) {
