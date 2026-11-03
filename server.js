@@ -27,12 +27,9 @@ app.get("/api/search", async (req, res) => {
       } catch (error) { console.error("TheSportsDB player search failed:", error.message); }
       if (!items.length) {
         const results = await wikidataAutocompleteSearch(q);
-        const checked = await Promise.all(results.slice(0, 20).map(async item => {
-          try {
-            const record = await entity(item.id);
-            return isFootballEntity(record, "player") ? item : null;
-          } catch { return null; }
-        }));
+        const candidates = results.slice(0, 20);
+        const records = await entities(candidates.map(item => item.id));
+        const checked = candidates.filter((item, index) => isFootballEntity(records[index], "player"));
         items = checked.filter(Boolean).slice(0, 10).map(item => ({
           id: item.id, label: item.label, description: item.description || "Football player", source: "Wikidata"
         }));
@@ -49,13 +46,11 @@ app.get("/api/search", async (req, res) => {
       }
       const excluded = /women|woman|femen|femminile|ladies|girls|youth|under[- ]?\d{1,2}|reserve|academy|season|b team|ii team|iii team/i;
       const seen = new Set();
-      const checked = await Promise.all(results.slice(0, 30).map(async item => {
-        if (excluded.test((item.label || "") + " " + (item.description || ""))) return null;
-        try {
-          const record = await entity(item.id);
-          return isFootballEntity(record, "club") ? item : null;
-        } catch { return null; }
-      }));
+      const candidates = results.slice(0, 30).filter(item =>
+        !excluded.test((item.label || "") + " " + (item.description || ""))
+      );
+      const records = await entities(candidates.map(item => item.id));
+      const checked = candidates.filter((item, index) => isFootballEntity(records[index], "club"));
       items = checked.filter(Boolean).filter(item => {
         const key = normalizeName(item.label || "");
         if (!key || seen.has(key)) return false;
@@ -131,26 +126,54 @@ const wikidataSearchCache = new Map();
 const entityCache = new Map();
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+// Serialize Wikidata traffic and leave a gap between requests. This prevents
+// autocomplete bursts and parallel career lookups from hammering the API.
+let wikidataQueue = Promise.resolve();
+let wikidataNextRequestAt = 0;
+let wikidataCooldownUntil = 0;
+async function queuedWikidataFetch(url) {
+  const task = wikidataQueue.then(async () => {
+    const now = Date.now();
+    const waitUntil = Math.max(wikidataNextRequestAt, wikidataCooldownUntil);
+    if (waitUntil > now) await delay(waitUntil - now);
+    wikidataNextRequestAt = Date.now() + 650;
+    return fetch(url, {
+      headers: {
+        "User-Agent": "ClubPlayerGame/1.0 (https://github.com/ruimessirui-ops/Club-Player)",
+        "Accept": "application/json"
+      },
+      signal: AbortSignal.timeout(15000)
+    });
+  });
+  wikidataQueue = task.catch(() => {});
+  return task;
+}
+
 async function wikidataFetch(url) {
   let lastError;
-  for (let attempt = 0; attempt < 3; attempt++) {
+  for (let attempt = 0; attempt < 4; attempt++) {
     try {
-      const r = await fetch(url, {
-        headers: { "User-Agent": "ClubPlayerGame/1.0 (football club player game)" },
-        signal: AbortSignal.timeout(10000)
-      });
+      const r = await queuedWikidataFetch(url);
       if (r.ok) return r;
       lastError = new Error("HTTP " + r.status);
-      if (r.status !== 429 && r.status < 500) {
+      if (r.status === 429) {
+        const retryAfter = Number(r.headers.get("retry-after"));
+        const backoff = Number.isFinite(retryAfter) && retryAfter > 0
+          ? retryAfter * 1000
+          : Math.min(30000, 3000 * Math.pow(2, attempt));
+        wikidataCooldownUntil = Date.now() + backoff;
+        console.warn("Wikidata rate limit reached; pausing requests for " + Math.ceil(backoff / 1000) + " seconds.");
+      } else if (r.status < 500) {
         throw new Error("Wikidata rejected the lookup (HTTP " + r.status + ").");
       }
     } catch (err) {
       lastError = err;
+      if (/Wikidata rejected/.test(err.message)) throw err;
     }
-    console.error("Wikidata request failed on attempt " + (attempt + 1) + "/3:", lastError?.message || lastError);
-    if (attempt < 2) await delay(700 * (attempt + 1));
+    console.error("Wikidata request failed on attempt " + (attempt + 1) + "/4:", lastError?.message || lastError);
+    if (attempt < 3) await delay(1000 * (attempt + 1));
   }
-  throw new Error("Wikidata connection failed after 3 attempts (" + (lastError?.message || "unknown error") + "). Please try again shortly.");
+  throw new Error("Wikidata is temporarily rate-limiting requests (HTTP " + (lastError?.message || "unknown error") + "). Please wait a moment and try again.");
 }
 
 async function wikidataSearch(name) {
@@ -169,14 +192,7 @@ async function wikidataAutocompleteSearch(name) {
   if (wikidataSearchCache.has(key)) return wikidataSearchCache.get(key);
   const url = "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=" +
     encodeURIComponent(name) + "&language=en&format=json&limit=50&maxlag=5&origin=*";
-  const response = await fetch(url, {
-    headers: {
-      "User-Agent": "ClubPlayerGame/1.0 (https://github.com/ruimessirui-ops/Club-Player)",
-      "Accept": "application/json"
-    },
-    signal: AbortSignal.timeout(4500)
-  });
-  if (!response.ok) throw new Error("Wikidata autocomplete HTTP " + response.status);
+  const response = await wikidataFetch(url);
   const data = await response.json();
   const results = (data.search || []).slice(0, 50);
   wikidataSearchCache.set(key, results);
@@ -200,14 +216,30 @@ async function wikipediaSearch(name, type) {
     source: "Wikipedia"
   }));
 }
+async function entities(ids) {
+  const uniqueIds = [...new Set(ids.filter(Boolean))];
+  const missing = uniqueIds.filter(id => !entityCache.has(id));
+  if (missing.length) {
+    // Wikidata supports fetching multiple entities in one request (up to 50).
+    for (let i = 0; i < missing.length; i += 50) {
+      const batch = missing.slice(i, i + 50);
+      const url = "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=" +
+        encodeURIComponent(batch.join("|")) + "&props=labels|descriptions|aliases|claims&languages=en&format=json&origin=*";
+      const response = await wikidataFetch(url);
+      const data = await response.json();
+      for (const [id, record] of Object.entries(data.entities || {})) {
+        if (record && !record.missing) {
+          entityCache.set(id, record);
+          if (entityCache.size > 1500) entityCache.delete(entityCache.keys().next().value);
+        }
+      }
+    }
+  }
+  return uniqueIds.map(id => entityCache.get(id) || null);
+}
 async function entity(id) {
-  if (entityCache.has(id)) return entityCache.get(id);
-  const r = await wikidataFetch("https://www.wikidata.org/wiki/Special:EntityData/" + id + ".json");
-  const j = await r.json();
-  const result = j.entities[id];
+  const result = (await entities([id]))[0];
   if (!result) throw new Error("Wikidata returned no details for that entry. Please try again.");
-  entityCache.set(id, result);
-  if (entityCache.size > 500) entityCache.delete(entityCache.keys().next().value);
   return result;
 }
 function labels(e) {
@@ -352,10 +384,7 @@ async function verifyLink(clubName, playerName) {
   const teamIds = [...new Set(clubClaims.map(x => x.mainsnak?.datavalue?.value?.id).filter(Boolean))];
 
   // Load all career team entities in parallel; serial lookups made verification slow.
-  const loadedTeams = (await Promise.all(teamIds.map(async teamId => {
-    try { return await entity(teamId); }
-    catch (error) { console.error("Could not load Wikidata team entity:", teamId, error.message); return null; }
-  }))).filter(Boolean);
+  const loadedTeams = (await entities(teamIds)).filter(Boolean);
 
   // Exclude national teams from the minimum-club rule, but retain every P54
   // entry for matching. Some genuine clubs have incomplete Wikidata descriptions.
