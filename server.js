@@ -285,13 +285,14 @@ wss.on("connection", ws => {
         if(room.phase==="startClub") {
           try {
             const e=await resolve(value);
-            const desc=(e.descriptions?.en?.value||"").toLowerCase();
-            if(!desc.includes("football club") && !desc.includes("association football club") && !desc.includes("sports club")) {
-              // Accept a team entity with a sports-team instance or a club description.
-              if(!(e.claims?.P31||[]).some(c=>["Q476028","Q847017","Q12973014"].includes(c.mainsnak?.datavalue?.value?.id))) throw new Error("That doesn't look like a football club. Try a club name such as Dortmund or Juventus.");
+            if (e.source === "Wikidata") {
+              const desc=(e.entity?.descriptions?.en?.value||"").toLowerCase();
+              if(!desc.includes("football club") && !desc.includes("association football club") && !desc.includes("sports club")) {
+                if(!(e.entity?.claims?.P31||[]).some(c=>["Q476028","Q847017","Q12973014"].includes(c.mainsnak?.datavalue?.value?.id))) throw new Error("That doesn't look like a football club. Try a club name such as Dortmund or Juventus.");
+              }
             }
-            const canon=e.labels?.en?.value||value;
-            if(room.usedClubs.some(x=>x.id===e.id)) throw new Error("That club has already been used.");
+            const canon=e.name||value;
+            if(room.usedClubs.some(x=>String(x.id)===String(e.id))) throw new Error("That club has already been used.");
             room.currentClub=canon; room.usedClubs.push({id:e.id,name:canon});
             room.history.push({kind:"club",name:canon,by:p.name});
             room.phase="player"; room.message=`${canon} selected. ${p.name}, name a player who played for this club.`;
