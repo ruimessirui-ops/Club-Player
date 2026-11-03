@@ -17,23 +17,19 @@ app.get("/api/search", async (req, res) => {
   if (cached) return res.json(cached);
   try {
     let items = [];
-    if (process.env.API_FOOTBALL_KEY) {
-      try {
-        const data = type === "club"
-          ? await apiFootballGet("/teams", { search: q })
-          : await apiFootballGet("/players/profiles", { search: q });
-        items = (data.response || []).slice(0, 10).map(item => {
-          const entry = type === "club" ? item.team : item;
-          return entry ? {
-            id: String(entry.id),
-            label: entry.name,
-            description: type === "club" ? "Football club" : "Football player",
-            source: "API-Football"
-          } : null;
-        }).filter(Boolean);
-      } catch (apiError) {
-        console.error("API-Football search failed:", apiError.message);
-      }
+    try {
+      const data = type === "club"
+        ? await theSportsDbGet("searchteams.php", { t: q })
+        : await theSportsDbGet("searchplayers.php", { p: q });
+      const rows = type === "club" ? (data.teams || []) : (data.player || []);
+      items = rows.slice(0, 10).map(entry => ({
+        id: String(type === "club" ? entry.idTeam : entry.idPlayer),
+        label: type === "club" ? entry.strTeam : entry.strPlayer,
+        description: type === "club" ? "Football club" : "Football player",
+        source: "TheSportsDB"
+      })).filter(entry => entry.id && entry.label);
+    } catch (sportsError) {
+      console.error("TheSportsDB search failed:", sportsError.message);
     }
     // Keep the previous sources as a backup if API-Football has no result.
     if (!items.length) {
@@ -199,23 +195,37 @@ async function apiFootballGet(path, params = {}) {
   return data;
 }
 
+const theSportsDbCache = new Map();
+async function theSportsDbGet(endpoint, params = {}) {
+  const url = new URL("https://www.thesportsdb.com/api/v1/json/123/" + endpoint);
+  for (const [key, value] of Object.entries(params)) url.searchParams.set(key, String(value).replace(/ /g, "_"));
+  const cacheKey = url.toString();
+  const cached = theSportsDbCache.get(cacheKey);
+  if (cached && Date.now() - cached.savedAt < 24 * 60 * 60 * 1000) return cached.data;
+  const response = await fetch(url, { signal: AbortSignal.timeout(10000) });
+  if (!response.ok) throw new Error("TheSportsDB returned HTTP " + response.status + ".");
+  const data = await response.json();
+  theSportsDbCache.set(cacheKey, { data, savedAt: Date.now() });
+  if (theSportsDbCache.size > 1500) theSportsDbCache.delete(theSportsDbCache.keys().next().value);
+  return data;
+}
+
 async function resolveFootball(name, type) {
-  if (process.env.API_FOOTBALL_KEY) {
+  try {
     const data = type === "club"
-      ? await apiFootballGet("/teams", { search: name })
-      : await apiFootballGet("/players/profiles", { search: name });
-    const rows = data.response || [];
-    const entry = rows.find(row => {
-      const candidate = type === "club" ? row.team?.name : row.name;
-      return candidate && normalizeName(candidate) === normalizeName(name);
-    }) || rows[0];
-    const entityData = type === "club" ? entry?.team : entry;
-    if (entityData?.id) return { id: entityData.id, name: entityData.name, source: "API-Football" };
-    throw new Error('I could not find "' + name + '" in the football database. Check the spelling or try the full name.');
+      ? await theSportsDbGet("searchteams.php", { t: name })
+      : await theSportsDbGet("searchplayers.php", { p: name });
+    const rows = type === "club" ? (data.teams || []) : (data.player || []);
+    const entry = rows.find(row => normalizeName(type === "club" ? row.strTeam : row.strPlayer) === normalizeName(name)) || rows[0];
+    const id = type === "club" ? entry?.idTeam : entry?.idPlayer;
+    const label = type === "club" ? entry?.strTeam : entry?.strPlayer;
+    if (id && label) return { id: String(id), name: label, source: "TheSportsDB" };
+  } catch (error) {
+    console.error("TheSportsDB resolve failed:", error.message);
   }
   const results = await wikidataSearch(name);
   const exact = results.find(x => normalizeName(x.label) === normalizeName(name)) || results[0];
-  if (!exact) throw new Error('I could not find "' + name + '" in the football database.');
+  if (!exact) throw new Error('I could not find "' + name + '" in the football database. Try another spelling.');
   return { id: exact.id, name: exact.label, source: "Wikidata", entity: await entity(exact.id) };
 }
 
@@ -224,27 +234,17 @@ async function resolve(name) {
 }
 
 async function verifyLink(clubName, playerName) {
-  if (process.env.API_FOOTBALL_KEY) {
-    const [club, player] = await Promise.all([
-      resolveFootball(clubName, "club"),
-      resolveFootball(playerName, "player")
-    ]);
-    const data = await apiFootballGet("/players/teams", { player: player.id });
-    const teams = (data.response || []).flatMap(row => {
-      if (row.team) return [row.team];
-      return row.teams || [];
-    });
-    const found = teams.some(team =>
-      String(team.id) === String(club.id) ||
-      normalizeName(team.name || "") === normalizeName(club.name)
-    );
-    if (!found) {
-      throw new Error(player.name + " is not listed as having played for " + club.name + " in API-Football. The career data may be incomplete.");
-    }
-    return { club: club.name, player: player.name, clubId: club.id, playerId: player.id };
-  }
-
   const [club, player] = await Promise.all([resolveFootball(clubName, "club"), resolveFootball(playerName, "player")]);
+  if (club.source === "TheSportsDB" && player.source === "TheSportsDB") {
+    const data = await theSportsDbGet("lookupformerteams.php", { id: player.id });
+    const formerTeams = data.formerteams || data.teams || [];
+    const found = formerTeams.some(team =>
+      String(team.idTeam || team.id) === String(club.id) ||
+      normalizeName(team.strTeam || team.name || "") === normalizeName(club.name)
+    );
+    if (found) return { club: club.name, player: player.name, clubId: club.id, playerId: player.id };
+    throw new Error(player.name + " is not listed as having played for " + club.name + " in TheSportsDB. Its career records may be incomplete.");
+  }
   const clubClaims = player.entity?.claims?.P54 || [];
   const playedFor = clubClaims.map(x => x.mainsnak?.datavalue?.value?.id).filter(Boolean);
   if (!playedFor.includes(club.id)) {
