@@ -27,8 +27,14 @@ app.get("/api/search", async (req, res) => {
       } catch (error) { console.error("TheSportsDB player search failed:", error.message); }
       if (!items.length) {
         const results = await wikidataAutocompleteSearch(q);
-        items = results.slice(0, 10).map(item => ({
-          id: item.id, label: item.label, description: item.description || "", source: "Wikidata"
+        const checked = await Promise.all(results.slice(0, 20).map(async item => {
+          try {
+            const record = await entity(item.id);
+            return isFootballEntity(record, "player") ? item : null;
+          } catch { return null; }
+        }));
+        items = checked.filter(Boolean).slice(0, 10).map(item => ({
+          id: item.id, label: item.label, description: item.description || "Football player", source: "Wikidata"
         }));
       }
     } else {
@@ -43,12 +49,15 @@ app.get("/api/search", async (req, res) => {
       }
       const excluded = /women|woman|femen|femminile|ladies|girls|youth|under[- ]?\d{1,2}|reserve|academy|season|b team|ii team|iii team/i;
       const seen = new Set();
-      items = results.filter(item => {
-        const label = item.label || "";
-        const description = item.description || "";
-        if (excluded.test(label + " " + description)) return false;
-        if (!/football|soccer/i.test(description)) return false;
-        const key = normalizeName(label);
+      const checked = await Promise.all(results.slice(0, 30).map(async item => {
+        if (excluded.test((item.label || "") + " " + (item.description || ""))) return null;
+        try {
+          const record = await entity(item.id);
+          return isFootballEntity(record, "club") ? item : null;
+        } catch { return null; }
+      }));
+      items = checked.filter(Boolean).filter(item => {
+        const key = normalizeName(item.label || "");
         if (!key || seen.has(key)) return false;
         seen.add(key);
         return true;
@@ -222,6 +231,29 @@ async function entity(id) {
 function labels(e) {
   const out=[e.labels?.en?.value, ...(e.aliases?.en||[]).map(x=>x.value)];
   return out.filter(Boolean).map(normalizeName);
+}
+
+function claimIds(record, property) {
+  return (record?.claims?.[property] || [])
+    .map(claim => claim.mainsnak?.datavalue?.value?.id)
+    .filter(Boolean);
+}
+
+// Strict entity typing prevents stadiums, cities, leagues and seasons from
+// entering club suggestions. Player suggestions must be human footballers.
+function isFootballEntity(record, type) {
+  const instanceTypes = claimIds(record, "P31");
+  const occupations = claimIds(record, "P106");
+  const description = (record?.descriptions?.en?.value || "").toLowerCase();
+  if (type === "club") {
+    if (instanceTypes.some(id => ["Q27020041", "Q483110", "Q1076486", "Q515", "Q6256"].includes(id))) return false;
+    return instanceTypes.some(id => ["Q476028", "Q15944511"].includes(id));
+  }
+  if (instanceTypes.includes("Q5") &&
+      (occupations.includes("Q937857") || /association football player|footballer|soccer player/.test(description))) {
+    return true;
+  }
+  return false;
 }
 const apiFootballCache = new Map();
 async function apiFootballGet(path, params = {}) {
@@ -422,10 +454,9 @@ wss.on("connection", ws => {
           try {
             const e=await resolve(value);
             if (e.source === "Wikidata") {
-              const desc=(e.entity?.descriptions?.en?.value||"").toLowerCase();
-              if(!desc.includes("football club") && !desc.includes("association football club") && !desc.includes("sports club")) {
-                if(!(e.entity?.claims?.P31||[]).some(c=>["Q476028","Q847017","Q12973014"].includes(c.mainsnak?.datavalue?.value?.id))) throw new Error("That doesn't look like a football club. Try a club name such as Dortmund or Juventus.");
-              }
+              if (!isFootballEntity(e.entity, "club")) {
+              throw new Error("That is not recognised as a football club. Stadiums, leagues and other organisations cannot be used.");
+            }
             }
             const canon=e.name||value;
             if(room.usedClubs.some(x=>String(x.id)===String(e.id))) throw new Error("That club has already been used.");
