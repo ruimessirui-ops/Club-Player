@@ -69,7 +69,6 @@ app.get("/api/search", async (req, res) => {
       }));
       // No Wikipedia fallback here: article search can return stadiums,
       // cities or seasons. Only typed Wikidata football-club entities are valid.
-      }
     }
     searchCache.set(cacheKey, items);
     if (searchCache.size > 1000) searchCache.delete(searchCache.keys().next().value);
