@@ -45,7 +45,7 @@ async function getPremierLeagueClubs() {
     "  ?club wdt:P118 wd:Q9448.",
     "  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. ?club rdfs:label ?clubLabel. }",
     "} ORDER BY ?club"
-  ].join("\\n");
+  ].join("\n");
   return runQuery(query, "Finding Premier League clubs");
 }
 async function getClubCareerPage(clubId, offset) {
@@ -60,7 +60,7 @@ async function getClubCareerPage(clubId, offset) {
     "}",
     "ORDER BY ?player",
     "LIMIT " + pageSize + " OFFSET " + offset
-  ].join("\\n");
+  ].join("\n");
   return runQuery(query, "Importing careers for club " + clubId + ", offset " + offset);
 }
 
@@ -129,7 +129,7 @@ async function main() {
     description: "Premier League club career relationships from property P54; dates retained when supplied. Undated links require review and must not be treated as date-confirmed."
   });
 
-  fs.writeFileSync(outputPath, JSON.stringify(db, null, 2) + "\\n");
+  fs.writeFileSync(outputPath, JSON.stringify(db, null, 2) + "\n");
   console.log("Import complete.");
   console.log("Unique clubs: " + db.clubs.length + "; players: " + db.players.length + "; career links: " + db.careerLinks.length);
   console.log("Review undated records before using this data to reject an answer.");
