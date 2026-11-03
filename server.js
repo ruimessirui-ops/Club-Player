@@ -67,25 +67,8 @@ app.get("/api/search", async (req, res) => {
         description: item.description || "Football club",
         source: "Wikidata"
       }));
-      if (!items.length) {
-        try {
-          const fallback = await wikipediaSearch(q, "club");
-          items = fallback.filter(item => {
-            if (excluded.test(item.label + " " + item.description)) return false;
-            const key = normalizeName(item.label);
-            if (!key || seen.has(key)) return false;
-            seen.add(key);
-            return /football club|association football club|soccer club/i.test(item.description) ||
-              /football club/i.test(item.label);
-          }).slice(0, 10).map(item => ({
-            id: null, label: item.label,
-            country: "", league: "",
-            description: item.description || "Football club result",
-            source: "Wikipedia"
-          }));
-        } catch (error) {
-          console.error("Wikipedia club autocomplete fallback failed:", error.message);
-        }
+      // No Wikipedia fallback here: article search can return stadiums,
+      // cities or seasons. Only typed Wikidata football-club entities are valid.
       }
     }
     searchCache.set(cacheKey, items);
@@ -359,7 +342,13 @@ async function verifyLink(clubName, playerName) {
   if (!wdClub || !wdPlayer) {
     throw new Error("I couldn't verify both names in Wikidata. Try another spelling.");
   }
-  const playerEntity = await entity(wdPlayer.id);
+  const [playerEntity, clubEntity] = await Promise.all([entity(wdPlayer.id), entity(wdClub.id)]);
+  if (!isFootballEntity(playerEntity, "player")) {
+    throw new Error(wdPlayer.label + " is not recognised as an association football player.");
+  }
+  if (!isFootballEntity(clubEntity, "club")) {
+    throw new Error(wdClub.label + " is not recognised as a football club. Stadiums and other places cannot be used.");
+  }
   const clubClaims = playerEntity?.claims?.P54 || [];
   const teamIds = [...new Set(clubClaims.map(x => x.mainsnak?.datavalue?.value?.id).filter(Boolean))];
 
