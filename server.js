@@ -17,43 +17,76 @@ app.get("/api/search", async (req, res) => {
   if (cached) return res.json(cached);
   try {
     let items = [];
-    try {
-      const data = type === "club"
-        ? await theSportsDbGet("searchteams.php", { t: q })
-        : await theSportsDbGet("searchplayers.php", { p: q });
-      const rows = type === "club" ? (data.teams || []) : (data.player || []);
-      items = rows.slice(0, 10).map(entry => ({
-        id: String(type === "club" ? entry.idTeam : entry.idPlayer),
-        label: type === "club" ? entry.strTeam : entry.strPlayer,
-        description: type === "club" ? "Football club" : "Football player",
-        source: "TheSportsDB"
-      })).filter(entry => entry.id && entry.label);
-    } catch (sportsError) {
-      console.error("TheSportsDB search failed:", sportsError.message);
-    }
-    // Keep the previous sources as a backup if API-Football has no result.
-    if (!items.length) {
+    if (type === "player") {
+      try {
+        const data = await theSportsDbGet("searchplayers.php", { p: q });
+        items = (data.player || []).slice(0, 10).map(entry => ({
+          id: String(entry.idPlayer), label: entry.strPlayer,
+          description: "Football player", source: "TheSportsDB"
+        })).filter(entry => entry.id && entry.label);
+      } catch (error) { console.error("TheSportsDB player search failed:", error.message); }
+      if (!items.length) {
+        const results = await wikidataSearch(q);
+        items = results.slice(0, 10).map(item => ({
+          id: item.id, label: item.label, description: item.description || "", source: "Wikidata"
+        }));
+      }
+    } else {
+      // TheSportsDB's free search endpoint returns only one club. Supplement it
+      // with Wikidata so ambiguous searches such as "Roma" show alternatives.
+      let sportsRows = [];
+      try {
+        const data = await theSportsDbGet("searchteams.php", { t: q });
+        sportsRows = data.teams || [];
+      } catch (error) { console.error("TheSportsDB club search failed:", error.message); }
+      const candidates = [];
+      for (const entry of sportsRows.slice(0, 5)) {
+        candidates.push({
+          id: "tsdb:" + String(entry.idTeam), label: entry.strTeam,
+          country: entry.strCountry || "", league: entry.strLeague || "",
+          description: [entry.strLeague, entry.strCountry].filter(Boolean).join(" · "),
+          source: "TheSportsDB"
+        });
+      }
       try {
         const results = await wikidataSearch(q);
         const relevant = results.filter(item => {
           const d = (item.description || "").toLowerCase();
-          return type === "club"
-            ? /football|soccer|sports club|sport club|football team|soccer team/.test(d)
-            : /football|soccer/.test(d);
+          return /football|soccer|sports club|sport club|football team|soccer team/.test(d);
         });
-        items = [...relevant, ...results.filter(item => !relevant.includes(item))]
-          .slice(0, 10).map(item => ({
-            id: item.id, label: item.label, description: item.description || "", source: "Wikidata"
-          }));
-        if (!items.length) items = await wikipediaSearch(q, type);
-      } catch (error) {
-        items = await wikipediaSearch(q, type);
-      }
+        const selected = [...relevant, ...results.filter(item => !relevant.includes(item))].slice(0, 8);
+        const enriched = await Promise.all(selected.map(async item => {
+          let country = "", league = "";
+          try {
+            const e = await entity(item.id);
+            const countryId = e.claims?.P17?.[0]?.mainsnak?.datavalue?.value?.id;
+            const leagueId = e.claims?.P118?.[0]?.mainsnak?.datavalue?.value?.id;
+            const related = await Promise.all([countryId, leagueId].filter(Boolean).map(id => entity(id).catch(() => null)));
+            let index = 0;
+            if (countryId) country = related[index++]?.labels?.en?.value || "";
+            if (leagueId) league = related[index]?.labels?.en?.value || "";
+          } catch (error) { console.error("Club metadata lookup failed:", item.id, error.message); }
+          return {
+            id: item.id, label: item.label, country, league,
+            description: [league, country, item.description].filter(Boolean).join(" · "),
+            source: "Wikidata"
+          };
+        }));
+        candidates.push(...enriched);
+      } catch (error) { console.error("Wikidata club search failed:", error.message); }
+      const seen = new Set();
+      items = candidates.filter(item => {
+        const key = normalizeName(item.label);
+        if (!key || seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      }).slice(0, 10);
     }
     searchCache.set(cacheKey, items);
     if (searchCache.size > 1000) searchCache.delete(searchCache.keys().next().value);
     return res.json(items);
   } catch (err) {
+    console.error("Football search failed:", err.message);
     return res.status(503).json({ error: "Football search is temporarily unavailable. Try again shortly." });
   }
 });
