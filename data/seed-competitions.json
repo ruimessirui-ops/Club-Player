@@ -1,0 +1,31 @@
+{
+  "careerStartYear": 1990,
+  "competitions": [
+    {
+      "name": "Premier League",
+      "country": "England",
+      "tier": "top"
+    },
+    {
+      "name": "La Liga",
+      "country": "Spain",
+      "tier": "top"
+    },
+    {
+      "name": "Bundesliga",
+      "country": "Germany",
+      "tier": "top"
+    },
+    {
+      "name": "Serie A",
+      "country": "Italy",
+      "tier": "top"
+    },
+    {
+      "name": "Ligue 1",
+      "country": "France",
+      "tier": "top"
+    }
+  ],
+  "expansionPolicy": "Add historically significant clubs and other major European leagues after validating the first five leagues."
+}
