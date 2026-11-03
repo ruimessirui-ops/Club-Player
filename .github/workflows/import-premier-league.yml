@@ -1,0 +1,35 @@
+name: Import Premier League player database
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import-premier-league:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Import career records from Wikidata
+        run: npm run import:premier-league
+
+      - name: Save updated database
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/football-db.json
+          if git diff --cached --quiet; then
+            echo "No database changes to save."
+          else
+            git commit -m "Import Premier League career database"
+            git push
+          fi
