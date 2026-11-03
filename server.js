@@ -17,12 +17,14 @@ app.get("/api/search", async (req, res) => {
     let filtered = searchCache.get(cacheKey);
     if (!filtered) {
       const results = await wikidataSearch(q);
-      filtered = results.filter(item => {
+      const relevant = results.filter(item => {
         const d = (item.description || "").toLowerCase();
         return type === "club"
-          ? /football club|association football club|sports club|football team|association football team|women's football club|men's football club/.test(d)
-          : /footballer|soccer player|football player|association football player/.test(d);
-      }).slice(0, 10);
+          ? /football|soccer|sports club|sport club|football team|soccer team/.test(d)
+          : /football|soccer/.test(d);
+      });
+      // Keep suggestions available when Wikidata omits a useful description.
+      filtered = (relevant.length ? relevant : results).slice(0, 10);
       searchCache.set(cacheKey, filtered);
       if (searchCache.size > 250) searchCache.delete(searchCache.keys().next().value);
     }
@@ -37,7 +39,7 @@ const roomCode = () => crypto.randomBytes(3).toString("hex").toUpperCase();
 
 function publicState(room) {
   return {
-    code: room.code, status: room.status, players: room.players.map(p => ({id:p.id,name:p.name,connected:p.connected,alive:p.alive})),
+    code: room.code, status: room.status, players: room.players.map(p => ({id:p.id,name:p.name,connected:p.connected,alive:p.alive,hearts:p.hearts})),
     turn: room.turn, phase: room.phase, currentClub: room.currentClub, lastPlayer: room.lastPlayer,
     usedClubs: room.usedClubs, usedPlayers: room.usedPlayers, history: room.history,
     message: room.message, winner: room.winner
@@ -59,6 +61,21 @@ function advance(room) {
   while ((!room.players[room.turn].alive || !room.players[room.turn].connected) && tries <= room.players.length);
 }
 function normalizeName(s) { return clean(s).toLocaleLowerCase("en"); }
+function handleWrongAnswer(room, player, ws, err) {
+  const message = err?.message || "That answer could not be verified.";
+  const temporary = /could not be reached|temporarily busy|temporarily unavailable|network|timed out|timeout|fetch failed/i.test(message);
+  if (!temporary) {
+    player.hearts = Math.max(0, (player.hearts ?? 2) - 1);
+    if (player.hearts === 0) {
+      player.alive = false;
+      room.message = player.name + " is out of hearts and has been eliminated.";
+      if (alive(room).length === 2) { room.phase = "startClub"; room.currentClub = null; room.lastPlayer = null; }
+      advance(room);
+    } else room.message = player.name + " gave an incorrect answer and lost a heart.";
+  } else room.message = "The football database is having trouble. No heart was lost.";
+  broadcast(room);
+  send(ws, "error", { message: temporary ? message : message + " (" + player.hearts + " hearts left.)" });
+}
 
 // Resolve names with Wikidata search, then check football career club links (P54).
 // Cache successful lookups and retry temporary Wikidata failures to reduce rate-limit issues.
@@ -144,7 +161,7 @@ wss.on("connection", ws => {
     try {
       if(m.type==="create") {
         const name=clean(m.name)||"Player 1"; const code=roomCode();
-        const p={id:crypto.randomUUID(),name,ws,connected:true,alive:true};
+        const p={id:crypto.randomUUID(),name,ws,connected:true,alive:true,hearts:2};
         const room={code,players:[p],status:"lobby",turn:0,phase:"startClub",currentClub:null,lastPlayer:null,usedClubs:[],usedPlayers:[],history:[],message:"Waiting for players to join.",winner:null};
         rooms.set(code,room); ws.room=code; ws.player=p.id; send(ws,"joined",{id:p.id,code}); broadcast(room);
       }
@@ -153,7 +170,7 @@ wss.on("connection", ws => {
         if(!room) return send(ws,"error",{message:"Room not found. Check the code."});
         if(room.status!=="lobby") return send(ws,"error",{message:"This game has already started."});
         if(room.players.length>=8) return send(ws,"error",{message:"This room is full (maximum 8 players)."});
-        const p={id:crypto.randomUUID(),name:clean(m.name)||"Player",ws,connected:true,alive:true};
+        const p={id:crypto.randomUUID(),name:clean(m.name)||"Player",ws,connected:true,alive:true,hearts:2};
         room.players.push(p); ws.room=code; ws.player=p.id; send(ws,"joined",{id:p.id,code}); room.message=`${p.name} joined the room.`; broadcast(room);
       }
       if(m.type==="start") {
@@ -180,7 +197,7 @@ wss.on("connection", ws => {
             room.currentClub=canon; room.usedClubs.push({id:e.id,name:canon});
             room.history.push({kind:"club",name:canon,by:p.name});
             room.phase="player"; room.message=`${canon} selected. ${p.name}, name a player who played for this club.`;
-          } catch(err) { return send(ws,"error",{message:err.message}); }
+          } catch(err) { return handleWrongAnswer(room,p,ws,err); }
         } else if(room.phase==="player") {
           try {
             const v=await verifyPlayerForClub(value,room.currentClub);
