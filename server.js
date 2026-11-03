@@ -118,16 +118,17 @@ async function wikidataFetch(url) {
         signal: AbortSignal.timeout(10000)
       });
       if (r.ok) return r;
+      lastError = new Error("HTTP " + r.status);
       if (r.status !== 429 && r.status < 500) {
         throw new Error("Wikidata rejected the lookup (HTTP " + r.status + ").");
       }
-      lastError = new Error("Wikidata is temporarily busy (HTTP " + r.status + ").");
     } catch (err) {
       lastError = err;
     }
-    if (attempt < 2) await delay(400 * (attempt + 1));
+    console.error("Wikidata request failed on attempt " + (attempt + 1) + "/3:", lastError?.message || lastError);
+    if (attempt < 2) await delay(700 * (attempt + 1));
   }
-  throw new Error("Wikidata could not be reached after 3 attempts. Please try again in a few seconds.");
+  throw new Error("Wikidata connection failed after 3 attempts (" + (lastError?.message || "unknown error") + "). Please try again shortly.");
 }
 
 async function wikidataSearch(name) {
@@ -196,13 +197,22 @@ async function apiFootballGet(path, params = {}) {
 }
 
 const theSportsDbCache = new Map();
+let theSportsDbCooldownUntil = 0;
 async function theSportsDbGet(endpoint, params = {}) {
+  if (Date.now() < theSportsDbCooldownUntil) {
+    throw new Error("TheSportsDB rate limit cooldown is active.");
+  }
   const url = new URL("https://www.thesportsdb.com/api/v1/json/123/" + endpoint);
   for (const [key, value] of Object.entries(params)) url.searchParams.set(key, String(value).replace(/ /g, "_"));
   const cacheKey = url.toString();
   const cached = theSportsDbCache.get(cacheKey);
   if (cached && Date.now() - cached.savedAt < 24 * 60 * 60 * 1000) return cached.data;
   const response = await fetch(url, { signal: AbortSignal.timeout(10000) });
+  if (response.status === 429) {
+    theSportsDbCooldownUntil = Date.now() + 60 * 1000;
+    console.error("TheSportsDB rate limit reached. Pausing requests for 60 seconds.");
+    throw new Error("TheSportsDB returned HTTP 429; cooldown started.");
+  }
   if (!response.ok) throw new Error("TheSportsDB returned HTTP " + response.status + ".");
   const data = await response.json();
   theSportsDbCache.set(cacheKey, { data, savedAt: Date.now() });
