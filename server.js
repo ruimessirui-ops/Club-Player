@@ -244,7 +244,11 @@ async function resolve(name) {
   return resolveFootball(name, "club");
 }
 
+const verificationCache = new Map();
 async function verifyLink(clubName, playerName) {
+  const verificationKey = normalizeName(clubName) + "|" + normalizeName(playerName);
+  const cachedVerification = verificationCache.get(verificationKey);
+  if (cachedVerification) return cachedVerification;
   const [club, player] = await Promise.all([resolveFootball(clubName, "club"), resolveFootball(playerName, "player")]);
 
   // TheSportsDB and Wikidata use different IDs. Never compare IDs across sources.
@@ -278,48 +282,52 @@ async function verifyLink(clubName, playerName) {
   const clubClaims = playerEntity?.claims?.P54 || [];
   const teamIds = [...new Set(clubClaims.map(x => x.mainsnak?.datavalue?.value?.id).filter(Boolean))];
 
-  // P54 can include national teams as well as clubs. Only count actual
-  // football clubs when enforcing the two-club minimum.
-  const careerClubs = [];
-  for (const teamId of teamIds) {
-    try {
-      const teamEntity = await entity(teamId);
-      const description = (teamEntity.descriptions?.en?.value || "").toLowerCase();
-      const teamLabels = labels(teamEntity);
-      const isNationalTeam = /national (football|soccer) team|national association football team/.test(description);
-      const isFootballClub = /football club|association football club|soccer club/.test(description) ||
-        (teamEntity.claims?.P31 || []).some(claim =>
-          ["Q476028", "Q847017"].includes(claim.mainsnak?.datavalue?.value?.id)
-        );
-      if (!isNationalTeam && isFootballClub) careerClubs.push(teamEntity);
-    } catch (error) {
-      console.error("Could not load Wikidata team entity:", teamId, error.message);
-    }
-  }
+  // Load all career team entities in parallel; serial lookups made verification slow.
+  const loadedTeams = (await Promise.all(teamIds.map(async teamId => {
+    try { return await entity(teamId); }
+    catch (error) { console.error("Could not load Wikidata team entity:", teamId, error.message); return null; }
+  }))).filter(Boolean);
 
+  // Exclude national teams from the minimum-club rule, but retain every P54
+  // entry for matching. Some genuine clubs have incomplete Wikidata descriptions.
+  const isNationalTeam = teamEntity => {
+    const description = (teamEntity.descriptions?.en?.value || "").toLowerCase();
+    return /national (football|soccer) team|national association football team/.test(description);
+  };
+  const isFootballClub = teamEntity => {
+    const description = (teamEntity.descriptions?.en?.value || "").toLowerCase();
+    return /football club|association football club|soccer club/.test(description) ||
+      (teamEntity.claims?.P31 || []).some(claim =>
+        ["Q476028", "Q847017", "Q12973014"].includes(claim.mainsnak?.datavalue?.value?.id)
+      );
+  };
+  const careerClubs = loadedTeams.filter(teamEntity => !isNationalTeam(teamEntity) && isFootballClub(teamEntity));
   if (careerClubs.length < 2) {
     throw new Error(wdPlayer.label + " cannot be used because Wikidata lists fewer than two football clubs in their career.");
   }
 
-  // Match only verified football clubs, not national teams or other teams.
-  let matchedTeam = careerClubs.find(teamEntity => teamEntity.id === wdClub.id) || null;
+  // Match against ALL of the player's P54 teams, not only entities with a
+  // complete football-club description. This avoids rejecting clubs like Roma
+  // when Wikidata's description/type metadata is incomplete.
   const requested = normalizeName(clubName);
+  let matchedTeam = loadedTeams.find(teamEntity => teamEntity.id === wdClub.id && !isNationalTeam(teamEntity)) || null;
   if (!matchedTeam) {
-    for (const teamEntity of careerClubs) {
+    matchedTeam = loadedTeams.find(teamEntity => {
+      if (isNationalTeam(teamEntity)) return false;
       const teamLabels = labels(teamEntity);
-      if (teamLabels.includes(requested) || teamLabels.some(label =>
+      return teamLabels.includes(requested) || teamLabels.some(label =>
         label.startsWith(requested + " ") || requested.startsWith(label + " ")
-      )) {
-        matchedTeam = teamEntity;
-        break;
-      }
-    }
+      );
+    }) || null;
   }
   if (!matchedTeam) {
     throw new Error(wdPlayer.label + " is not listed as having played for " + clubName + " in Wikidata. The database can be incomplete.");
   }
   const matchedLabel = matchedTeam.labels?.en?.value || clubName;
-  return { club: matchedLabel, player: wdPlayer.label, clubId: matchedTeam.id, playerId: wdPlayer.id };
+  const result = { club: matchedLabel, player: wdPlayer.label, clubId: matchedTeam.id, playerId: wdPlayer.id };
+  verificationCache.set(verificationKey, result);
+  if (verificationCache.size > 2000) verificationCache.delete(verificationCache.keys().next().value);
+  return result;
 }
 async function verifyPlayerForClub(playerName, clubName) {
   return verifyLink(clubName, playerName);
@@ -357,6 +365,10 @@ wss.on("connection", ws => {
         const p=room.players.find(x=>x.id===ws.player);
         if(!p || !p.alive || current(room)?.id!==p.id) return send(ws,"error",{message:"It's not your turn."});
         const value=clean(m.value); if(!value) return send(ws,"error",{message:"Enter a club or player name."});
+        // Pause the clock while the submitted answer is being checked.
+        room.deadline = null;
+        room.message = p.name + " submitted an answer. Checking…";
+        broadcast(room);
         if(room.phase==="startClub") {
           try {
             const e=await resolve(value);
