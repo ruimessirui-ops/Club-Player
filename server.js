@@ -368,7 +368,7 @@ async function verifyLink(clubName, playerName) {
       const distinctCareerTeams = new Set(formerTeams
         .map(team => normalizeName(team.strFormerTeam || team.strTeam || team.name || ""))
         .filter(Boolean));
-      if (found && distinctCareerTeams.size >= 1) {
+      if (found && distinctCareerTeams.size >= 2) {
         const result = {
           club: club.name,
           player: player.name,
