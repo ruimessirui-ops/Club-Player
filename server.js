@@ -26,7 +26,7 @@ app.get("/api/search", async (req, res) => {
         })).filter(entry => entry.id && entry.label);
       } catch (error) { console.error("TheSportsDB player search failed:", error.message); }
       if (!items.length) {
-        const results = await wikidataSearch(q);
+        const results = await wikidataAutocompleteSearch(q);
         items = results.slice(0, 10).map(item => ({
           id: item.id, label: item.label, description: item.description || "", source: "Wikidata"
         }));
@@ -169,6 +169,25 @@ async function wikidataSearch(name) {
   const r = await wikidataFetch(url);
   const j = await r.json();
   const results = (j.search || []).slice(0,50);
+  wikidataSearchCache.set(key, results);
+  if (wikidataSearchCache.size > 500) wikidataSearchCache.delete(wikidataSearchCache.keys().next().value);
+  return results;
+}
+async function wikidataAutocompleteSearch(name) {
+  const key = normalizeName(name);
+  if (wikidataSearchCache.has(key)) return wikidataSearchCache.get(key);
+  const url = "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=" +
+    encodeURIComponent(name) + "&language=en&format=json&limit=50&maxlag=5&origin=*";
+  const response = await fetch(url, {
+    headers: {
+      "User-Agent": "ClubPlayerGame/1.0 (https://github.com/ruimessirui-ops/Club-Player)",
+      "Accept": "application/json"
+    },
+    signal: AbortSignal.timeout(4500)
+  });
+  if (!response.ok) throw new Error("Wikidata autocomplete HTTP " + response.status);
+  const data = await response.json();
+  const results = (data.search || []).slice(0, 50);
   wikidataSearchCache.set(key, results);
   if (wikidataSearchCache.size > 500) wikidataSearchCache.delete(wikidataSearchCache.keys().next().value);
   return results;
