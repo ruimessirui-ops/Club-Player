@@ -35,7 +35,7 @@ app.get("/api/search", async (req, res) => {
       // Keep autocomplete lightweight: one Wikidata search request, no per-result
       // entity/country/league lookups. Detailed verification still happens on submit.
       const results = await wikidataSearch(q);
-      const excluded = /women|woman|femen|femminile|ladies|girls|youth|under[- ]?\\d{1,2}|reserve|academy|season|b team|ii team|iii team/i;
+      const excluded = /women|woman|femen|femminile|ladies|girls|youth|under[- ]?\d{1,2}|reserve|academy|season|b team|ii team|iii team/i;
       const seen = new Set();
       items = results.filter(item => {
         const label = item.label || "";
