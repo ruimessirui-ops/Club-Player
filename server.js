@@ -372,15 +372,29 @@ wss.on("connection", ws => {
             room.message=`${v.club} verified. ${p.name}, name a player who played for this club.`;
           } catch(err) { return send(ws,"error",{message:err.message}); }
         }
-        // Two players each submit a club and its player; with 3+ players, answers alternate.
+        // With exactly 2 players, each player submits a club and then a player.
+        // After the player is verified, the opponent chooses the next club.
+        // With 3+ players, turns alternate after every answer.
+        let turnChanged = false;
         if (alive(room).length === 2) {
           if (room.phase === "player") {
-            // Keep the same turn after the club so this player can name the player.
+            // Same player now names someone who played for the selected club.
           } else if (room.phase === "nextClub") {
-            room.phase = "startClub"; room.currentClub = null; room.lastPlayer = null;
             advance(room);
+            turnChanged = true;
           }
-        } else { advance(room); }
+        } else {
+          advance(room);
+          turnChanged = true;
+        }
+        if (turnChanged && room.status === "playing") {
+          const next = current(room);
+          if (room.phase === "nextClub") {
+            room.message = `${next.name}, name another club ${room.lastPlayer} played for.`;
+          } else if (room.phase === "player") {
+            room.message = `${next.name}, name a player who played for ${room.currentClub}.`;
+          }
+        }
         broadcast(room);
       }
       if(m.type==="pass") {
