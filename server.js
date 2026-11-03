@@ -541,7 +541,16 @@ wss.on("connection", ws => {
         const p=room.players.find(x=>x.id===ws.player);
         if(!p || current(room)?.id!==p.id) return send(ws,"error",{message:"It's not your turn."});
         p.alive=false; room.message=`${p.name} couldn't continue and is out.`;
-        advance(room); if (room.status === "playing") room.deadline = Date.now()+30000; broadcast(room);
+        // When a 3+ player game drops to two survivors, switch to the
+        // two-player turn structure and start a fresh club chain.
+        if (alive(room).length === 2) {
+          room.phase = "startClub";
+          room.currentClub = null;
+          room.lastPlayer = null;
+        }
+        advance(room);
+        if (room.status === "playing") room.deadline = Date.now()+30000;
+        broadcast(room);
       }
     } catch(e) { send(ws,"error",{message:e.message||"Something went wrong."}); }
   });
