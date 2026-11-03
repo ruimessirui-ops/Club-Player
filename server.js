@@ -176,11 +176,15 @@ function labels(e) {
   const out=[e.labels?.en?.value, ...(e.aliases?.en||[]).map(x=>x.value)];
   return out.filter(Boolean).map(normalizeName);
 }
+const apiFootballCache = new Map();
 async function apiFootballGet(path, params = {}) {
   const key = process.env.API_FOOTBALL_KEY;
   if (!key) throw new Error("API_FOOTBALL_KEY is not configured in Render.");
   const url = new URL("https://v3.football.api-sports.io" + path);
   for (const [name, value] of Object.entries(params)) url.searchParams.set(name, String(value));
+  const cacheKey = url.toString();
+  const cached = apiFootballCache.get(cacheKey);
+  if (cached && Date.now() - cached.savedAt < 24 * 60 * 60 * 1000) return cached.data;
   const response = await fetch(url, {
     headers: { "x-apisports-key": key },
     signal: AbortSignal.timeout(10000)
@@ -190,6 +194,8 @@ async function apiFootballGet(path, params = {}) {
   if (data.errors && Object.keys(data.errors).length) {
     throw new Error("API-Football: " + JSON.stringify(data.errors));
   }
+  apiFootballCache.set(cacheKey, { data, savedAt: Date.now() });
+  if (apiFootballCache.size > 1500) apiFootballCache.delete(apiFootballCache.keys().next().value);
   return data;
 }
 
