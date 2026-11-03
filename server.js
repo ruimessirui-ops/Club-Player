@@ -8,6 +8,19 @@ const server = http.createServer(app);
 const wss = new WebSocketServer({ server });
 app.use(express.static("public"));
 app.get("/health", (_, res) => res.json({ ok: true }));
+app.get("/api/search", async (req, res) => {
+  try {
+    const q = clean(req.query.q);
+    const type = req.query.type === "club" ? "club" : "player";
+    if (q.length < 2) return res.json([]);
+    const results = await wikidataSearch(q);
+    const filtered = results.filter(item => {
+      const d = (item.description || "").toLowerCase();
+      return type === "club" ? /football club|association football club|sports club/.test(d) : /footballer|soccer player|football player/.test(d);
+    }).slice(0, 7);
+    res.json(filtered.map(item => ({ id: item.id, label: item.label, description: item.description || "" })));
+  } catch (err) { res.status(503).json({ error: "Search is temporarily unavailable." }); }
+});
 
 const rooms = new Map();
 const clean = s => String(s || "").trim().replace(/\s+/g, " ").slice(0, 60);
@@ -144,8 +157,16 @@ wss.on("connection", ws => {
             room.message=`${v.club} verified. ${p.name}, name a player who played for this club.`;
           } catch(err) { return send(ws,"error",{message:err.message}); }
         }
-        // The same player who names the club also names the player; next player takes the next club.
-        advance(room); broadcast(room);
+        // Two players each submit a club and its player; with 3+ players, answers alternate.
+        if (alive(room).length === 2) {
+          if (room.phase === "player") {
+            // Keep the same turn after the club so this player can name the player.
+          } else if (room.phase === "nextClub") {
+            room.phase = "startClub"; room.currentClub = null; room.lastPlayer = null;
+            advance(room);
+          }
+        } else { advance(room); }
+        broadcast(room);
       }
       if(m.type==="pass") {
         const room=rooms.get(ws.room); if(!room || room.status!=="playing") return;
