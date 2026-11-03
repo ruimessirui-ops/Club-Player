@@ -21,9 +21,9 @@ app.get("/api/search", async (req, res) => {
       try {
         const data = type === "club"
           ? await apiFootballGet("/teams", { search: q })
-          : await apiFootballGet("/players", { search: q });
+          : await apiFootballGet("/players/profiles", { search: q });
         items = (data.response || []).slice(0, 10).map(item => {
-          const entry = type === "club" ? item.team : item.player;
+          const entry = type === "club" ? item.team : item;
           return entry ? {
             id: String(entry.id),
             label: entry.name,
@@ -203,13 +203,13 @@ async function resolveFootball(name, type) {
   if (process.env.API_FOOTBALL_KEY) {
     const data = type === "club"
       ? await apiFootballGet("/teams", { search: name })
-      : await apiFootballGet("/players", { search: name });
+      : await apiFootballGet("/players/profiles", { search: name });
     const rows = data.response || [];
     const entry = rows.find(row => {
-      const candidate = type === "club" ? row.team?.name : row.player?.name;
+      const candidate = type === "club" ? row.team?.name : row.name;
       return candidate && normalizeName(candidate) === normalizeName(name);
     }) || rows[0];
-    const entityData = type === "club" ? entry?.team : entry?.player;
+    const entityData = type === "club" ? entry?.team : entry;
     if (entityData?.id) return { id: entityData.id, name: entityData.name, source: "API-Football" };
     throw new Error('I could not find "' + name + '" in the football database. Check the spelling or try the full name.');
   }
