@@ -68,7 +68,7 @@ function publicState(room) {
     code: room.code, status: room.status, players: room.players.map(p => ({id:p.id,name:p.name,connected:p.connected,alive:p.alive,hearts:p.hearts})),
     turn: room.turn, phase: room.phase, currentClub: room.currentClub, lastPlayer: room.lastPlayer,
     usedClubs: room.usedClubs, usedPlayers: room.usedPlayers, history: room.history,
-    message: room.message, winner: room.winner
+    message: room.message, winner: room.winner, deadline: room.deadline || null
   };
 }
 function broadcast(room) {
@@ -99,6 +99,7 @@ function handleWrongAnswer(room, player, ws, err) {
       advance(room);
     } else room.message = player.name + " gave an incorrect answer and lost a heart.";
   } else room.message = "The football database is having trouble. No heart was lost.";
+  if (room.status === "playing") room.deadline = Date.now() + 30000;
   broadcast(room);
   send(ws, "error", { message: temporary ? message : message + " (" + player.hearts + " hearts left.)" });
 }
@@ -301,15 +302,17 @@ async function verifyLink(clubName, playerName) {
   }
 
   // Match only verified football clubs, not national teams or other teams.
-  let matchedTeam = null;
+  let matchedTeam = careerClubs.find(teamEntity => teamEntity.id === wdClub.id) || null;
   const requested = normalizeName(clubName);
-  for (const teamEntity of careerClubs) {
-    const teamLabels = labels(teamEntity);
-    if (teamLabels.includes(requested) || teamLabels.some(label =>
-      label.startsWith(requested + " ") || requested.startsWith(label + " ")
-    )) {
-      matchedTeam = teamEntity;
-      break;
+  if (!matchedTeam) {
+    for (const teamEntity of careerClubs) {
+      const teamLabels = labels(teamEntity);
+      if (teamLabels.includes(requested) || teamLabels.some(label =>
+        label.startsWith(requested + " ") || requested.startsWith(label + " ")
+      )) {
+        matchedTeam = teamEntity;
+        break;
+      }
     }
   }
   if (!matchedTeam) {
@@ -347,7 +350,7 @@ wss.on("connection", ws => {
         const room=rooms.get(ws.room); if(!room) return;
         if(room.players[0].id!==ws.player) return send(ws,"error",{message:"Only the host can start the game."});
         if(room.players.length<2) return send(ws,"error",{message:"At least 2 players are needed."});
-        room.status="playing"; room.phase="startClub"; room.turn=0; room.message=`${room.players[0].name}, choose the starting club.`; broadcast(room);
+        room.status="playing"; room.phase="startClub"; room.turn=0; room.deadline=Date.now()+30000; room.message=`${room.players[0].name}, choose the starting club.`; broadcast(room);
       }
       if(m.type==="move") {
         const room=rooms.get(ws.room); if(!room || room.status!=="playing") return;
@@ -412,6 +415,7 @@ wss.on("connection", ws => {
             room.message = `${next.name}, name a player who played for ${room.currentClub}.`;
           }
         }
+        if (room.status === "playing") room.deadline = Date.now() + 30000;
         broadcast(room);
       }
       if(m.type==="pass") {
@@ -419,7 +423,7 @@ wss.on("connection", ws => {
         const p=room.players.find(x=>x.id===ws.player);
         if(!p || current(room)?.id!==p.id) return send(ws,"error",{message:"It's not your turn."});
         p.alive=false; room.message=`${p.name} couldn't continue and is out.`;
-        advance(room); broadcast(room);
+        advance(room); if (room.status === "playing") room.deadline = Date.now()+30000; broadcast(room);
       }
     } catch(e) { send(ws,"error",{message:e.message||"Something went wrong."}); }
   });
@@ -430,6 +434,27 @@ wss.on("connection", ws => {
     broadcast(room);
   });
 });
+
+
+setInterval(() => {
+  for (const room of rooms.values()) {
+    if (room.status !== "playing" || !room.deadline || Date.now() < room.deadline) continue;
+    const p = current(room);
+    if (!p || !p.alive) { advance(room); if (room.status === "playing") room.deadline = Date.now()+30000; broadcast(room); continue; }
+    p.hearts = Math.max(0, (p.hearts ?? 2) - 1);
+    if (p.hearts === 0) {
+      p.alive = false;
+      room.message = p.name + " ran out of time and was eliminated.";
+      if (alive(room).length === 2) { room.phase = "startClub"; room.currentClub = null; room.lastPlayer = null; }
+      advance(room);
+    } else {
+      room.message = p.name + " ran out of time and lost a heart.";
+      advance(room);
+    }
+    if (room.status === "playing") room.deadline = Date.now()+30000;
+    broadcast(room);
+  }
+}, 250);
 
 const port=process.env.PORT||3000;
 server.listen(port,()=>console.log(`Club Player running on port ${port}`));
