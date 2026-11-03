@@ -148,7 +148,7 @@ $('answer').addEventListener('input',()=>{
         box.classList.add('show');
       }
     }
-  },500);
+  },250);
 });
 document.addEventListener('click',e=>{if(!e.target.closest('#answer')&&!e.target.closest('#suggestions'))$('suggestions').classList.remove('show');});
 $("copyBtn").onclick=async()=>{const url=new URL(location.href);url.searchParams.set("room",roomCode);try{await navigator.clipboard.writeText(url.toString());$("copyBtn").textContent="Copied!";}catch{$("copyBtn").textContent="Code: "+roomCode;}};
