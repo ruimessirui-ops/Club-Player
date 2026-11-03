@@ -29,6 +29,7 @@ app.get("/api/search", async (req, res) => {
       items = ordered.slice(0, 10).map(item => ({
         id: item.id, label: item.label, description: item.description || "", source: "Wikidata"
       }));
+      if (!items.length) items = await wikipediaSearch(q, type);
     } catch (wikidataError) {
       // Use Wikipedia search suggestions if Wikidata is temporarily unavailable.
       items = await wikipediaSearch(q, type);
