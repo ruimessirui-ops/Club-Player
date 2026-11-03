@@ -4,7 +4,15 @@
   "private": true,
   "description": "Online multiplayer football club/player chain game",
   "main": "server.js",
-  "scripts": { "start": "node server.js" },
-  "engines": { "node": ">=18" },
-  "dependencies": { "express": "^4.21.2", "ws": "^8.18.0" }
+  "scripts": {
+    "start": "node server.js",
+    "import:premier-league": "node data/import-premier-league.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "ws": "^8.18.0"
+  }
 }
