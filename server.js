@@ -255,7 +255,8 @@ async function verifyLink(clubName, playerName) {
         String(team.idTeam || team.id) === String(club.id) ||
         normalizeName(team.strTeam || team.name || "") === normalizeName(club.name)
       );
-      if (found) return { club: club.name, player: player.name, clubId: club.id, playerId: player.id };
+      // Continue to Wikidata below so we can check that the player has
+      // represented at least two different clubs in their career.
     } catch (error) {
       console.error("TheSportsDB career lookup failed:", error.message);
     }
@@ -274,7 +275,14 @@ async function verifyLink(clubName, playerName) {
   }
   const playerEntity = await entity(wdPlayer.id);
   const clubClaims = playerEntity?.claims?.P54 || [];
-  const teamIds = clubClaims.map(x => x.mainsnak?.datavalue?.value?.id).filter(Boolean);
+  const teamIds = [...new Set(clubClaims.map(x => x.mainsnak?.datavalue?.value?.id).filter(Boolean))];
+
+  // A valid chain needs a player with at least two career clubs, so the next
+  // player can name a different club. This excludes one-club players such as
+  // Bukayo Saka, Francesco Totti and Paolo Maldini.
+  if (teamIds.length < 2) {
+    throw new Error(wdPlayer.label + " cannot be used because Wikidata lists fewer than two clubs in their career.");
+  }
 
   // Match the typed club name against labels/aliases of the player's actual
   // P54 teams. Search results for broad names like "Arsenal" can rank a
