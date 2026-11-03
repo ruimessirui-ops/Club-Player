@@ -32,48 +32,27 @@ app.get("/api/search", async (req, res) => {
         }));
       }
     } else {
-      // Use Wikidata only for club suggestions. TheSportsDB search creates duplicates
-      // and can return season/team variants.
+      // Keep autocomplete lightweight: one Wikidata search request, no per-result
+      // entity/country/league lookups. Detailed verification still happens on submit.
       const results = await wikidataSearch(q);
-      const excludedClasses = new Set([
-        "Q606060", "Q27020041", "Q21193184", "Q21193196", "Q21198418",
-        "Q21152744", "Q14510042", "Q21198428", "Q21201861", "Q21193209", "Q23905145"
-      ]);
-      const enriched = await Promise.all(results.slice(0, 20).map(async item => {
-        try {
-          const e = await entity(item.id);
-          const claims = e.claims || {};
-          const instanceIds = (claims.P31 || []).map(c => c.mainsnak?.datavalue?.value?.id).filter(Boolean);
-          const classIds = (claims.P2094 || []).map(c => c.mainsnak?.datavalue?.value?.id).filter(Boolean);
-          const description = (e.descriptions?.en?.value || item.description || "").toLowerCase();
-          const isClub = instanceIds.includes("Q476028") || instanceIds.includes("Q15944511");
-          const explicitlyNotMen = classIds.some(id => excludedClasses.has(id)) ||
-            /women|woman|femen|femminile|ladies|girls|youth|under[- ]?\d{1,2}|reserve|academy|season|b team|ii team|iii team/i.test(item.label + " " + description);
-          if (!isClub || explicitlyNotMen || instanceIds.includes("Q27020041")) return null;
-          const countryId = claims.P17?.[0]?.mainsnak?.datavalue?.value?.id;
-          const leagueId = claims.P118?.[0]?.mainsnak?.datavalue?.value?.id;
-          const related = await Promise.all([countryId, leagueId].filter(Boolean).map(id => entity(id).catch(() => null)));
-          let index = 0;
-          const country = countryId ? (related[index++]?.labels?.en?.value || "") : "";
-          const league = leagueId ? (related[index]?.labels?.en?.value || "") : "";
-          return {
-            id: item.id, label: e.labels?.en?.value || item.label,
-            country, league,
-            description: [league, country].filter(Boolean).join(" · ") || "Men's football club",
-            source: "Wikidata"
-          };
-        } catch (error) {
-          console.error("Club search filter failed:", item.id, error.message);
-          return null;
-        }
-      }));
+      const excluded = /women|woman|femen|femminile|ladies|girls|youth|under[- ]?\\d{1,2}|reserve|academy|season|b team|ii team|iii team/i;
       const seen = new Set();
-      items = enriched.filter(Boolean).filter(item => {
-        const key = normalizeName(item.label);
+      items = results.filter(item => {
+        const label = item.label || "";
+        const description = item.description || "";
+        const combined = label + " " + description;
+        if (excluded.test(combined)) return false;
+        if (!/football|soccer/i.test(description)) return false;
+        const key = normalizeName(label);
         if (!key || seen.has(key)) return false;
         seen.add(key);
         return true;
-      }).slice(0, 10);
+      }).slice(0, 10).map(item => ({
+        id: item.id, label: item.label,
+        country: "", league: "",
+        description: item.description || "Football club",
+        source: "Wikidata"
+      }));
     }
     searchCache.set(cacheKey, items);
     if (searchCache.size > 1000) searchCache.delete(searchCache.keys().next().value);
