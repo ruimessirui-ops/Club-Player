@@ -26,3 +26,15 @@ The server checks club/player links using Wikidata's `P54` (member of sports tea
 
 ## Important
 The game server stores rooms in memory. Restarting/redeploying the server clears active games. Use a persistent production service for longer-running sessions.
+
+
+## Search result filtering
+Club autocomplete accepts only Wikidata entities typed as association football clubs or association football teams. It does not use general Wikipedia article search as a fallback, because that can return stadiums, cities, seasons and other unrelated pages. Player autocomplete accepts only entities identified as humans and association football players. The server also checks the selected club and player before verifying the career link.
+
+## Data sources and planned local index
+The current version still checks career links against Wikidata's P54 records at verification time. A future local index can combine:
+- OpenFootball player lists (CC0) for additional player names.
+- Wikidata (CC0) for player identity and club-career links.
+- OpenFootball club/competition data (CC0) as an additional club-name source.
+
+These sources have different coverage: OpenFootball's player lists do not provide complete career histories, and Wikidata's career records can be incomplete. Any imported records should retain their source and entity type. Stadiums and venues must never be imported into the selectable club table.
