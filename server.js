@@ -14,7 +14,8 @@ app.get("/api/search", async (req, res) => {
   if (q.length < 3) return res.json([]);
   const cacheKey = "football:" + type + ":" + q.toLowerCase();
   const cached = searchCache.get(cacheKey);
-  if (cached) return res.json(cached);
+  if (cached && cached.expiresAt > Date.now()) return res.json(cached.items);
+  if (cached) searchCache.delete(cacheKey);
 
   const items = [];
   const seen = new Set();
@@ -39,11 +40,15 @@ app.get("/api/search", async (req, res) => {
       if (type === "club" && isWomensTeam(entry.strTeam, entry.strLeague)) continue;
       const id = type === "club" ? entry.idTeam : entry.idPlayer;
       const label = type === "club" ? entry.strTeam : entry.strPlayer;
-      if (id && label) addItem({
-        id: String(id), label,
-        description: type === "club" ? "Football club" : "Football player",
-        source: "TheSportsDB"
-      });
+      if (id && label) {
+        const country = type === "club" ? (entry.strCountry || "") : (entry.strNationality || "");
+        const role = type === "club" ? "club" : "footballer";
+        addItem({
+          id: String(id), label, country,
+          description: country ? country + " " + role : (type === "club" ? "Football club" : "Footballer"),
+          source: "TheSportsDB"
+        });
+      }
     }
   } catch (error) {
     console.error("TheSportsDB " + type + " autocomplete failed:", error.message);
@@ -65,7 +70,7 @@ app.get("/api/search", async (req, res) => {
         label: item.label,
         country: "",
         league: "",
-        description: item.description || (type === "club" ? "Football club" : "Football player"),
+        description: item.description || (type === "club" ? "Football club" : "Footballer"),
         source: "Wikidata"
       });
       if (items.length >= 10) break;
@@ -74,9 +79,12 @@ app.get("/api/search", async (req, res) => {
     console.error("Wikidata " + type + " autocomplete failed:", error.message);
   }
 
-  // If one source is unavailable, keep useful results from the other source.
-  searchCache.set(cacheKey, items);
-  if (searchCache.size > 1000) searchCache.delete(searchCache.keys().next().value);
+  // Never keep empty results: a temporary outage must not poison future searches.
+  // Successful suggestions are cached briefly to reduce repeated API traffic.
+  if (items.length) {
+    searchCache.set(cacheKey, { items, expiresAt: Date.now() + 10 * 60 * 1000 });
+    if (searchCache.size > 1000) searchCache.delete(searchCache.keys().next().value);
+  }
   return res.json(items);
 });
 
@@ -336,7 +344,9 @@ async function resolveFootball(name, type) {
       ? await theSportsDbGet("searchteams.php", { t: name })
       : await theSportsDbGet("searchplayers.php", { p: name });
     const rows = type === "club" ? (data.teams || []) : (data.player || []);
-    const entry = rows.find(row => normalizeName(type === "club" ? row.strTeam : row.strPlayer) === normalizeName(name)) || rows[0];
+    // Do not silently accept the first search result when it is a different
+    // person with the same/partial name (important for short names like Beto).
+    const entry = rows.find(row => normalizeName(type === "club" ? row.strTeam : row.strPlayer) === normalizeName(name));
     const id = type === "club" ? entry?.idTeam : entry?.idPlayer;
     const label = type === "club" ? entry?.strTeam : entry?.strPlayer;
     if (type === "club" && isWomensTeam(label, entry?.strLeague)) {
