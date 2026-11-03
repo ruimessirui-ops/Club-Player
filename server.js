@@ -41,7 +41,7 @@ app.get("/api/search", async (req, res) => {
       } catch (error) {
         console.error("Wikidata club autocomplete failed; using Wikipedia fallback:", error.message);
       }
-      const excluded = /women|woman|femen|femminile|ladies|girls|youth|under[- ]?\\d{1,2}|reserve|academy|season|b team|ii team|iii team/i;
+      const excluded = /women|woman|femen|femminile|ladies|girls|youth|under[- ]?\d{1,2}|reserve|academy|season|b team|ii team|iii team/i;
       const seen = new Set();
       items = results.filter(item => {
         const label = item.label || "";
