@@ -1,0 +1,37 @@
+{
+  "gameModes": [
+    {
+      "id": "all",
+      "name": "All Leagues",
+      "description": "Use eligible clubs and players from every included league.",
+      "scope": "all"
+    },
+    {
+      "id": "league",
+      "name": "Single League",
+      "description": "Choose one league; every club and player answer must belong to that league's dataset.",
+      "scope": "league",
+      "requiresSelection": true
+    },
+    {
+      "id": "country",
+      "name": "Single Country",
+      "description": "Choose one country; every club and player answer must belong to that country's eligible football dataset.",
+      "scope": "country",
+      "requiresSelection": true
+    }
+  ],
+  "validationRules": {
+    "clubMustBelongToSelectedScope": true,
+    "playerMustHaveAtLeastOneCareerLinkToSelectedScope": true,
+    "playerClubAnswerMustBeConnectedByCareerLink": true,
+    "unknownCareerDataMustNotBeTreatedAsIncorrect": true
+  },
+  "initialAvailableSelections": [
+    {
+      "league": "Premier League",
+      "country": "England"
+    }
+  ],
+  "status": "configuration_only_not_yet_connected_to_game_ui"
+}
