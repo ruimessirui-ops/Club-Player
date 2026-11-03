@@ -50,7 +50,7 @@ app.get("/api/search", async (req, res) => {
   // Try Wikidata as well, so it can expand the small free-tier result set.
   try {
     const results = await wikidataAutocompleteSearch(q);
-    const excluded = /women|woman|femen|femminile|ladies|girls|youth|under[- ]?\\d{1,2}|reserve|academy|season|b team|ii team|iii team/i;
+    const excluded = /women|woman|femen|femminile|ladies|girls|youth|under[- ]?[0-9]{1,2}|reserve|academy|season|b team|ii team|iii team/i;
     const candidates = results.slice(0, 50).filter(item =>
       type !== "club" || !excluded.test((item.label || "") + " " + (item.description || ""))
     );
