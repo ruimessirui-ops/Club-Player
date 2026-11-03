@@ -66,22 +66,36 @@ function render(s){latest=s;$("count").textContent=`${s.players.length}/8`;const
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 $("createBtn").onclick=create;$("joinBtn").onclick=join;$("startBtn").onclick=()=>send("start");$("submitBtn").onclick=submit;$("answer").onkeydown=e=>{if(e.key==="Enter")submit()};$("passBtn").onclick=()=>send("pass");
 function submit(){const v=$("answer").value.trim();if(!v||$("submitBtn").disabled)return;$("submitBtn").disabled=true;$("message").textContent="Checking your answer…";$("message").className="message";send("move",{value:v});$("suggestions").classList.remove("show");$("suggestions").innerHTML="";}
-let searchTimer=null, searchRequest=0;
+let searchTimer=null, searchRequest=0, searchController=null;
 function searchType(){return latest && (latest.phase==='startClub' || latest.phase==='nextClub') ? 'club' : 'player';}
 $('answer').addEventListener('input',()=>{
-  clearTimeout(searchTimer); const q=$('answer').value.trim(); const box=$('suggestions');
-  if(q.length<2 || $('answer').disabled){box.classList.remove('show');box.innerHTML='';return;}
+  clearTimeout(searchTimer);
+  if(searchController) searchController.abort();
+  const request=++searchRequest;
+  const q=$('answer').value.trim();
+  const box=$('suggestions');
+  if(q.length<3 || $('answer').disabled){box.classList.remove('show');box.innerHTML='';return;}
   searchTimer=setTimeout(async()=>{
-    const request=++searchRequest; const type=searchType();
-    box.innerHTML='<div class="suggestion"><small>Searching '+(type==='club'?'clubs':'players')+'…</small></div>';box.classList.add('show');
-    try{const r=await fetch('/api/search?type='+type+'&q='+encodeURIComponent(q));const items=await r.json();
+    const type=searchType();
+    searchController=new AbortController();
+    box.innerHTML='<div class="suggestion"><small>Searching '+(type==='club'?'clubs':'players')+'…</small></div>';
+    box.classList.add('show');
+    try{
+      const r=await fetch('/api/search?type='+type+'&q='+encodeURIComponent(q),{signal:searchController.signal});
+      const items=await r.json();
       if(request!==searchRequest || $('answer').value.trim()!==q)return;
       if(!r.ok) throw new Error(items.error || 'Search is temporarily unavailable.');
-      box.innerHTML=items.map(x=>'<button type="button" class="suggestion" data-label="'+esc(x.label)+'">'+esc(x.label)+'<small>'+esc(x.description)+(x.source?' · '+esc(x.source):'')+'</small></button>').join('') || '<div class="suggestion"><small>No suggestions found. Try a longer or different spelling.</small></div>';
+      box.innerHTML=items.map(x=>'<button type="button" class="suggestion" data-label="'+esc(x.label)+'">'+esc(x.label)+'<small>'+esc(x.description)+(x.source?' · '+esc(x.source):'')+'</small></button>').join('') || '<div class="suggestion"><small>No suggestions found. You can still type and submit your answer.</small></div>';
       box.classList.add('show');
       box.querySelectorAll('button').forEach(b=>b.onclick=()=>{$('answer').value=b.dataset.label;box.classList.remove('show');box.innerHTML='';});
-    }catch{if(request===searchRequest){box.innerHTML='<div class="suggestion"><small>Both search sources are unavailable right now. You can still type and submit your answer.</small></div>';box.classList.add('show');}}
-  },160);
+    }catch(error){
+      if(error.name==='AbortError')return;
+      if(request===searchRequest){
+        box.innerHTML='<div class="suggestion"><small>Suggestions are temporarily unavailable. You can still type and submit your answer.</small></div>';
+        box.classList.add('show');
+      }
+    }
+  },500);
 });
 document.addEventListener('click',e=>{if(!e.target.closest('#answer')&&!e.target.closest('#suggestions'))$('suggestions').classList.remove('show');});
 $("copyBtn").onclick=async()=>{const url=new URL(location.href);url.searchParams.set("room",roomCode);try{await navigator.clipboard.writeText(url.toString());$("copyBtn").textContent="Copied!";}catch{$("copyBtn").textContent="Code: "+roomCode;}};
