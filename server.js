@@ -11,34 +11,54 @@ app.get("/health", (_, res) => res.json({ ok: true }));
 app.get("/api/search", async (req, res) => {
   const q = clean(req.query.q);
   const type = req.query.type === "club" ? "club" : "player";
-  if (q.length < 2) return res.json([]);
-  const cacheKey = type + ":" + q.toLowerCase();
+  if (q.length < 3) return res.json([]);
+  const cacheKey = "football:" + type + ":" + q.toLowerCase();
   const cached = searchCache.get(cacheKey);
   if (cached) return res.json(cached);
   try {
     let items = [];
-    try {
-      const results = await wikidataSearch(q);
-      const relevant = results.filter(item => {
-        const d = (item.description || "").toLowerCase();
-        return type === "club"
-          ? /football|soccer|sports club|sport club|football team|soccer team/.test(d)
-          : /football|soccer/.test(d);
-      });
-      const ordered = [...relevant, ...results.filter(item => !relevant.includes(item))];
-      items = ordered.slice(0, 10).map(item => ({
-        id: item.id, label: item.label, description: item.description || "", source: "Wikidata"
-      }));
-      if (!items.length) items = await wikipediaSearch(q, type);
-    } catch (wikidataError) {
-      // Use Wikipedia search suggestions if Wikidata is temporarily unavailable.
-      items = await wikipediaSearch(q, type);
+    if (process.env.API_FOOTBALL_KEY) {
+      try {
+        const data = type === "club"
+          ? await apiFootballGet("/teams", { search: q })
+          : await apiFootballGet("/players", { search: q });
+        items = (data.response || []).slice(0, 10).map(item => {
+          const entry = type === "club" ? item.team : item.player;
+          return entry ? {
+            id: String(entry.id),
+            label: entry.name,
+            description: type === "club" ? "Football club" : "Football player",
+            source: "API-Football"
+          } : null;
+        }).filter(Boolean);
+      } catch (apiError) {
+        console.error("API-Football search failed:", apiError.message);
+      }
+    }
+    // Keep the previous sources as a backup if API-Football has no result.
+    if (!items.length) {
+      try {
+        const results = await wikidataSearch(q);
+        const relevant = results.filter(item => {
+          const d = (item.description || "").toLowerCase();
+          return type === "club"
+            ? /football|soccer|sports club|sport club|football team|soccer team/.test(d)
+            : /football|soccer/.test(d);
+        });
+        items = [...relevant, ...results.filter(item => !relevant.includes(item))]
+          .slice(0, 10).map(item => ({
+            id: item.id, label: item.label, description: item.description || "", source: "Wikidata"
+          }));
+        if (!items.length) items = await wikipediaSearch(q, type);
+      } catch (error) {
+        items = await wikipediaSearch(q, type);
+      }
     }
     searchCache.set(cacheKey, items);
     if (searchCache.size > 1000) searchCache.delete(searchCache.keys().next().value);
     return res.json(items);
   } catch (err) {
-    return res.status(503).json({ error: "Both football search sources are temporarily unavailable. Try again shortly." });
+    return res.status(503).json({ error: "Football search is temporarily unavailable. Try again shortly." });
   }
 });
 
@@ -156,24 +176,75 @@ function labels(e) {
   const out=[e.labels?.en?.value, ...(e.aliases?.en||[]).map(x=>x.value)];
   return out.filter(Boolean).map(normalizeName);
 }
-async function resolve(name) {
-  const results=await wikidataSearch(name);
-  const exact=results.find(x=>normalizeName(x.label)===normalizeName(name)) || results[0];
-  if(!exact) throw new Error(`I couldn't find "${name}" in the football database. Check the spelling or try the player's full name.`);
-  return entity(exact.id);
-}
-async function verifyLink(clubName, playerName) {
-  const [club, player]=await Promise.all([resolve(clubName),resolve(playerName)]);
-  const clubNames=labels(club);
-  const playerNames=labels(player);
-  const clubClaims=player.claims?.P54 || []; // member of sports team
-  const playedFor=clubClaims.map(c=>c.mainsnak?.datavalue?.value?.id).filter(Boolean);
-  if(!playedFor.includes(club.id)) {
-    const clubDesc=club.descriptions?.en?.value || "";
-    const playerDesc=player.descriptions?.en?.value || "";
-    throw new Error(`${player.labels?.en?.value || playerName} is not listed as having played for ${club.labels?.en?.value || clubName} in Wikidata. Try another player/club spelling. (The database can be incomplete.)`);
+async function apiFootballGet(path, params = {}) {
+  const key = process.env.API_FOOTBALL_KEY;
+  if (!key) throw new Error("API_FOOTBALL_KEY is not configured in Render.");
+  const url = new URL("https://v3.football.api-sports.io" + path);
+  for (const [name, value] of Object.entries(params)) url.searchParams.set(name, String(value));
+  const response = await fetch(url, {
+    headers: { "x-apisports-key": key },
+    signal: AbortSignal.timeout(10000)
+  });
+  if (!response.ok) throw new Error("API-Football returned HTTP " + response.status + ".");
+  const data = await response.json();
+  if (data.errors && Object.keys(data.errors).length) {
+    throw new Error("API-Football: " + JSON.stringify(data.errors));
   }
-  return {club:club.labels?.en?.value || clubName, player:player.labels?.en?.value || playerName, clubId:club.id, playerId:player.id};
+  return data;
+}
+
+async function resolveFootball(name, type) {
+  if (process.env.API_FOOTBALL_KEY) {
+    const data = type === "club"
+      ? await apiFootballGet("/teams", { search: name })
+      : await apiFootballGet("/players", { search: name });
+    const rows = data.response || [];
+    const entry = rows.find(row => {
+      const candidate = type === "club" ? row.team?.name : row.player?.name;
+      return candidate && normalizeName(candidate) === normalizeName(name);
+    }) || rows[0];
+    const entityData = type === "club" ? entry?.team : entry?.player;
+    if (entityData?.id) return { id: entityData.id, name: entityData.name, source: "API-Football" };
+    throw new Error('I could not find "' + name + '" in the football database. Check the spelling or try the full name.');
+  }
+  const results = await wikidataSearch(name);
+  const exact = results.find(x => normalizeName(x.label) === normalizeName(name)) || results[0];
+  if (!exact) throw new Error('I could not find "' + name + '" in the football database.');
+  return { id: exact.id, name: exact.label, source: "Wikidata", entity: await entity(exact.id) };
+}
+
+async function resolve(name) {
+  return resolveFootball(name, "club");
+}
+
+async function verifyLink(clubName, playerName) {
+  if (process.env.API_FOOTBALL_KEY) {
+    const [club, player] = await Promise.all([
+      resolveFootball(clubName, "club"),
+      resolveFootball(playerName, "player")
+    ]);
+    const data = await apiFootballGet("/players/teams", { player: player.id });
+    const teams = (data.response || []).flatMap(row => {
+      if (row.team) return [row.team];
+      return row.teams || [];
+    });
+    const found = teams.some(team =>
+      String(team.id) === String(club.id) ||
+      normalizeName(team.name || "") === normalizeName(club.name)
+    );
+    if (!found) {
+      throw new Error(player.name + " is not listed as having played for " + club.name + " in API-Football. The career data may be incomplete.");
+    }
+    return { club: club.name, player: player.name, clubId: club.id, playerId: player.id };
+  }
+
+  const [club, player] = await Promise.all([resolveFootball(clubName, "club"), resolveFootball(playerName, "player")]);
+  const clubClaims = player.entity?.claims?.P54 || [];
+  const playedFor = clubClaims.map(x => x.mainsnak?.datavalue?.value?.id).filter(Boolean);
+  if (!playedFor.includes(club.id)) {
+    throw new Error(player.name + " is not listed as having played for " + club.name + " in Wikidata. The database can be incomplete.");
+  }
+  return { club: club.name, player: player.name, clubId: club.id, playerId: player.id };
 }
 async function verifyPlayerForClub(playerName, clubName) {
   return verifyLink(clubName, playerName);
