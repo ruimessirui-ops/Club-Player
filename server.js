@@ -235,22 +235,40 @@ async function resolve(name) {
 
 async function verifyLink(clubName, playerName) {
   const [club, player] = await Promise.all([resolveFootball(clubName, "club"), resolveFootball(playerName, "player")]);
+
+  // TheSportsDB and Wikidata use different IDs. Never compare IDs across sources.
   if (club.source === "TheSportsDB" && player.source === "TheSportsDB") {
-    const data = await theSportsDbGet("lookupformerteams.php", { id: player.id });
-    const formerTeams = data.formerteams || data.teams || [];
-    const found = formerTeams.some(team =>
-      String(team.idTeam || team.id) === String(club.id) ||
-      normalizeName(team.strTeam || team.name || "") === normalizeName(club.name)
-    );
-    if (found) return { club: club.name, player: player.name, clubId: club.id, playerId: player.id };
-    throw new Error(player.name + " is not listed as having played for " + club.name + " in TheSportsDB. Its career records may be incomplete.");
+    try {
+      const data = await theSportsDbGet("lookupformerteams.php", { id: player.id });
+      const formerTeams = data.formerteams || data.teams || [];
+      const found = formerTeams.some(team =>
+        String(team.idTeam || team.id) === String(club.id) ||
+        normalizeName(team.strTeam || team.name || "") === normalizeName(club.name)
+      );
+      if (found) return { club: club.name, player: player.name, clubId: club.id, playerId: player.id };
+    } catch (error) {
+      console.error("TheSportsDB career lookup failed:", error.message);
+    }
   }
-  const clubClaims = player.entity?.claims?.P54 || [];
+
+  // Use Wikidata IDs for BOTH sides as a consistent fallback. This also checks
+  // current clubs, which may not appear in TheSportsDB's former-teams endpoint.
+  const [clubResults, playerResults] = await Promise.all([
+    wikidataSearch(clubName),
+    wikidataSearch(playerName)
+  ]);
+  const wdClub = clubResults.find(x => normalizeName(x.label) === normalizeName(clubName)) || clubResults[0];
+  const wdPlayer = playerResults.find(x => normalizeName(x.label) === normalizeName(playerName)) || playerResults[0];
+  if (!wdClub || !wdPlayer) {
+    throw new Error("I couldn't verify both names in Wikidata. Try another spelling.");
+  }
+  const playerEntity = await entity(wdPlayer.id);
+  const clubClaims = playerEntity?.claims?.P54 || [];
   const playedFor = clubClaims.map(x => x.mainsnak?.datavalue?.value?.id).filter(Boolean);
-  if (!playedFor.includes(club.id)) {
-    throw new Error(player.name + " is not listed as having played for " + club.name + " in Wikidata. The database can be incomplete.");
+  if (!playedFor.includes(wdClub.id)) {
+    throw new Error(wdPlayer.label + " is not listed as having played for " + wdClub.label + " in Wikidata. The database can be incomplete.");
   }
-  return { club: club.name, player: player.name, clubId: club.id, playerId: player.id };
+  return { club: wdClub.label, player: wdPlayer.label, clubId: wdClub.id, playerId: wdPlayer.id };
 }
 async function verifyPlayerForClub(playerName, clubName) {
   return verifyLink(clubName, playerName);
