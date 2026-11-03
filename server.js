@@ -89,7 +89,7 @@ function advance(room) {
 function normalizeName(s) { return clean(s).toLocaleLowerCase("en"); }
 function handleWrongAnswer(room, player, ws, err) {
   const message = err?.message || "That answer could not be verified.";
-  const temporary = /could not be reached|temporarily busy|temporarily unavailable|network|timed out|timeout|fetch failed|account is suspended|access.*suspended|API-Football returned HTTP 5/i.test(message);
+  const temporary = /could not be reached|connection failed|temporarily busy|temporarily unavailable|network|timed out|timeout|fetch failed|account is suspended|access.*suspended|API-Football returned HTTP 5/i.test(message);
   if (!temporary) {
     player.hearts = Math.max(0, (player.hearts ?? 2) - 1);
     if (player.hearts === 0) {
