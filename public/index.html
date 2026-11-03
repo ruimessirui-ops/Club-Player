@@ -84,7 +84,7 @@ function render(s){
   const mine=active?.id===myId;
   $("turnLabel").textContent=mine?"YOUR TURN":`${active?.name||"Player"}'S TURN`;
   $("prompt").textContent=s.phase==="startClub"?"Choose the starting club":s.phase==="player"?`Name a player who played for ${s.currentClub}`:`Name another club ${s.lastPlayer} played for`;
-  $("answer").disabled=!mine;$("submitBtn").disabled=!mine;$("passBtn").disabled=!mine;
+  $("answer").disabled=!mine || !s.deadline;$("submitBtn").disabled=!mine || !s.deadline;$("passBtn").disabled=!mine || !s.deadline;
   $("message").textContent=s.message||"";$("message").className="message";updateTimer();
  }
  if(s.status==="finished"){
@@ -96,7 +96,13 @@ function render(s){
  $("history").innerHTML=s.history.length?s.history.slice().reverse().map(h=>`<div class="entry"><b>${h.kind==="club"?"🏟":"⚽"} ${esc(h.name)}</b><small>${esc(h.by)}</small></div>`).join(""):'<p class="sub">The chain will appear here.</p>';
 }
 function updateTimer(){
- if(!latest||latest.status!=="playing"||!latest.deadline)return;
+ if(!latest||latest.status!=="playing")return;
+ if(!latest.deadline){
+  $("timer").textContent="Checking…";
+  $("timer").classList.remove("urgent");
+  document.body.classList.remove("urgent");
+  return;
+ }
  const remaining=Math.max(0,Math.ceil((latest.deadline-Date.now())/1000));
  $("timer").textContent=remaining+"s";
  $("timer").classList.toggle("urgent",remaining<=5);
