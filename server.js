@@ -19,6 +19,7 @@ app.get("/api/search", async (req, res) => {
   const items = [];
   const seen = new Set();
   const addItem = item => {
+    if (type === "club" && isWomensTeam(item.label, item.description)) return;
     const key = normalizeName(item.label || "");
     if (!key || seen.has(key)) return;
     seen.add(key);
@@ -35,6 +36,7 @@ app.get("/api/search", async (req, res) => {
     for (const entry of rows) {
       const sport = String(entry.strSport || "").toLowerCase();
       if (type === "club" && sport && sport !== "soccer" && sport !== "football") continue;
+      if (type === "club" && isWomensTeam(entry.strTeam, entry.strLeague)) continue;
       const id = type === "club" ? entry.idTeam : entry.idPlayer;
       const label = type === "club" ? entry.strTeam : entry.strPlayer;
       if (id && label) addItem({
@@ -107,6 +109,9 @@ function advance(room) {
   while ((!room.players[room.turn].alive || !room.players[room.turn].connected) && tries <= room.players.length);
 }
 function normalizeName(s) { return clean(s).toLocaleLowerCase("en"); }
+function isWomensTeam(name, description = "") {
+  return /\b(women|woman|womens|ladies|girls|femen|femminile)\b/i.test(String(name || "") + " " + String(description || ""));
+}
 function handleWrongAnswer(room, player, ws, err) {
   const message = err?.message || "That answer could not be verified.";
   const temporary = /could not be reached|connection failed|temporarily busy|temporarily unavailable|temporarily rate-limiting|rate limit|HTTP 429|couldn't verify both names in Wikidata|Wikidata is incomplete|network|timed out|timeout|fetch failed|account is suspended|access.*suspended|API-Football returned HTTP 5/i.test(message);
@@ -334,13 +339,19 @@ async function resolveFootball(name, type) {
     const entry = rows.find(row => normalizeName(type === "club" ? row.strTeam : row.strPlayer) === normalizeName(name)) || rows[0];
     const id = type === "club" ? entry?.idTeam : entry?.idPlayer;
     const label = type === "club" ? entry?.strTeam : entry?.strPlayer;
+    if (type === "club" && isWomensTeam(label, entry?.strLeague)) {
+      throw new Error("Women’s teams cannot be used in Club Player. Choose a men’s football club.");
+    }
     if (id && label) return { id: String(id), name: label, source: "TheSportsDB" };
   } catch (error) {
     console.error("TheSportsDB resolve failed:", error.message);
   }
   const results = await wikidataSearch(name);
-  const exact = results.find(x => normalizeName(x.label) === normalizeName(name)) || results[0];
-  if (!exact) throw new Error('I could not find "' + name + '" in the football database. Try another spelling.');
+  const eligibleResults = type === "club" ? results.filter(x => !isWomensTeam(x.label, x.description)) : results;
+  const exact = eligibleResults.find(x => normalizeName(x.label) === normalizeName(name)) || eligibleResults[0];
+  if (!exact) throw new Error(type === "club" && results.some(x => isWomensTeam(x.label, x.description))
+    ? "Women’s teams cannot be used in Club Player. Choose a men’s football club."
+    : 'I could not find "' + name + '" in the football database. Try another spelling.');
   return { id: exact.id, name: exact.label, source: "Wikidata", entity: await entity(exact.id) };
 }
 
