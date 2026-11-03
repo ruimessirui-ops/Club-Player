@@ -140,10 +140,10 @@ async function wikidataFetch(url) {
 async function wikidataSearch(name) {
   const key = normalizeName(name);
   if (wikidataSearchCache.has(key)) return wikidataSearchCache.get(key);
-  const url = "https://www.wikidata.org/w/api.php?action=wbsearchentities&search="+encodeURIComponent(name)+"&language=en&format=json&limit=30&origin=*";
+  const url = "https://www.wikidata.org/w/api.php?action=wbsearchentities&search="+encodeURIComponent(name)+"&language=en&format=json&limit=50&origin=*";
   const r = await wikidataFetch(url);
   const j = await r.json();
-  const results = (j.search || []).slice(0,30);
+  const results = (j.search || []).slice(0,50);
   wikidataSearchCache.set(key, results);
   if (wikidataSearchCache.size > 500) wikidataSearchCache.delete(wikidataSearchCache.keys().next().value);
   return results;
