@@ -4,12 +4,12 @@
     "careerStartYear": 1990,
     "careerEndYear": null,
     "scope": "premier_league",
-    "lastImportedAt": "2026-11-04T12:27:51.550Z",
+    "lastImportedAt": "2026-11-04T12:33:57.532Z",
     "importProgress": {
-      "clubIndex": 20,
-      "offset": 0,
+      "clubIndex": 4,
+      "offset": 600,
       "totalClubs": 20,
-      "completed": true
+      "completed": false
     }
   },
   "sources": [
@@ -17,7 +17,7 @@
       "id": "wikidata-p54-premier-league",
       "name": "Wikidata",
       "licence": "CC0",
-      "retrievedAt": "2026-11-04T12:27:50.022Z",
+      "retrievedAt": "2026-11-04T12:33:56.007Z",
       "description": "Premier League club career relationships from property P54; dates retained when supplied. Undated links require review and must not be treated as date-confirmed."
     }
   ],
