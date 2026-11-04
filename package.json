@@ -6,7 +6,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "import:premier-league": "node data/import-premier-league.js"
+    "import:premier-league": "node data/import-premier-league.js",
+    "audit:football-db": "node data/audit-football-db.js"
   },
   "engines": {
     "node": ">=18"
