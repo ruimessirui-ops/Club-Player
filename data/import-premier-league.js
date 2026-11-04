@@ -40,7 +40,7 @@ async function getPremierLeagueClubs() {
     "SELECT DISTINCT ?club ?clubLabel WHERE {",
     "  { ?club wdt:P118 wd:Q9448. }",
     "  UNION",
-    "  { ?season wdt:P3450 wd:Q9448. ?club wdt:P118 ?season. }",
+    "  { ?season wdt:P31 wd:Q9448. ?club wdt:P118 ?season. }",
     "  ?club wdt:P31/wdt:P279* wd:Q476028.",
     "  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. ?club rdfs:label ?clubLabel. }",
     "} ORDER BY ?club"
@@ -82,7 +82,7 @@ async function main() {
   console.log("Found " + clubRows.length + " Premier League football clubs in Wikidata.");
   if (clubRows.length === 0 || clubRows.length > 500) throw new Error("The club discovery result failed its safety check (" + clubRows.length + " results). No database changes were made.");
   const progress = db.coverage.importProgress || { clubIndex: 0, offset: 0, completed: false, discoveryVersion: 2 };
-  const discoveryVersion = 2;
+  const discoveryVersion = 3;
   const needsRestart = progress.discoveryVersion !== discoveryVersion || progress.totalClubs !== clubRows.length;
   if (progress.completed && !needsRestart) { console.log("Historical club discovery import already complete. No work needed."); return; }
   let clubIndex = needsRestart ? 0 : (progress.clubIndex || 0);
@@ -113,7 +113,7 @@ async function main() {
     console.log("Saved progress: club " + clubIndex + " of " + clubRows.length + ", next offset " + offset + "; pages this run " + pagesDone + "/" + maxPagesPerRun);
     await pause(1500);
   }
-  db.coverage.importProgress = { clubIndex, offset, totalClubs: clubRows.length, completed: clubIndex >= clubRows.length };
+  db.coverage.importProgress = { clubIndex, offset, totalClubs: clubRows.length, completed: clubIndex >= clubRows.length, discoveryVersion };
   db.sources = db.sources.filter(source => source.id !== "wikidata-p54-premier-league");
   db.sources.push({ id: "wikidata-p54-premier-league", name: "Wikidata", licence: "CC0", retrievedAt: db.coverage.lastImportedAt, description: "Premier League club career relationships from property P54; dates retained when supplied. Undated links require review and must not be treated as date-confirmed." });
   saveDatabase(db, clubs, players, links);
