@@ -38,7 +38,10 @@ async function runQuery(query, description) {
 async function getPremierLeagueClubs() {
   const query = [
     "SELECT DISTINCT ?club ?clubLabel WHERE {",
-    "  ?club wdt:P118 wd:Q9448; wdt:P31/wdt:P279* wd:Q476028.",
+    "  { ?club wdt:P118 wd:Q9448. }",
+    "  UNION",
+    "  { ?season wdt:P3450 wd:Q9448. ?club wdt:P118 ?season. }",
+    "  ?club wdt:P31/wdt:P279* wd:Q476028.",
     "  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. ?club rdfs:label ?clubLabel. }",
     "} ORDER BY ?club"
   ].join("\n");
@@ -78,10 +81,12 @@ async function main() {
   const clubRows = await getPremierLeagueClubs();
   console.log("Found " + clubRows.length + " Premier League football clubs in Wikidata.");
   if (clubRows.length === 0 || clubRows.length > 500) throw new Error("The club discovery result failed its safety check (" + clubRows.length + " results). No database changes were made.");
-  const progress = db.coverage.importProgress || { clubIndex: 0, offset: 0, completed: false };
-  if (progress.completed) { console.log("Import already complete. No work needed."); return; }
-  let clubIndex = progress.clubIndex || 0;
-  let offset = progress.offset || 0;
+  const progress = db.coverage.importProgress || { clubIndex: 0, offset: 0, completed: false, discoveryVersion: 2 };
+  const discoveryVersion = 2;
+  const needsRestart = progress.discoveryVersion !== discoveryVersion || progress.totalClubs !== clubRows.length;
+  if (progress.completed && !needsRestart) { console.log("Historical club discovery import already complete. No work needed."); return; }
+  let clubIndex = needsRestart ? 0 : (progress.clubIndex || 0);
+  let offset = needsRestart ? 0 : (progress.offset || 0);
   let pagesDone = 0;
   while (clubIndex < clubRows.length && pagesDone < maxPagesPerRun) {
     const clubRow = clubRows[clubIndex];
@@ -103,7 +108,7 @@ async function main() {
     }
     if (rows.length === pageSize) offset += pageSize;
     else { clubIndex++; offset = 0; }
-    db.coverage.importProgress = { clubIndex, offset, totalClubs: clubRows.length, completed: clubIndex >= clubRows.length };
+    db.coverage.importProgress = { clubIndex, offset, totalClubs: clubRows.length, completed: clubIndex >= clubRows.length, discoveryVersion };
     saveDatabase(db, clubs, players, links);
     console.log("Saved progress: club " + clubIndex + " of " + clubRows.length + ", next offset " + offset + "; pages this run " + pagesDone + "/" + maxPagesPerRun);
     await pause(1500);
