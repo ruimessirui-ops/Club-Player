@@ -1,0 +1,20 @@
+const fs = require("fs");
+const path = require("path");
+const file = path.join(__dirname, "football-db.json");
+const db = JSON.parse(fs.readFileSync(file, "utf8"));
+const players = db.players || [];
+const clubs = db.clubs || [];
+const links = db.careerLinks || [];
+const playerIds = new Set(players.map(x => x.id));
+const clubIds = new Set(clubs.map(x => x.id));
+const playerNames = new Map();
+for (const p of players) { const key = String(p.name || "").trim().toLowerCase(); if (key) playerNames.set(key, (playerNames.get(key) || 0) + 1); }
+const duplicateNameGroups = [...playerNames].filter(([, n]) => n > 1).length;
+const invalidDates = links.filter(x => [x.startYear, x.endYear].some(y => y !== null && y !== undefined && (!Number.isInteger(y) || y < 1800 || y > new Date().getUTCFullYear() + 1)));
+const missingPlayers = links.filter(x => !playerIds.has(x.playerId)).length;
+const missingClubs = links.filter(x => !clubIds.has(x.clubId)).length;
+const undated = links.filter(x => x.startYear == null && x.endYear == null).length;
+const clubsWithoutLinks = clubs.filter(c => !links.some(x => x.clubId === c.id)).length;
+const report = { clubs: clubs.length, players: players.length, careerLinks: links.length, datedLinks: links.length - undated, undatedLinks: undated, duplicatePlayerNameGroups: duplicateNameGroups, invalidDateLinks: invalidDates.length, orphanPlayerLinks: missingPlayers, orphanClubLinks: missingClubs, clubsWithoutCareerLinks: clubsWithoutLinks, importProgress: db.coverage?.importProgress || null };
+console.log(JSON.stringify(report, null, 2));
+if (missingPlayers || missingClubs || invalidDates.length) process.exitCode = 1;
