@@ -5,14 +5,13 @@ const endpoint = "https://query.wikidata.org/sparql";
 const outputPath = path.join(__dirname, "football-db.json");
 const startYear = 1990;
 const pageSize = 100;
+const maxPagesPerRun = 4;
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-function iriToId(uri) {
-  return String(uri || "").split("/").pop();
-}
+function iriToId(uri) { return String(uri || "").split("/").pop(); }
 function yearOf(value) {
   if (!value) return null;
-  const match = String(value).match(/^([+-]?\\d{4})/);
+  const match = String(value).match(/^([+-]?\d{4})/);
   return match ? Number(match[1]) : null;
 }
 async function runQuery(query, description) {
@@ -22,10 +21,7 @@ async function runQuery(query, description) {
     try {
       console.log(description + " (attempt " + attempt + "/3)");
       const response = await fetch(url, {
-        headers: {
-          "Accept": "application/sparql-results+json",
-          "User-Agent": "ClubPlayerGame/1.0 (https://github.com/ruimessirui-ops/Club-Player; database-import)"
-        },
+        headers: { "Accept": "application/sparql-results+json", "User-Agent": "ClubPlayerGame/1.0 (https://github.com/ruimessirui-ops/Club-Player; database-import)" },
         signal: AbortSignal.timeout(55000)
       });
       if (!response.ok) throw new Error("Wikidata query failed with HTTP " + response.status);
@@ -63,78 +59,59 @@ async function getClubCareerPage(clubId, offset) {
   ].join("\n");
   return runQuery(query, "Importing careers for club " + clubId + ", offset " + offset);
 }
+function saveDatabase(db, clubs, players, links) {
+  db.clubs = [...clubs.values()].sort((a,b) => a.name.localeCompare(b.name));
+  db.players = [...players.values()].sort((a,b) => a.name.localeCompare(b.name));
+  db.careerLinks = [...links.values()];
+  db.coverage.lastImportedAt = new Date().toISOString();
+  fs.writeFileSync(outputPath, JSON.stringify(db, null, 2) + "\n");
+}
 
 async function main() {
   const db = JSON.parse(fs.readFileSync(outputPath, "utf8"));
   db.schemaVersion = 1;
-  db.coverage = { ...(db.coverage || {}), careerStartYear: startYear, scope: "premier_league", lastImportedAt: new Date().toISOString() };
-  db.sources = db.sources || [];
-  db.clubs = db.clubs || [];
-  db.players = db.players || [];
-  db.careerLinks = db.careerLinks || [];
-
+  db.coverage = { ...(db.coverage || {}), careerStartYear: startYear, scope: "premier_league", lastImportedAt: db.coverage?.lastImportedAt || null };
+  db.sources = db.sources || []; db.clubs = db.clubs || []; db.players = db.players || []; db.careerLinks = db.careerLinks || [];
   const clubs = new Map(db.clubs.map(item => [item.id, item]));
   const players = new Map(db.players.map(item => [item.id, item]));
   const links = new Map(db.careerLinks.map(item => [item.playerId + "|" + item.clubId, item]));
-
   const clubRows = await getPremierLeagueClubs();
   console.log("Found " + clubRows.length + " Premier League clubs in Wikidata.");
-  for (const clubRow of clubRows) {
+  const progress = db.coverage.importProgress || { clubIndex: 0, offset: 0, completed: false };
+  if (progress.completed) { console.log("Import already complete. No work needed."); return; }
+  let clubIndex = progress.clubIndex || 0;
+  let offset = progress.offset || 0;
+  let pagesDone = 0;
+  while (clubIndex < clubRows.length && pagesDone < maxPagesPerRun) {
+    const clubRow = clubRows[clubIndex];
     const clubId = iriToId(clubRow.club?.value);
-    if (!clubId) continue;
-    if (!clubs.has(clubId)) clubs.set(clubId, {
-      id: clubId, name: clubRow.clubLabel?.value || clubId, country: "England",
-      aliases: [], type: "football_club", competition: "Premier League", source: "Wikidata"
-    });
-
-    for (let offset = 0; ; offset += pageSize) {
-      const rows = await getClubCareerPage(clubId, offset);
-      for (const row of rows) {
-        const playerId = iriToId(row.player?.value);
-        if (!playerId) continue;
-        const start = yearOf(row.start?.value);
-        const end = yearOf(row.end?.value);
-        const undated = start === null && end === null;
-        if (!undated && !((start !== null && start >= startYear) || (end !== null && end >= startYear))) continue;
-
-        if (!players.has(playerId)) players.set(playerId, {
-          id: playerId, name: row.playerLabel?.value || playerId,
-          nationality: null, aliases: [], type: "football_player", source: "Wikidata"
-        });
-        const key = playerId + "|" + clubId;
-        const existing = links.get(key);
-        const record = {
-          playerId, clubId, source: "Wikidata P54",
-          startYear: start, endYear: end,
-          dateStatus: undated ? "undated_needs_review" : "dated",
-          evidenceUrl: "https://www.wikidata.org/wiki/" + playerId
-        };
-        if (!existing || (existing.dateStatus === "undated_needs_review" && record.dateStatus === "dated")) links.set(key, record);
-      }
-      if (rows.length < pageSize) break;
-      await pause(3000);
+    if (!clubId) { clubIndex++; offset = 0; continue; }
+    if (!clubs.has(clubId)) clubs.set(clubId, { id: clubId, name: clubRow.clubLabel?.value || clubId, country: "England", aliases: [], type: "football_club", competition: "Premier League", source: "Wikidata" });
+    const rows = await getClubCareerPage(clubId, offset);
+    pagesDone++;
+    for (const row of rows) {
+      const playerId = iriToId(row.player?.value);
+      if (!playerId) continue;
+      const start = yearOf(row.start?.value); const end = yearOf(row.end?.value);
+      const undated = start === null && end === null;
+      if (!undated && !((start !== null && start >= startYear) || (end !== null && end >= startYear))) continue;
+      if (!players.has(playerId)) players.set(playerId, { id: playerId, name: row.playerLabel?.value || playerId, nationality: null, aliases: [], type: "football_player", source: "Wikidata" });
+      const key = playerId + "|" + clubId; const existing = links.get(key);
+      const record = { playerId, clubId, source: "Wikidata P54", startYear: start, endYear: end, dateStatus: undated ? "undated_needs_review" : "dated", evidenceUrl: "https://www.wikidata.org/wiki/" + playerId };
+      if (!existing || (existing.dateStatus === "undated_needs_review" && record.dateStatus === "dated")) links.set(key, record);
     }
-    await pause(3000);
+    if (rows.length === pageSize) offset += pageSize;
+    else { clubIndex++; offset = 0; }
+    db.coverage.importProgress = { clubIndex, offset, totalClubs: clubRows.length, completed: clubIndex >= clubRows.length };
+    saveDatabase(db, clubs, players, links);
+    console.log("Saved progress: club " + clubIndex + " of " + clubRows.length + ", next offset " + offset + "; pages this run " + pagesDone + "/" + maxPagesPerRun);
+    await pause(1500);
   }
-
-  db.clubs = [...clubs.values()].sort((a,b) => a.name.localeCompare(b.name));
-  db.players = [...players.values()].sort((a,b) => a.name.localeCompare(b.name));
-  db.careerLinks = [...links.values()];
+  db.coverage.importProgress = { clubIndex, offset, totalClubs: clubRows.length, completed: clubIndex >= clubRows.length };
   db.sources = db.sources.filter(source => source.id !== "wikidata-p54-premier-league");
-  db.sources.push({
-    id: "wikidata-p54-premier-league",
-    name: "Wikidata",
-    licence: "CC0",
-    retrievedAt: db.coverage.lastImportedAt,
-    description: "Premier League club career relationships from property P54; dates retained when supplied. Undated links require review and must not be treated as date-confirmed."
-  });
-
-  fs.writeFileSync(outputPath, JSON.stringify(db, null, 2) + "\n");
-  console.log("Import complete.");
+  db.sources.push({ id: "wikidata-p54-premier-league", name: "Wikidata", licence: "CC0", retrievedAt: db.coverage.lastImportedAt, description: "Premier League club career relationships from property P54; dates retained when supplied. Undated links require review and must not be treated as date-confirmed." });
+  saveDatabase(db, clubs, players, links);
+  console.log(db.coverage.importProgress.completed ? "Import complete." : "Batch complete. Run the workflow again to continue from the saved position.");
   console.log("Unique clubs: " + db.clubs.length + "; players: " + db.players.length + "; career links: " + db.careerLinks.length);
-  console.log("Review undated records before using this data to reject an answer.");
 }
-main().catch(error => {
-  console.error(error);
-  process.exitCode = 1;
-});
+main().catch(error => { console.error(error); process.exitCode = 1; });
