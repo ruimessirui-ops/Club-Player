@@ -76,7 +76,8 @@ async function main() {
   const players = new Map(db.players.map(item => [item.id, item]));
   const links = new Map(db.careerLinks.map(item => [item.playerId + "|" + item.clubId, item]));
   const clubRows = await getPremierLeagueClubs();
-  console.log("Found " + clubRows.length + " Premier League clubs in Wikidata.");
+  console.log("Found " + clubRows.length + " Premier League football clubs in Wikidata.");
+  if (clubRows.length === 0 || clubRows.length > 500) throw new Error("The club discovery result failed its safety check (" + clubRows.length + " results). No database changes were made.");
   const progress = db.coverage.importProgress || { clubIndex: 0, offset: 0, completed: false };
   if (progress.completed) { console.log("Import already complete. No work needed."); return; }
   let clubIndex = progress.clubIndex || 0;
