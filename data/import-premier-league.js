@@ -5,7 +5,7 @@ const endpoint = "https://query.wikidata.org/sparql";
 const outputPath = path.join(__dirname, "football-db.json");
 const startYear = 1990;
 const pageSize = 100;
-const maxPagesPerRun = 36;
+const maxPagesPerRun = 150;
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 function iriToId(uri) { return String(uri || "").split("/").pop(); }
