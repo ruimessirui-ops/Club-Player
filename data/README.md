@@ -28,10 +28,10 @@ Use Wikidata's search/API for entity discovery and narrowly scoped Wikidata Quer
 Wikidata documentation recommends using its search/API for text discovery and scoped SPARQL queries for structured relationships. Large result sets may require dumps or a separately hosted index; the public query service is not intended for broad fuzzy search.
 
 ## Current status
-The schema and initial competition scope are created. No career records have been imported yet, so the game must not treat this empty database as authoritative.
+The initial Premier League discovery import is complete for the first 20 discovered clubs. The database contains thousands of Wikidata player-club relationships. This is a research dataset, not yet authoritative: undated links require review, same-name players may be distinct people, and the initial discovery query may miss historical clubs.
 
 ## Premier League first import
-Run `npm run import:premier-league` locally from the repository root. The importer queries Wikidata for player P54 links to clubs with Premier League participation (P118), stores stable Wikidata IDs, names, nationality, and any available start/end years, and preserves undated links for review. It uses small result pages and pauses between requests. Do not use undated links as definitive proof of a post-1990 appearance.
+Run `npm run import:premier-league` locally from the repository root. Run `npm run audit:football-db` to produce a structural quality report. The importer queries Wikidata for player P54 links to clubs with Premier League participation (P118), including clubs linked to Premier League season entities (P3450), stores stable Wikidata IDs, names, nationality, and any available start/end years, and preserves undated links for review. It uses small result pages and pauses between requests. Do not use undated links as definitive proof of a post-1990 appearance.
 
 ## Game modes
 `game-modes.json` defines All Leagues, Single League, and Single Country modes. These are configuration definitions only; the game interface and server-side mode enforcement still need to be connected after the first data import is validated.
