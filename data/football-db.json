@@ -4,61 +4,16 @@
     "careerStartYear": 1990,
     "careerEndYear": null,
     "scope": "premier_league",
-    "lastImportedAt": "2026-11-04T11:31:50.883Z",
+    "lastImportedAt": null,
     "importProgress": {
-      "clubIndex": 4,
+      "clubIndex": 0,
       "offset": 0,
-      "totalClubs": 2603,
+      "totalClubs": 0,
       "completed": false
     }
   },
-  "sources": [
-    {
-      "id": "wikidata-p54-premier-league",
-      "name": "Wikidata",
-      "licence": "CC0",
-      "retrievedAt": "2026-11-04T11:31:49.382Z",
-      "description": "Premier League club career relationships from property P54; dates retained when supplied. Undated links require review and must not be treated as date-confirmed."
-    }
-  ],
-  "clubs": [
-    {
-      "id": "Q1027448",
-      "name": "David Hirst",
-      "country": "England",
-      "aliases": [],
-      "type": "football_club",
-      "competition": "Premier League",
-      "source": "Wikidata"
-    },
-    {
-      "id": "Q1032609",
-      "name": "George Thorne",
-      "country": "England",
-      "aliases": [],
-      "type": "football_club",
-      "competition": "Premier League",
-      "source": "Wikidata"
-    },
-    {
-      "id": "Q10311285",
-      "name": "João Carlos Teixeira",
-      "country": "England",
-      "aliases": [],
-      "type": "football_club",
-      "competition": "Premier League",
-      "source": "Wikidata"
-    },
-    {
-      "id": "Q1027452",
-      "name": "Neil Ruddock",
-      "country": "England",
-      "aliases": [],
-      "type": "football_club",
-      "competition": "Premier League",
-      "source": "Wikidata"
-    }
-  ],
+  "sources": [],
+  "clubs": [],
   "players": [],
   "careerLinks": []
 }
