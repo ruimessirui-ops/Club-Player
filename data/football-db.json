@@ -4,16 +4,6360 @@
     "careerStartYear": 1990,
     "careerEndYear": null,
     "scope": "premier_league",
-    "lastImportedAt": null,
+    "lastImportedAt": "2026-11-04T11:39:14.178Z",
     "importProgress": {
       "clubIndex": 0,
-      "offset": 0,
-      "totalClubs": 0,
+      "offset": 400,
+      "totalClubs": 20,
       "completed": false
     }
   },
-  "sources": [],
-  "clubs": [],
-  "players": [],
-  "careerLinks": []
+  "sources": [
+    {
+      "id": "wikidata-p54-premier-league",
+      "name": "Wikidata",
+      "licence": "CC0",
+      "retrievedAt": "2026-11-04T11:39:12.675Z",
+      "description": "Premier League club career relationships from property P54; dates retained when supplied. Undated links require review and must not be treated as date-confirmed."
+    }
+  ],
+  "clubs": [
+    {
+      "id": "Q1128631",
+      "name": "Leeds United F.C.",
+      "country": "England",
+      "aliases": [],
+      "type": "football_club",
+      "competition": "Premier League",
+      "source": "Wikidata"
+    }
+  ],
+  "players": [
+    {
+      "id": "Q17380497",
+      "name": "Aapo Halme",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q175303",
+      "name": "Aaron Lennon",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2700669",
+      "name": "Adam Clayton",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q349177",
+      "name": "Adam Drury",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2823973",
+      "name": "Adam Lockwood",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q404098",
+      "name": "Aidan White",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q4696762",
+      "name": "Aiden Butterworth",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q4706347",
+      "name": "Alan Cawley",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q28124191",
+      "name": "Alan Fowler",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q18098256",
+      "name": "Alan Hebditch",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q4707259",
+      "name": "Alan Martin",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1099944",
+      "name": "Alan Maybury",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3607774",
+      "name": "Alan Sheehan",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q216614",
+      "name": "Alan Smith",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1179806",
+      "name": "Alan Thompson",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q16017613",
+      "name": "Albert Wakefield",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3610168",
+      "name": "Alessandro Nista",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2733524",
+      "name": "Alex Bruce",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q4716779",
+      "name": "Alex Cairns",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q4717283",
+      "name": "Alex Keddie",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q15058162",
+      "name": "Alex Mowatt",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q4721653",
+      "name": "Alf Dark",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q4733416",
+      "name": "Ally Mauchlen",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q460512",
+      "name": "Amdy Faye",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q15704424",
+      "name": "Andrea Tabanelli",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2351918",
+      "name": "Andrew Hughes",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3816319",
+      "name": "Andrew Milne",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q4760555",
+      "name": "Andy Couzens",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q525943",
+      "name": "Andy Gray",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q375596",
+      "name": "Andy Keogh",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2501220",
+      "name": "Andy Lonergan",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q254410",
+      "name": "Andy O'Brien",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q4761241",
+      "name": "Andy Robinson",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q27920148",
+      "name": "Ao Tanaka",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q114826394",
+      "name": "Archie Gray",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2498195",
+      "name": "Armando Sá",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q27889118",
+      "name": "Arnold Knight",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q4799160",
+      "name": "Arthur Hydes",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q23881682",
+      "name": "Bailey Peacock-Farrell",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q442866",
+      "name": "Barry Bannan",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q4864123",
+      "name": "Barry Corr",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q4864684",
+      "name": "Barry Roche",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q27839155",
+      "name": "Ben White",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q4895260",
+      "name": "Bert Paton",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q4895318",
+      "name": "Bert Sproston",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q28709701",
+      "name": "Billy Kettle",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q4912974",
+      "name": "Billy McAdams",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2903702",
+      "name": "Billy Paynter",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q4932211",
+      "name": "Bob Danskin",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q429407",
+      "name": "Bobby Davison",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q48688169",
+      "name": "Bradley Groves",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2699673",
+      "name": "Bradley Johnson",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q4961062",
+      "name": "Brendan Ormsby",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2546075",
+      "name": "Brett Ormerod",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2703910",
+      "name": "Brian Deane",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3644489",
+      "name": "Brian Montenegro",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q4979379",
+      "name": "Bruno Ribeiro",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q16236115",
+      "name": "Caleb Ekuban",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1921734",
+      "name": "Cameron Stewart",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q374317",
+      "name": "Carl Dickinson",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1039620",
+      "name": "Carl Magnay",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q304092",
+      "name": "Carl Shutt",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q27983031",
+      "name": "Carlos Corberán",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1043454",
+      "name": "Carlton Palmer",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q5043121",
+      "name": "Carly Telford",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q48817101",
+      "name": "Cecil Hornby",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q5066248",
+      "name": "Chad Harpur",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q24663894",
+      "name": "Charlie Horton",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q5085599",
+      "name": "Charlie Taylor",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q5105755",
+      "name": "Chris Armstrong",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q10557703",
+      "name": "Chris Dawson",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1077197",
+      "name": "Chris Fairclough",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2964749",
+      "name": "Chris Jones",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1077393",
+      "name": "Chris Kamara",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1077851",
+      "name": "Chris Whyte",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q13467456",
+      "name": "Chuba Akpom",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q5134534",
+      "name": "Clive Colbridge",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2313462",
+      "name": "Clyde Wijnhard",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q45193632",
+      "name": "Colin Smith",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q126422",
+      "name": "Connor Wickham",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q5180953",
+      "name": "Craig Farrell",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q5181039",
+      "name": "Craig Hignett",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q5181496",
+      "name": "Craig Stiens",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q450783",
+      "name": "Cyril Chapuis",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3701245",
+      "name": "Damian Lynch",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1159077",
+      "name": "Dan Harding",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q5220202",
+      "name": "Danny Cadamarteri",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q5220397",
+      "name": "Danny Granville",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1164635",
+      "name": "Danny Hay",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q317317",
+      "name": "Danny Mills",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q5220631",
+      "name": "Danny Milosevic",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q280300",
+      "name": "Danny Pugh",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3015330",
+      "name": "Danny Webber",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q5222840",
+      "name": "Dario Del Fabro",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q112801051",
+      "name": "Darko Gyabi",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3016523",
+      "name": "Darren Kenton",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q370978",
+      "name": "Darren O'Dea",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q5225378",
+      "name": "Darryl Flahavan",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q362555",
+      "name": "David Batty",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q5231811",
+      "name": "David Brown",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q313617",
+      "name": "David Healy",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q5235973",
+      "name": "David Kerslake",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q5236676",
+      "name": "David Livermore",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q383483",
+      "name": "David Lucas",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q219366",
+      "name": "David Martin",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q50853531",
+      "name": "David McAdam",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1995032",
+      "name": "David Norris",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q132026",
+      "name": "David O'Leary",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2351991",
+      "name": "David Prutton",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3018705",
+      "name": "David Robertson",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q266207",
+      "name": "David White",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2605961",
+      "name": "Davide Somma",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q377488",
+      "name": "Derek Lilley",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1207229",
+      "name": "Dexter Blackstock",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q13382434",
+      "name": "Diego Llorente",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q19956709",
+      "name": "Dominic Calvert-Lewin",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q129655",
+      "name": "Dougie Freedman",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q350634",
+      "name": "Eddie Lewis",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q41259115",
+      "name": "Eddie Nketiah",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2568159",
+      "name": "Edgar Çani",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2332381",
+      "name": "Eirik Bakke",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q37996866",
+      "name": "Eoghan Stokes",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q170328",
+      "name": "Eric Cantona",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1781828",
+      "name": "Eric Keen",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q219158",
+      "name": "Eric Lichaj",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q19875258",
+      "name": "Eric Litchfield",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q10402233",
+      "name": "Ernie Goldthorpe",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q26250324",
+      "name": "Ethan Ampadu",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q166285",
+      "name": "Fabian Delph",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1310363",
+      "name": "Filipe da Costa",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q458223",
+      "name": "Frank Fielding",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q29480682",
+      "name": "Frank Heaney",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2709460",
+      "name": "Frank Strandli",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q27178457",
+      "name": "Fred Whalley",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q455972",
+      "name": "Gary Kelly",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q353678",
+      "name": "Gary McAllister",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q202153",
+      "name": "Gary Speed",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q16150344",
+      "name": "Gboly Ariyibi",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q150161",
+      "name": "George McCartney",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1191798",
+      "name": "Giuseppe Bellusci",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q314095",
+      "name": "Gordon Strachan",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1345122",
+      "name": "Graham Stack",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2602881",
+      "name": "Gylfi Einarsson",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2461136",
+      "name": "Habib Habibou",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1585996",
+      "name": "Harpal Singh",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q140369312",
+      "name": "Harrison Male",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q204429",
+      "name": "Harry Kewell",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q23991668",
+      "name": "Harry Millership",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3014889",
+      "name": "Harry Searson",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q50136665",
+      "name": "Harry Sherwin",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2284007",
+      "name": "Hayden Foxe",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q333820",
+      "name": "Henry McLeish",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q51746745",
+      "name": "Hugo Díaz",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3791464",
+      "name": "Ian Bennett",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q358793",
+      "name": "Ian Harte",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3147312",
+      "name": "Ian Morris",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q219354",
+      "name": "Ian Rush",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q28853739",
+      "name": "Ike Robinson",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1660518",
+      "name": "Imre Varadi",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q13409790",
+      "name": "Izzy Brown",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q313089",
+      "name": "Jack Butland",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q22087109",
+      "name": "Jack Harrison",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q19586053",
+      "name": "Jack McKay",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q15999907",
+      "name": "Jackie McGugan",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2404187",
+      "name": "Jacob Burns",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q342282",
+      "name": "Jake Livermore",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q26251403",
+      "name": "James Justin",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q191136",
+      "name": "James Milner",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1332314",
+      "name": "Jamie Ashdown",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1435000",
+      "name": "Jamie Clapham",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q10385813",
+      "name": "Jamie Forrester",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q10379858",
+      "name": "Jamie Winter",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3162913",
+      "name": "Jason Crowe",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2756571",
+      "name": "Jason Pearce",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1361652",
+      "name": "Jason Wilcox",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q20972390",
+      "name": "Jay-Roy Grot",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q19794108",
+      "name": "Jean-Kévin Augustin",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q116052667",
+      "name": "Jean-Mattéo Bahoya",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1398740",
+      "name": "Jemal Johnson",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q442472",
+      "name": "Jermaine Beckford",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q296416",
+      "name": "Jermaine Pennant",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2663282",
+      "name": "Jerome Thomas",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q515966",
+      "name": "Jessica Clarke",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q28457272",
+      "name": "Jimmy Burnett",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q223176",
+      "name": "Jimmy Floyd Hasselbaink",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2550998",
+      "name": "Jimmy Kébé",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q47658470",
+      "name": "Joe Rodon",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q27831182",
+      "name": "John Harkins",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q21003898",
+      "name": "John Harvey",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q165998",
+      "name": "John Lukic",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1583216",
+      "name": "John McClelland",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1385547",
+      "name": "John Oster",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q50749580",
+      "name": "Johnny Tapscott",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1702817",
+      "name": "Jon Newsome",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q296635",
+      "name": "Jonathan Woodgate",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q14851962",
+      "name": "Jordan Botaka",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q39809166",
+      "name": "Jordan Stevens",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q20641319",
+      "name": "Kalvin Phillips",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q47010998",
+      "name": "Kamil Miazek",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1730695",
+      "name": "Karl Darlow",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q295797",
+      "name": "Kasper Schmeichel",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3195788",
+      "name": "Kevin Pressman",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q31191398",
+      "name": "Kun Temenuzhkov",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1801571",
+      "name": "Lamine Sakho",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2053285",
+      "name": "Laurens De Bock",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2402742",
+      "name": "Léandre Griffit",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q353520",
+      "name": "Lee Bowyer",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1811754",
+      "name": "Lee Chapman",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q17411153",
+      "name": "Lee Erwin",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3398147",
+      "name": "Lee Trundle",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q22003774",
+      "name": "Lewie Coyle",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q17496370",
+      "name": "Lewis Cook",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2080923",
+      "name": "Liam Bridcutt",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3237644",
+      "name": "Liam Dickinson",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q464846",
+      "name": "Liam Miller",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2457830",
+      "name": "Lloyd Sam",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2360955",
+      "name": "Ľubomír Michalík",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q349473",
+      "name": "Lucas Radebe",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q26838145",
+      "name": "Luis Sinisterra",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q10462037",
+      "name": "Luke Murphy",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2637561",
+      "name": "Luke Varney",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q35729740",
+      "name": "Madger Gomes",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2437243",
+      "name": "Malcolm Christie",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q28549824",
+      "name": "Mallik Wilks",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q28968069",
+      "name": "Manor Solomon",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1891162",
+      "name": "Mansour Assoumani",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q167225",
+      "name": "Marius Žaliūkas",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q142907",
+      "name": "Mark de Vries",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q239513",
+      "name": "Mark Viduka",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q434646",
+      "name": "Martin Hiden",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q375563",
+      "name": "Martin Woods",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q115492364",
+      "name": "Mateo Joseph",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3299493",
+      "name": "Matt Jones",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2302747",
+      "name": "Matthew Kilgallon",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2487332",
+      "name": "Mel Charles",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1334680",
+      "name": "Mel Sterland",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q4566197",
+      "name": "Mervyn Day",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1028220",
+      "name": "Michael Bridges",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1328702",
+      "name": "Michael Brown",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q165639",
+      "name": "Michael Doyle",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2287704",
+      "name": "Michael Duberry",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q497126",
+      "name": "Michael Gray",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3206955",
+      "name": "Michael Ricketts",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q475024",
+      "name": "Michael Tonge",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3267081",
+      "name": "Michael Woods",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q27970789",
+      "name": "Mick Foley",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1931375",
+      "name": "Mickey Thomas",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q350263",
+      "name": "Mika Väyrynen",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q342530",
+      "name": "Mikael Forssell",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q10547851",
+      "name": "Mike Imlach",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1298682",
+      "name": "Mike Whitlow",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q10396689",
+      "name": "Nathan Lowndes",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q10396757",
+      "name": "Neil Edwards",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1370411",
+      "name": "Neil Kilkenny",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2361704",
+      "name": "Neil Sullivan",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1365656",
+      "name": "Neill Collins",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q285841",
+      "name": "Nick Barmby",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1217794",
+      "name": "Nicky Ajose",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q320224",
+      "name": "Nicky Byrne",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q18637339",
+      "name": "Nico Elvedi",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q291022",
+      "name": "Nigel Martyn",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q39078708",
+      "name": "Nobby Clarke",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q261508",
+      "name": "Noel Blake",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2624547",
+      "name": "Noel Hunt",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3877698",
+      "name": "Noel Whelan",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q314879",
+      "name": "Olivier Dacourt",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1953130",
+      "name": "Ouasim Bouy",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q444563",
+      "name": "Paddy Kenny",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q16090487",
+      "name": "Pat Egglestone",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q41200266",
+      "name": "Paudie O'Connor",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2604008",
+      "name": "Paul Connolly",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q372272",
+      "name": "Paul Dickov",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q455979",
+      "name": "Paul Green",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1790955",
+      "name": "Paul Harrison",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2607437",
+      "name": "Paul Huntington",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3371572",
+      "name": "Paul Keegan",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q22098174",
+      "name": "Paul McKay",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2310439",
+      "name": "Paul Rachubka",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q215824",
+      "name": "Paul Robinson",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1365850",
+      "name": "Paul Telfer",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q16095638",
+      "name": "Peter Gunby",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1000435",
+      "name": "Peter Sweeney",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3385820",
+      "name": "Pierre Laurent",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q16977444",
+      "name": "Q16977444",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q22082530",
+      "name": "Q22082530",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q47088780",
+      "name": "Q47088780",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q4761491",
+      "name": "Q4761491",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q373985",
+      "name": "Radostin Kishishev",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q368618",
+      "name": "Ramón Núñez",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q28861547",
+      "name": "Raphinha",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q314494",
+      "name": "Raúl Bravo",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1426678",
+      "name": "Richard Cresswell",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q526086",
+      "name": "Richard Naylor",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q483417",
+      "name": "Rio Ferdinand",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1093679",
+      "name": "Robbie Blake",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q206548",
+      "name": "Robbie Fowler",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q184612",
+      "name": "Robbie Keane",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q200770",
+      "name": "Robert Green",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1983384",
+      "name": "Robert Molenaar",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q27077869",
+      "name": "Robin Koch",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q376394",
+      "name": "Rodrigo",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q50847573",
+      "name": "Romario Vieira",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q17403515",
+      "name": "Ronaldo Vieira",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q315831",
+      "name": "Roque Júnior",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q326240",
+      "name": "Ross Barkley",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q245022",
+      "name": "Ross Turnbull",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2943933",
+      "name": "Ryan Hall",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q371437",
+      "name": "Salomon Olembé",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3470498",
+      "name": "Sam Hird",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1753614",
+      "name": "Sam Sodje",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1887401",
+      "name": "Sanchez Watt",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q277584",
+      "name": "Saša Ilić",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q295627",
+      "name": "Scott Carson",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2261127",
+      "name": "Scott Wootton",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2262185",
+      "name": "Sean Gregan",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q28542599",
+      "name": "Sean Longstaff",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q10391711",
+      "name": "Sean McDaid",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2626685",
+      "name": "Sebastian Sorsa",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2313406",
+      "name": "Sébastien Carole",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1382910",
+      "name": "Serge Branco",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3481369",
+      "name": "Shane Higgs",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2067337",
+      "name": "Shane Lowry",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1319870",
+      "name": "Shaun Derry",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q16008222",
+      "name": "Sid Jones",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q10401988",
+      "name": "Simon Johnson",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q16232241",
+      "name": "Simon Madden",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3961138",
+      "name": "Simon Walton",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q27178248",
+      "name": "Simpson Bainbridge",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q350107",
+      "name": "Sol Bamba",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2423660",
+      "name": "Stephen Crainey",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1632278",
+      "name": "Stephen McPhail",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q241321",
+      "name": "Stephen Warnock",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q16836483",
+      "name": "Steve Ball",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2719418",
+      "name": "Steve Guppy",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q166307",
+      "name": "Steve Hodge",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q369507",
+      "name": "Steven Caldwell",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3976225",
+      "name": "Stuart Dallas",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q108642499",
+      "name": "Stuart McKinstry",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q314102",
+      "name": "Stuart Taylor",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q304677",
+      "name": "Suliman Doukara",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q28445547",
+      "name": "Teddy Buck",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q314756",
+      "name": "Teddy Lučić",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q183233",
+      "name": "Thorstein Helstad",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q4251366",
+      "name": "Tom Adeyemi",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1061904",
+      "name": "Tom Cairney",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2757007",
+      "name": "Tom Lees",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q50738324",
+      "name": "Tom Pearce",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1152674",
+      "name": "Tom Taiwo",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q361435",
+      "name": "Tomas Brolin",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1444099",
+      "name": "Tommaso Bianchi",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q3992906",
+      "name": "Tommy Knarvik",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q19586097",
+      "name": "Tommy Murray",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2442426",
+      "name": "Tony Agana",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2351910",
+      "name": "Tony Capaldi",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q173824",
+      "name": "Tony Dorigo",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1085237",
+      "name": "Tony Warner",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q379603",
+      "name": "Tony Yeboah",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q215944",
+      "name": "Tore André Flo",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2721854",
+      "name": "Trésor Kandol",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q19871581",
+      "name": "Tyler Adams",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q26704873",
+      "name": "Tyler Denton",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q24084311",
+      "name": "Tyler Roberts",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q1341518",
+      "name": "Ugo Ehiogu",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q296822",
+      "name": "Vinnie Jones",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2358684",
+      "name": "Warren Feeney",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q29998966",
+      "name": "Weston McKennie",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2079296",
+      "name": "Will Buckley",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q2475803",
+      "name": "Willem Korsten",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q16079686",
+      "name": "William Cooke",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q28836939",
+      "name": "William Pringle",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q16264162",
+      "name": "Yōsuke Ideguchi",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    },
+    {
+      "id": "Q227053",
+      "name": "Zoumana Camara",
+      "nationality": null,
+      "aliases": [],
+      "type": "football_player",
+      "source": "Wikidata"
+    }
+  ],
+  "careerLinks": [
+    {
+      "playerId": "Q1000435",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2008,
+      "endYear": 2009,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1000435"
+    },
+    {
+      "playerId": "Q1028220",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1999,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1028220"
+    },
+    {
+      "playerId": "Q10379858",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2003,
+      "endYear": 2005,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q10379858"
+    },
+    {
+      "playerId": "Q10385813",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1992,
+      "endYear": 1995,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q10385813"
+    },
+    {
+      "playerId": "Q10391711",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q10391711"
+    },
+    {
+      "playerId": "Q1039620",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1039620"
+    },
+    {
+      "playerId": "Q10396689",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1994,
+      "endYear": 1995,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q10396689"
+    },
+    {
+      "playerId": "Q10396757",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1988,
+      "endYear": 1991,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q10396757"
+    },
+    {
+      "playerId": "Q10401988",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2000,
+      "endYear": 2005,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q10401988"
+    },
+    {
+      "playerId": "Q10402233",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q10402233"
+    },
+    {
+      "playerId": "Q1043454",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1994,
+      "endYear": 1997,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1043454"
+    },
+    {
+      "playerId": "Q10462037",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2013,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q10462037"
+    },
+    {
+      "playerId": "Q10547851",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q10547851"
+    },
+    {
+      "playerId": "Q10557703",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2012,
+      "endYear": 2016,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q10557703"
+    },
+    {
+      "playerId": "Q1061904",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1061904"
+    },
+    {
+      "playerId": "Q1077197",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1989,
+      "endYear": 1995,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1077197"
+    },
+    {
+      "playerId": "Q1077393",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1990,
+      "endYear": 1991,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1077393"
+    },
+    {
+      "playerId": "Q1077851",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1990,
+      "endYear": 1993,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1077851"
+    },
+    {
+      "playerId": "Q1085237",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2010,
+      "endYear": 2010,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1085237"
+    },
+    {
+      "playerId": "Q108642499",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q108642499"
+    },
+    {
+      "playerId": "Q1093679",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2005,
+      "endYear": 2007,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1093679"
+    },
+    {
+      "playerId": "Q1099944",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1995,
+      "endYear": 2001,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1099944"
+    },
+    {
+      "playerId": "Q112801051",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q112801051"
+    },
+    {
+      "playerId": "Q114826394",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2023,
+      "endYear": 2024,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q114826394"
+    },
+    {
+      "playerId": "Q1152674",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1152674"
+    },
+    {
+      "playerId": "Q115492364",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q115492364"
+    },
+    {
+      "playerId": "Q1159077",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2005,
+      "endYear": 2006,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1159077"
+    },
+    {
+      "playerId": "Q116052667",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2026,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q116052667"
+    },
+    {
+      "playerId": "Q1164635",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1999,
+      "endYear": 2002,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1164635"
+    },
+    {
+      "playerId": "Q1179806",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2007,
+      "endYear": 2008,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1179806"
+    },
+    {
+      "playerId": "Q1191798",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2014,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1191798"
+    },
+    {
+      "playerId": "Q1207229",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2013,
+      "endYear": 2013,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1207229"
+    },
+    {
+      "playerId": "Q1217794",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2014,
+      "endYear": 2015,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1217794"
+    },
+    {
+      "playerId": "Q126422",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2014,
+      "endYear": 2014,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q126422"
+    },
+    {
+      "playerId": "Q129655",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2008,
+      "endYear": 2008,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q129655"
+    },
+    {
+      "playerId": "Q1298682",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1988,
+      "endYear": 1992,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1298682"
+    },
+    {
+      "playerId": "Q1310363",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2007,
+      "endYear": 2008,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1310363"
+    },
+    {
+      "playerId": "Q1319870",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2005,
+      "endYear": 2008,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1319870"
+    },
+    {
+      "playerId": "Q132026",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1993,
+      "endYear": 1995,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q132026"
+    },
+    {
+      "playerId": "Q1328702",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2011,
+      "endYear": 2014,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1328702"
+    },
+    {
+      "playerId": "Q1332314",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2012,
+      "endYear": 2014,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1332314"
+    },
+    {
+      "playerId": "Q1334680",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1989,
+      "endYear": 1994,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1334680"
+    },
+    {
+      "playerId": "Q13382434",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2020,
+      "endYear": 2024,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q13382434"
+    },
+    {
+      "playerId": "Q13409790",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2018,
+      "endYear": 2019,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q13409790"
+    },
+    {
+      "playerId": "Q1341518",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2006,
+      "endYear": 2007,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1341518"
+    },
+    {
+      "playerId": "Q1345122",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2006,
+      "endYear": 2007,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1345122"
+    },
+    {
+      "playerId": "Q13467456",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2017,
+      "endYear": 2018,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q13467456"
+    },
+    {
+      "playerId": "Q1361652",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1999,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1361652"
+    },
+    {
+      "playerId": "Q1365656",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2010,
+      "endYear": 2011,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1365656"
+    },
+    {
+      "playerId": "Q1365850",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2008,
+      "endYear": 2009,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1365850"
+    },
+    {
+      "playerId": "Q1370411",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2008,
+      "endYear": 2011,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1370411"
+    },
+    {
+      "playerId": "Q1382910",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2004,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1382910"
+    },
+    {
+      "playerId": "Q1385547",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2004,
+      "endYear": 2005,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1385547"
+    },
+    {
+      "playerId": "Q1398740",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2007,
+      "endYear": 2007,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1398740"
+    },
+    {
+      "playerId": "Q140369312",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2018,
+      "endYear": 2020,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q140369312"
+    },
+    {
+      "playerId": "Q1426678",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2005,
+      "endYear": 2007,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1426678"
+    },
+    {
+      "playerId": "Q142907",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2007,
+      "endYear": 2007,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q142907"
+    },
+    {
+      "playerId": "Q1435000",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2007,
+      "endYear": 2007,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1435000"
+    },
+    {
+      "playerId": "Q1444099",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2014,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1444099"
+    },
+    {
+      "playerId": "Q14851962",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2015,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q14851962"
+    },
+    {
+      "playerId": "Q150161",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2011,
+      "endYear": 2011,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q150161"
+    },
+    {
+      "playerId": "Q15058162",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2013,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q15058162"
+    },
+    {
+      "playerId": "Q15704424",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q15704424"
+    },
+    {
+      "playerId": "Q1583216",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1989,
+      "endYear": 1992,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1583216"
+    },
+    {
+      "playerId": "Q1585996",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2000,
+      "endYear": 2005,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1585996"
+    },
+    {
+      "playerId": "Q15999907",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q15999907"
+    },
+    {
+      "playerId": "Q16008222",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q16008222"
+    },
+    {
+      "playerId": "Q16017613",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q16017613"
+    },
+    {
+      "playerId": "Q16079686",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q16079686"
+    },
+    {
+      "playerId": "Q16090487",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q16090487"
+    },
+    {
+      "playerId": "Q16095638",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q16095638"
+    },
+    {
+      "playerId": "Q16150344",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2013,
+      "endYear": 2014,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q16150344"
+    },
+    {
+      "playerId": "Q16232241",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2006,
+      "endYear": 2008,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q16232241"
+    },
+    {
+      "playerId": "Q16236115",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2017,
+      "endYear": 2019,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q16236115"
+    },
+    {
+      "playerId": "Q16264162",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2018,
+      "endYear": 2019,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q16264162"
+    },
+    {
+      "playerId": "Q1632278",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1997,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1632278"
+    },
+    {
+      "playerId": "Q165639",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2009,
+      "endYear": 2010,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q165639"
+    },
+    {
+      "playerId": "Q165998",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1990,
+      "endYear": 1996,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q165998"
+    },
+    {
+      "playerId": "Q1660518",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1990,
+      "endYear": 1993,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1660518"
+    },
+    {
+      "playerId": "Q166285",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2006,
+      "endYear": 2009,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q166285"
+    },
+    {
+      "playerId": "Q166307",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1991,
+      "endYear": 1994,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q166307"
+    },
+    {
+      "playerId": "Q167225",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2013,
+      "endYear": 2014,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q167225"
+    },
+    {
+      "playerId": "Q16836483",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q16836483"
+    },
+    {
+      "playerId": "Q16977444",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2014,
+      "endYear": 2014,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q16977444"
+    },
+    {
+      "playerId": "Q1702817",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1991,
+      "endYear": 1994,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1702817"
+    },
+    {
+      "playerId": "Q170328",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1992,
+      "endYear": 1992,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q170328"
+    },
+    {
+      "playerId": "Q1730695",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2023,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1730695"
+    },
+    {
+      "playerId": "Q17380497",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q17380497"
+    },
+    {
+      "playerId": "Q173824",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1991,
+      "endYear": 1997,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q173824"
+    },
+    {
+      "playerId": "Q17403515",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q17403515"
+    },
+    {
+      "playerId": "Q17411153",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2015,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q17411153"
+    },
+    {
+      "playerId": "Q17496370",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2014,
+      "endYear": 2016,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q17496370"
+    },
+    {
+      "playerId": "Q175303",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2003,
+      "endYear": 2005,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q175303"
+    },
+    {
+      "playerId": "Q1753614",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2009,
+      "endYear": 2009,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1753614"
+    },
+    {
+      "playerId": "Q1781828",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1781828"
+    },
+    {
+      "playerId": "Q1790955",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2005,
+      "endYear": 2005,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1790955"
+    },
+    {
+      "playerId": "Q1801571",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2003,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1801571"
+    },
+    {
+      "playerId": "Q18098256",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q18098256"
+    },
+    {
+      "playerId": "Q1811754",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1996,
+      "endYear": 1996,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1811754"
+    },
+    {
+      "playerId": "Q183233",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2000,
+      "endYear": 2000,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q183233"
+    },
+    {
+      "playerId": "Q184612",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2001,
+      "endYear": 2001,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q184612"
+    },
+    {
+      "playerId": "Q18637339",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2026,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q18637339"
+    },
+    {
+      "playerId": "Q1887401",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2010,
+      "endYear": 2010,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1887401"
+    },
+    {
+      "playerId": "Q1891162",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2008,
+      "endYear": 2008,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1891162"
+    },
+    {
+      "playerId": "Q191136",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2002,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q191136"
+    },
+    {
+      "playerId": "Q1921734",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2014,
+      "endYear": 2014,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1921734"
+    },
+    {
+      "playerId": "Q1931375",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1989,
+      "endYear": 1990,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1931375"
+    },
+    {
+      "playerId": "Q1953130",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2017,
+      "endYear": 2021,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1953130"
+    },
+    {
+      "playerId": "Q19586053",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2016,
+      "endYear": 2017,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q19586053"
+    },
+    {
+      "playerId": "Q19586097",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q19586097"
+    },
+    {
+      "playerId": "Q19794108",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2020,
+      "endYear": 2020,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q19794108"
+    },
+    {
+      "playerId": "Q1983384",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1997,
+      "endYear": 2000,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1983384"
+    },
+    {
+      "playerId": "Q19871581",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q19871581"
+    },
+    {
+      "playerId": "Q19875258",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q19875258"
+    },
+    {
+      "playerId": "Q1995032",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2012,
+      "endYear": 2015,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q1995032"
+    },
+    {
+      "playerId": "Q19956709",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2025,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q19956709"
+    },
+    {
+      "playerId": "Q200770",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2016,
+      "endYear": 2017,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q200770"
+    },
+    {
+      "playerId": "Q202153",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1988,
+      "endYear": 1996,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q202153"
+    },
+    {
+      "playerId": "Q204429",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1996,
+      "endYear": 2003,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q204429"
+    },
+    {
+      "playerId": "Q2053285",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2018,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2053285"
+    },
+    {
+      "playerId": "Q20641319",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2014,
+      "endYear": 2022,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q20641319"
+    },
+    {
+      "playerId": "Q206548",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2001,
+      "endYear": 2003,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q206548"
+    },
+    {
+      "playerId": "Q2067337",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2010,
+      "endYear": 2010,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2067337"
+    },
+    {
+      "playerId": "Q2079296",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2015,
+      "endYear": 2015,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2079296"
+    },
+    {
+      "playerId": "Q2080923",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2015,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2080923"
+    },
+    {
+      "playerId": "Q20972390",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q20972390"
+    },
+    {
+      "playerId": "Q21003898",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q21003898"
+    },
+    {
+      "playerId": "Q215824",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1998,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q215824"
+    },
+    {
+      "playerId": "Q215944",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2006,
+      "endYear": 2008,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q215944"
+    },
+    {
+      "playerId": "Q216614",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1998,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q216614"
+    },
+    {
+      "playerId": "Q219158",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2011,
+      "endYear": 2011,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q219158"
+    },
+    {
+      "playerId": "Q219354",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1996,
+      "endYear": 1997,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q219354"
+    },
+    {
+      "playerId": "Q219366",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2009,
+      "endYear": 2010,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q219366"
+    },
+    {
+      "playerId": "Q22003774",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2014,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q22003774"
+    },
+    {
+      "playerId": "Q22082530",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2019,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q22082530"
+    },
+    {
+      "playerId": "Q22087109",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2019,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q22087109"
+    },
+    {
+      "playerId": "Q22098174",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2016,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q22098174"
+    },
+    {
+      "playerId": "Q223176",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1997,
+      "endYear": 1999,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q223176"
+    },
+    {
+      "playerId": "Q2261127",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2013,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2261127"
+    },
+    {
+      "playerId": "Q2262185",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2004,
+      "endYear": 2007,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2262185"
+    },
+    {
+      "playerId": "Q227053",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2003,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q227053"
+    },
+    {
+      "playerId": "Q2284007",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2006,
+      "endYear": 2007,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2284007"
+    },
+    {
+      "playerId": "Q2287704",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1999,
+      "endYear": 2005,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2287704"
+    },
+    {
+      "playerId": "Q2302747",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2002,
+      "endYear": 2007,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2302747"
+    },
+    {
+      "playerId": "Q2310439",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2011,
+      "endYear": 2013,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2310439"
+    },
+    {
+      "playerId": "Q2313406",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2006,
+      "endYear": 2008,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2313406"
+    },
+    {
+      "playerId": "Q2313462",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1998,
+      "endYear": 1999,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2313462"
+    },
+    {
+      "playerId": "Q2332381",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1999,
+      "endYear": 2006,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2332381"
+    },
+    {
+      "playerId": "Q2351910",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2009,
+      "endYear": 2010,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2351910"
+    },
+    {
+      "playerId": "Q2351918",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2007,
+      "endYear": 2010,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2351918"
+    },
+    {
+      "playerId": "Q2351991",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2007,
+      "endYear": 2010,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2351991"
+    },
+    {
+      "playerId": "Q2358684",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1998,
+      "endYear": 2001,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2358684"
+    },
+    {
+      "playerId": "Q2360955",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2008,
+      "endYear": 2011,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2360955"
+    },
+    {
+      "playerId": "Q2361704",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2004,
+      "endYear": 2007,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2361704"
+    },
+    {
+      "playerId": "Q23881682",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2015,
+      "endYear": 2019,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q23881682"
+    },
+    {
+      "playerId": "Q239513",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2000,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q239513"
+    },
+    {
+      "playerId": "Q23991668",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q23991668"
+    },
+    {
+      "playerId": "Q2402742",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2005,
+      "endYear": 2005,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2402742"
+    },
+    {
+      "playerId": "Q2404187",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2000,
+      "endYear": 2003,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2404187"
+    },
+    {
+      "playerId": "Q24084311",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q24084311"
+    },
+    {
+      "playerId": "Q241321",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2013,
+      "endYear": 2015,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q241321"
+    },
+    {
+      "playerId": "Q2423660",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2004,
+      "endYear": 2007,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2423660"
+    },
+    {
+      "playerId": "Q2437243",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2008,
+      "endYear": 2009,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2437243"
+    },
+    {
+      "playerId": "Q2442426",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1992,
+      "endYear": 1992,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2442426"
+    },
+    {
+      "playerId": "Q245022",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2015,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q245022"
+    },
+    {
+      "playerId": "Q2457830",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2010,
+      "endYear": 2012,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2457830"
+    },
+    {
+      "playerId": "Q2461136",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2013,
+      "endYear": 2013,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2461136"
+    },
+    {
+      "playerId": "Q24663894",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q24663894"
+    },
+    {
+      "playerId": "Q2475803",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1999,
+      "endYear": 1999,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2475803"
+    },
+    {
+      "playerId": "Q2487332",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2487332"
+    },
+    {
+      "playerId": "Q2498195",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2007,
+      "endYear": 2007,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2498195"
+    },
+    {
+      "playerId": "Q2501220",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2011,
+      "endYear": 2012,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2501220"
+    },
+    {
+      "playerId": "Q254410",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2011,
+      "endYear": 2012,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q254410"
+    },
+    {
+      "playerId": "Q2546075",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2004,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2546075"
+    },
+    {
+      "playerId": "Q2550998",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2014,
+      "endYear": 2014,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2550998"
+    },
+    {
+      "playerId": "Q2568159",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2015,
+      "endYear": 2015,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2568159"
+    },
+    {
+      "playerId": "Q2602881",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2004,
+      "endYear": 2007,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2602881"
+    },
+    {
+      "playerId": "Q2604008",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2010,
+      "endYear": 2013,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2604008"
+    },
+    {
+      "playerId": "Q2605961",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2009,
+      "endYear": 2013,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2605961"
+    },
+    {
+      "playerId": "Q2607437",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2007,
+      "endYear": 2010,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2607437"
+    },
+    {
+      "playerId": "Q261508",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1988,
+      "endYear": 1990,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q261508"
+    },
+    {
+      "playerId": "Q2624547",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2013,
+      "endYear": 2015,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2624547"
+    },
+    {
+      "playerId": "Q26250324",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2023,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q26250324"
+    },
+    {
+      "playerId": "Q26251403",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2025,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q26251403"
+    },
+    {
+      "playerId": "Q2626685",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2008,
+      "endYear": 2008,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2626685"
+    },
+    {
+      "playerId": "Q2637561",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2012,
+      "endYear": 2014,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2637561"
+    },
+    {
+      "playerId": "Q266207",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1993,
+      "endYear": 1995,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q266207"
+    },
+    {
+      "playerId": "Q2663282",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2012,
+      "endYear": 2013,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2663282"
+    },
+    {
+      "playerId": "Q26704873",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2016,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q26704873"
+    },
+    {
+      "playerId": "Q26838145",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q26838145"
+    },
+    {
+      "playerId": "Q2699673",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2008,
+      "endYear": 2011,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2699673"
+    },
+    {
+      "playerId": "Q2700669",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2010,
+      "endYear": 2012,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2700669"
+    },
+    {
+      "playerId": "Q2703910",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2004,
+      "endYear": 2005,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2703910"
+    },
+    {
+      "playerId": "Q27077869",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2020,
+      "endYear": 2024,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q27077869"
+    },
+    {
+      "playerId": "Q2709460",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1993,
+      "endYear": 1994,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2709460"
+    },
+    {
+      "playerId": "Q27178248",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q27178248"
+    },
+    {
+      "playerId": "Q27178457",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q27178457"
+    },
+    {
+      "playerId": "Q2719418",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2004,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2719418"
+    },
+    {
+      "playerId": "Q2721854",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2006,
+      "endYear": 2007,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2721854"
+    },
+    {
+      "playerId": "Q2733524",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2010,
+      "endYear": 2012,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2733524"
+    },
+    {
+      "playerId": "Q2756571",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2012,
+      "endYear": 2015,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2756571"
+    },
+    {
+      "playerId": "Q2757007",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2008,
+      "endYear": 2014,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2757007"
+    },
+    {
+      "playerId": "Q277584",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2005,
+      "endYear": 2005,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q277584"
+    },
+    {
+      "playerId": "Q27831182",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q27831182"
+    },
+    {
+      "playerId": "Q27839155",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2019,
+      "endYear": 2020,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q27839155"
+    },
+    {
+      "playerId": "Q27889118",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q27889118"
+    },
+    {
+      "playerId": "Q27920148",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2024,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q27920148"
+    },
+    {
+      "playerId": "Q27970789",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q27970789"
+    },
+    {
+      "playerId": "Q27983031",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q27983031"
+    },
+    {
+      "playerId": "Q280300",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2011,
+      "endYear": 2012,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q280300"
+    },
+    {
+      "playerId": "Q28124191",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q28124191"
+    },
+    {
+      "playerId": "Q2823973",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2823973"
+    },
+    {
+      "playerId": "Q28445547",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q28445547"
+    },
+    {
+      "playerId": "Q28457272",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q28457272"
+    },
+    {
+      "playerId": "Q28542599",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2025,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q28542599"
+    },
+    {
+      "playerId": "Q28549824",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2017,
+      "endYear": 2019,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q28549824"
+    },
+    {
+      "playerId": "Q285841",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2002,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q285841"
+    },
+    {
+      "playerId": "Q28709701",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q28709701"
+    },
+    {
+      "playerId": "Q28836939",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q28836939"
+    },
+    {
+      "playerId": "Q28853739",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q28853739"
+    },
+    {
+      "playerId": "Q28861547",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2020,
+      "endYear": 2022,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q28861547"
+    },
+    {
+      "playerId": "Q28968069",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q28968069"
+    },
+    {
+      "playerId": "Q2903702",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2010,
+      "endYear": 2012,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2903702"
+    },
+    {
+      "playerId": "Q291022",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1996,
+      "endYear": 2003,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q291022"
+    },
+    {
+      "playerId": "Q2943933",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2012,
+      "endYear": 2013,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2943933"
+    },
+    {
+      "playerId": "Q29480682",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q29480682"
+    },
+    {
+      "playerId": "Q295627",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2003,
+      "endYear": 2005,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q295627"
+    },
+    {
+      "playerId": "Q295797",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2010,
+      "endYear": 2011,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q295797"
+    },
+    {
+      "playerId": "Q296416",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2003,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q296416"
+    },
+    {
+      "playerId": "Q2964749",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2001,
+      "endYear": 2005,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q2964749"
+    },
+    {
+      "playerId": "Q296635",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1998,
+      "endYear": 2003,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q296635"
+    },
+    {
+      "playerId": "Q296822",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1989,
+      "endYear": 1990,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q296822"
+    },
+    {
+      "playerId": "Q29998966",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2023,
+      "endYear": 2023,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q29998966"
+    },
+    {
+      "playerId": "Q3014889",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3014889"
+    },
+    {
+      "playerId": "Q3015330",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2012,
+      "endYear": 2012,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3015330"
+    },
+    {
+      "playerId": "Q3016523",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2008,
+      "endYear": 2008,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3016523"
+    },
+    {
+      "playerId": "Q3018705",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1997,
+      "endYear": 2001,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3018705"
+    },
+    {
+      "playerId": "Q304092",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1989,
+      "endYear": 1993,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q304092"
+    },
+    {
+      "playerId": "Q304677",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2014,
+      "endYear": 2014,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q304677"
+    },
+    {
+      "playerId": "Q31191398",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q31191398"
+    },
+    {
+      "playerId": "Q313089",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2014,
+      "endYear": 2014,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q313089"
+    },
+    {
+      "playerId": "Q313617",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2004,
+      "endYear": 2007,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q313617"
+    },
+    {
+      "playerId": "Q314095",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1989,
+      "endYear": 1995,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q314095"
+    },
+    {
+      "playerId": "Q314102",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2014,
+      "endYear": 2015,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q314102"
+    },
+    {
+      "playerId": "Q314494",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2003,
+      "endYear": 2003,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q314494"
+    },
+    {
+      "playerId": "Q3147312",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2005,
+      "endYear": 2006,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3147312"
+    },
+    {
+      "playerId": "Q314756",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2002,
+      "endYear": 2003,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q314756"
+    },
+    {
+      "playerId": "Q314879",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2000,
+      "endYear": 2003,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q314879"
+    },
+    {
+      "playerId": "Q315831",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2003,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q315831"
+    },
+    {
+      "playerId": "Q3162913",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2009,
+      "endYear": 2011,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3162913"
+    },
+    {
+      "playerId": "Q317317",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1999,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q317317"
+    },
+    {
+      "playerId": "Q3195788",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2005,
+      "endYear": 2005,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3195788"
+    },
+    {
+      "playerId": "Q320224",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q320224"
+    },
+    {
+      "playerId": "Q3206955",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2004,
+      "endYear": 2006,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3206955"
+    },
+    {
+      "playerId": "Q3237644",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2009,
+      "endYear": 2009,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3237644"
+    },
+    {
+      "playerId": "Q326240",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2013,
+      "endYear": 2013,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q326240"
+    },
+    {
+      "playerId": "Q3267081",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3267081"
+    },
+    {
+      "playerId": "Q3299493",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1997,
+      "endYear": 2000,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3299493"
+    },
+    {
+      "playerId": "Q333820",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q333820"
+    },
+    {
+      "playerId": "Q3371572",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2000,
+      "endYear": 2005,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3371572"
+    },
+    {
+      "playerId": "Q3385820",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1997,
+      "endYear": 1998,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3385820"
+    },
+    {
+      "playerId": "Q3398147",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2009,
+      "endYear": 2009,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3398147"
+    },
+    {
+      "playerId": "Q342282",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2011,
+      "endYear": 2011,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q342282"
+    },
+    {
+      "playerId": "Q342530",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2011,
+      "endYear": 2012,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q342530"
+    },
+    {
+      "playerId": "Q3470498",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2006,
+      "endYear": 2007,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3470498"
+    },
+    {
+      "playerId": "Q3481369",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2009,
+      "endYear": 2011,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3481369"
+    },
+    {
+      "playerId": "Q349177",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2012,
+      "endYear": 2014,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q349177"
+    },
+    {
+      "playerId": "Q349473",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1994,
+      "endYear": 2005,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q349473"
+    },
+    {
+      "playerId": "Q350107",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2015,
+      "endYear": 2015,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q350107"
+    },
+    {
+      "playerId": "Q350263",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2011,
+      "endYear": 2012,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q350263"
+    },
+    {
+      "playerId": "Q350634",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2005,
+      "endYear": 2007,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q350634"
+    },
+    {
+      "playerId": "Q353520",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1996,
+      "endYear": 2003,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q353520"
+    },
+    {
+      "playerId": "Q353678",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1990,
+      "endYear": 1996,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q353678"
+    },
+    {
+      "playerId": "Q35729740",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q35729740"
+    },
+    {
+      "playerId": "Q358793",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1996,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q358793"
+    },
+    {
+      "playerId": "Q3607774",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2008,
+      "endYear": 2008,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3607774"
+    },
+    {
+      "playerId": "Q3610168",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1990,
+      "endYear": 1990,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3610168"
+    },
+    {
+      "playerId": "Q361435",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1995,
+      "endYear": 1997,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q361435"
+    },
+    {
+      "playerId": "Q362555",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1998,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q362555"
+    },
+    {
+      "playerId": "Q3644489",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2014,
+      "endYear": 2015,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3644489"
+    },
+    {
+      "playerId": "Q368618",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2010,
+      "endYear": 2013,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q368618"
+    },
+    {
+      "playerId": "Q369507",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2004,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q369507"
+    },
+    {
+      "playerId": "Q3701245",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1997,
+      "endYear": 2001,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3701245"
+    },
+    {
+      "playerId": "Q370978",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2011,
+      "endYear": 2012,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q370978"
+    },
+    {
+      "playerId": "Q371437",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2003,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q371437"
+    },
+    {
+      "playerId": "Q372272",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2010,
+      "endYear": 2010,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q372272"
+    },
+    {
+      "playerId": "Q373985",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2007,
+      "endYear": 2007,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q373985"
+    },
+    {
+      "playerId": "Q374317",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2009,
+      "endYear": 2009,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q374317"
+    },
+    {
+      "playerId": "Q375563",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2003,
+      "endYear": 2005,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q375563"
+    },
+    {
+      "playerId": "Q375596",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2003,
+      "endYear": 2005,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q375596"
+    },
+    {
+      "playerId": "Q376394",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2020,
+      "endYear": 2023,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q376394"
+    },
+    {
+      "playerId": "Q377488",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1997,
+      "endYear": 1999,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q377488"
+    },
+    {
+      "playerId": "Q3791464",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2005,
+      "endYear": 2006,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3791464"
+    },
+    {
+      "playerId": "Q379603",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1995,
+      "endYear": 1997,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q379603"
+    },
+    {
+      "playerId": "Q37996866",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q37996866"
+    },
+    {
+      "playerId": "Q3816319",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2009,
+      "endYear": 2010,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3816319"
+    },
+    {
+      "playerId": "Q383483",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2007,
+      "endYear": 2009,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q383483"
+    },
+    {
+      "playerId": "Q3877698",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1993,
+      "endYear": 1995,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3877698"
+    },
+    {
+      "playerId": "Q39078708",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q39078708"
+    },
+    {
+      "playerId": "Q3961138",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2004,
+      "endYear": 2006,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3961138"
+    },
+    {
+      "playerId": "Q3976225",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2015,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3976225"
+    },
+    {
+      "playerId": "Q39809166",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q39809166"
+    },
+    {
+      "playerId": "Q3992906",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1997,
+      "endYear": 2001,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q3992906"
+    },
+    {
+      "playerId": "Q404098",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2008,
+      "endYear": 2015,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q404098"
+    },
+    {
+      "playerId": "Q41200266",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2017,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q41200266"
+    },
+    {
+      "playerId": "Q41259115",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2019,
+      "endYear": 2020,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q41259115"
+    },
+    {
+      "playerId": "Q4251366",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2015,
+      "endYear": 2016,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q4251366"
+    },
+    {
+      "playerId": "Q429407",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1987,
+      "endYear": 1992,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q429407"
+    },
+    {
+      "playerId": "Q434646",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1998,
+      "endYear": 2000,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q434646"
+    },
+    {
+      "playerId": "Q442472",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2006,
+      "endYear": 2010,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q442472"
+    },
+    {
+      "playerId": "Q442866",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2011,
+      "endYear": 2011,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q442866"
+    },
+    {
+      "playerId": "Q444563",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2012,
+      "endYear": 2014,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q444563"
+    },
+    {
+      "playerId": "Q450783",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2003,
+      "endYear": 2003,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q450783"
+    },
+    {
+      "playerId": "Q45193632",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q45193632"
+    },
+    {
+      "playerId": "Q455972",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1992,
+      "endYear": 2007,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q455972"
+    },
+    {
+      "playerId": "Q455979",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2012,
+      "endYear": 2014,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q455979"
+    },
+    {
+      "playerId": "Q4566197",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1985,
+      "endYear": 1993,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q4566197"
+    },
+    {
+      "playerId": "Q458223",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2009,
+      "endYear": 2009,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q458223"
+    },
+    {
+      "playerId": "Q460512",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2010,
+      "endYear": 2011,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q460512"
+    },
+    {
+      "playerId": "Q464846",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2005,
+      "endYear": 2006,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q464846"
+    },
+    {
+      "playerId": "Q4696762",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q4696762"
+    },
+    {
+      "playerId": "Q47010998",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q47010998"
+    },
+    {
+      "playerId": "Q4706347",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1998,
+      "endYear": 2000,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q4706347"
+    },
+    {
+      "playerId": "Q4707259",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2007,
+      "endYear": 2011,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q4707259"
+    },
+    {
+      "playerId": "Q47088780",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2025,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q47088780"
+    },
+    {
+      "playerId": "Q4716779",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2011,
+      "endYear": 2015,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q4716779"
+    },
+    {
+      "playerId": "Q4717283",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q4717283"
+    },
+    {
+      "playerId": "Q4721653",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q4721653"
+    },
+    {
+      "playerId": "Q4733416",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1992,
+      "endYear": 1992,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q4733416"
+    },
+    {
+      "playerId": "Q475024",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2012,
+      "endYear": 2012,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q475024"
+    },
+    {
+      "playerId": "Q4760555",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1993,
+      "endYear": 1997,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q4760555"
+    },
+    {
+      "playerId": "Q4761241",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2008,
+      "endYear": 2010,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q4761241"
+    },
+    {
+      "playerId": "Q4761491",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1988,
+      "endYear": 1992,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q4761491"
+    },
+    {
+      "playerId": "Q47658470",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2024,
+      "endYear": null,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q47658470"
+    },
+    {
+      "playerId": "Q4799160",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q4799160"
+    },
+    {
+      "playerId": "Q483417",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2000,
+      "endYear": 2002,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q483417"
+    },
+    {
+      "playerId": "Q4864123",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2002,
+      "endYear": 2005,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q4864123"
+    },
+    {
+      "playerId": "Q4864684",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q4864684"
+    },
+    {
+      "playerId": "Q48688169",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q48688169"
+    },
+    {
+      "playerId": "Q48817101",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q48817101"
+    },
+    {
+      "playerId": "Q4895260",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q4895260"
+    },
+    {
+      "playerId": "Q4895318",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q4895318"
+    },
+    {
+      "playerId": "Q4912974",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q4912974"
+    },
+    {
+      "playerId": "Q4932211",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q4932211"
+    },
+    {
+      "playerId": "Q4961062",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1986,
+      "endYear": 1990,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q4961062"
+    },
+    {
+      "playerId": "Q497126",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2005,
+      "endYear": 2005,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q497126"
+    },
+    {
+      "playerId": "Q4979379",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1997,
+      "endYear": 1999,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q4979379"
+    },
+    {
+      "playerId": "Q50136665",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q50136665"
+    },
+    {
+      "playerId": "Q5043121",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2007,
+      "endYear": 2010,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q5043121"
+    },
+    {
+      "playerId": "Q5066248",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q5066248"
+    },
+    {
+      "playerId": "Q50738324",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q50738324"
+    },
+    {
+      "playerId": "Q50749580",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q50749580"
+    },
+    {
+      "playerId": "Q50847573",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q50847573"
+    },
+    {
+      "playerId": "Q50853531",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q50853531"
+    },
+    {
+      "playerId": "Q5085599",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2011,
+      "endYear": 2017,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q5085599"
+    },
+    {
+      "playerId": "Q5105755",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2003,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q5105755"
+    },
+    {
+      "playerId": "Q5134534",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q5134534"
+    },
+    {
+      "playerId": "Q515966",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2004,
+      "endYear": 2010,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q515966"
+    },
+    {
+      "playerId": "Q51746745",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q51746745"
+    },
+    {
+      "playerId": "Q5180953",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2002,
+      "endYear": 2002,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q5180953"
+    },
+    {
+      "playerId": "Q5181039",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2004,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q5181039"
+    },
+    {
+      "playerId": "Q5181496",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2002,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q5181496"
+    },
+    {
+      "playerId": "Q5220202",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2004,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q5220202"
+    },
+    {
+      "playerId": "Q5220397",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1998,
+      "endYear": 1999,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q5220397"
+    },
+    {
+      "playerId": "Q5220631",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1999,
+      "endYear": 2004,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q5220631"
+    },
+    {
+      "playerId": "Q5222840",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2014,
+      "endYear": 2015,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q5222840"
+    },
+    {
+      "playerId": "Q5225378",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2009,
+      "endYear": 2009,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q5225378"
+    },
+    {
+      "playerId": "Q5231811",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": null,
+      "endYear": null,
+      "dateStatus": "undated_needs_review",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q5231811"
+    },
+    {
+      "playerId": "Q5235973",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 1993,
+      "endYear": 1993,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q5235973"
+    },
+    {
+      "playerId": "Q5236676",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2006,
+      "endYear": 2006,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q5236676"
+    },
+    {
+      "playerId": "Q525943",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2012,
+      "endYear": 2013,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q525943"
+    },
+    {
+      "playerId": "Q526086",
+      "clubId": "Q1128631",
+      "source": "Wikidata P54",
+      "startYear": 2009,
+      "endYear": 2011,
+      "dateStatus": "dated",
+      "evidenceUrl": "https://www.wikidata.org/wiki/Q526086"
+    }
+  ]
 }
