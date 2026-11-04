@@ -38,7 +38,7 @@ async function runQuery(query, description) {
 async function getPremierLeagueClubs() {
   const query = [
     "SELECT DISTINCT ?club ?clubLabel WHERE {",
-    "  ?club wdt:P118 wd:Q9448.",
+    "  ?club wdt:P118 wd:Q9448; wdt:P31/wdt:P279* wd:Q476028.",
     "  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. ?club rdfs:label ?clubLabel. }",
     "} ORDER BY ?club"
   ].join("\n");
