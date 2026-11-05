@@ -22,6 +22,9 @@ jobs:
       - name: Discover clubs and import career records from Wikidata
         run: npm run discover:historical-clubs
 
+      - name: Audit database references and dates
+        run: npm run audit:football-db
+
       - name: Save updated database
         run: |
           git config user.name "github-actions[bot]"
