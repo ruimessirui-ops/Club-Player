@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node server.js",
     "import:premier-league": "node data/import-premier-league.js",
+    "discover:historical-clubs": "node data/discover-historical-clubs.js",
     "audit:football-db": "node data/audit-football-db.js"
   },
   "engines": {
