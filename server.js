@@ -35,10 +35,12 @@ app.get("/api/search", async (req, res) => {
   // secondary source, not a single point of failure for autocomplete.
   try {
     const endpoint = type === "club" ? "searchteams.php" : "searchplayers.php";
-    const canonicalAlias = type === "club"
-      ? [...knownClubAliases.entries()].find(([alias]) => normalizeFootballName(alias) === normalizeFootballName(q))?.[0]
+    const aliasEntry = type === "club"
+      ? [...knownClubAliases.entries()].find(([alias]) => normalizeFootballName(alias) === normalizeFootballName(q))
       : null;
-    const params = type === "club" ? { t: canonicalAlias || q } : { p: q };
+    const canonicalAlias = aliasEntry?.[1] === "Q18656" ? "Manchester United"
+      : aliasEntry?.[1] === "Q180305" ? "AS Monaco" : q;
+    const params = type === "club" ? { t: canonicalAlias } : { p: q };
     const data = await theSportsDbGet(endpoint, params);
     const rows = type === "club" ? (data.teams || []) : (data.player || []);
     for (const entry of rows) {
