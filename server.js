@@ -93,6 +93,15 @@ app.get("/api/search", async (req, res) => {
     console.error("Wikidata " + type + " autocomplete failed:", error.message);
   }
 
+  // For clubs, show only the strongest canonical match rather than a list
+  // that forces the player to choose between near-duplicates.
+  if (type === "club" && items.length) {
+    items.sort((a, b) => footballNameScore(q, b.label) - footballNameScore(q, a.label));
+    const bestScore = footballNameScore(q, items[0].label);
+    if (bestScore >= 0.68) items.splice(1);
+    else items.length = 0;
+  }
+
   // Never keep empty results: a temporary outage must not poison future searches.
   // Successful suggestions are cached briefly to reduce repeated API traffic.
   if (items.length) {
@@ -133,11 +142,34 @@ function advance(room) {
 function normalizeName(s) { return clean(s).toLocaleLowerCase("en"); }
 // Compare football names independent of accents, punctuation and common legal suffixes.
 function normalizeFootballName(s) {
-  return String(s || "").normalize("NFD").replace(/[\\u0300-\\u036f]/g, "")
+  return String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     .toLocaleLowerCase("en")
     .replace(/&/g, " and ")
-    .replace(/\\b(?:association football club|football club|futbol club|club de futbol|fc|afc|cf|sc|calcio|football|club)\\b/g, " ")
-    .replace(/[^a-z0-9]+/g, " ").trim().replace(/\\s+/g, " ");
+    .replace(/\b(?:association football club|football club|futbol club|club de futbol|fc|afc|cf|sc|calcio|football|club)\b/g, " ")
+    .replace(/[^a-z0-9]+/g, " ").trim().replace(/\s+/g, " ");
+}
+function editDistance(a, b) {
+  const previous = Array.from({length: b.length + 1}, (_, i) => i);
+  for (let i = 1; i <= a.length; i++) {
+    let diagonal = previous[0];
+    previous[0] = i;
+    for (let j = 1; j <= b.length; j++) {
+      const above = previous[j];
+      previous[j] = Math.min(previous[j] + 1, previous[j - 1] + 1, diagonal + (a[i - 1] === b[j - 1] ? 0 : 1));
+      diagonal = above;
+    }
+  }
+  return previous[b.length];
+}
+function footballNameScore(input, candidate) {
+  const a = normalizeFootballName(input), b = normalizeFootballName(candidate);
+  if (!a || !b) return 0;
+  if (a === b) return 1;
+  if (a.length >= 4 && (b.includes(a) || a.includes(b))) return 0.94;
+  const edit = 1 - editDistance(a, b) / Math.max(a.length, b.length);
+  const at = new Set(a.split(" ")), bt = new Set(b.split(" "));
+  const overlap = 2 * [...at].filter(token => bt.has(token)).length / Math.max(1, at.size + bt.size);
+  return Math.max(edit, overlap * 0.92);
 }
 function isWomensTeam(name, description = "") {
   return /\b(women|woman|womens|ladies|girls|femen|femminile)\b/i.test(String(name || "") + " " + String(description || ""));
@@ -388,12 +420,20 @@ const knownClubAliases = new Map([
   ["as monaco", "Q180305"],
   ["as monaco fc", "Q180305"],
   ["association sportive monaco football club", "Q180305"],
-  ["association sportive de monaco football club", "Q180305"]
+  ["association sportive de monaco football club", "Q180305"],
+  ["manchester united", "Q18656"],
+  ["man united", "Q18656"],
+  ["man utd", "Q18656"],
+  ["man u", "Q18656"],
+  ["mufc", "Q18656"]
 ]);
 
 async function resolveWikidataEntity(name, type) {
   const results = await wikidataSearch(name);
-  const knownId = type === "club" ? knownClubAliases.get(normalizeName(name)) : null;
+  const normalizedInput = normalizeFootballName(name);
+  const knownId = type === "club"
+    ? [...knownClubAliases.entries()].find(([alias]) => normalizeFootballName(alias) === normalizedInput)?.[1] || null
+    : null;
   const resultById = new Map(results.map(item => [item.id, item]));
   const ids = [...new Set([...(knownId ? [knownId] : []), ...results.map(item => item.id)])];
   if (!ids.length) throw new Error('I could not find "' + name + '" in the football database. Try another spelling.');
@@ -413,7 +453,14 @@ async function resolveWikidataEntity(name, type) {
   // Only accept a result whose canonical label or a recorded Wikidata alias
   // matches the submitted name. Never use an unrelated first search result.
   const exact = candidates.find(({ record }) => labels(record).includes(wanted));
-  if (!exact) {
+  const best = exact || (type === "club"
+    ? candidates.map(candidate => ({
+        ...candidate,
+        score: Math.max(footballNameScore(name, candidate.item.label), ...labels(candidate.record).map(label => footballNameScore(name, label)))
+      })).sort((a, b) => b.score - a.score)[0]
+    : null);
+  const accepted = exact || (best && best.score >= 0.82 ? best : null);
+  if (!accepted) {
     if (type === "club" && results.some(item => isWomensTeam(item.label, item.description))) {
       throw new Error("Women’s teams cannot be used in Club Player. Choose a men’s football club.");
     }
@@ -422,9 +469,9 @@ async function resolveWikidataEntity(name, type) {
       '. Try the club’s or player’s full name.');
   }
   return {
-    id: exact.record.id || exact.item.id,
-    label: exact.record.labels?.en?.value || exact.item.label,
-    entity: exact.record
+    id: accepted.record.id || accepted.item.id,
+    label: accepted.record.labels?.en?.value || accepted.item.label,
+    entity: accepted.record
   };
 }
 
@@ -434,8 +481,15 @@ async function resolveFootball(name, type) {
       ? await theSportsDbGet("searchteams.php", { t: name })
       : await theSportsDbGet("searchplayers.php", { p: name });
     const rows = type === "club" ? (data.teams || []) : (data.player || []);
-    // Require a canonical full-name match; partial search hits are unsafe.
-    const entry = rows.find(row => normalizeFootballName(type === "club" ? row.strTeam : row.strPlayer) === normalizeFootballName(name));
+    // Prefer exact canonical matches, but allow a strong typo/short-name match
+    // for clubs so common forms like "Man Utd" resolve to Manchester United.
+    const entry = type === "club"
+      ? rows.map(row => ({row, score: footballNameScore(name, row.strTeam)}))
+          .sort((a, b) => b.score - a.score)
+          .find(item => item.score >= 0.76 && !isWomensTeam(item.row.strTeam, item.row.strLeague) &&
+            !isReserveOrYouthTeam(item.row.strTeam, item.row.strLeague) &&
+            isMajorClubLeague(item.row.strLeague))?.row
+      : rows.find(row => normalizeFootballName(row.strPlayer) === normalizeFootballName(name));
     const id = type === "club" ? entry?.idTeam : entry?.idPlayer;
     const label = type === "club" ? entry?.strTeam : entry?.strPlayer;
     if (type === "club" && isWomensTeam(label, entry?.strLeague)) {
