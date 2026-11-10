@@ -370,7 +370,28 @@ async function theSportsDbGet(endpoint, params = {}) {
   return data;
 }
 
+// Common short names and official-name variants for major clubs whose Wikidata
+// search results can otherwise be confused with a city or country.
+const knownClubAliases = new Map([
+  ["monaco", "Q180305"],
+  ["as monaco", "Q180305"],
+  ["as monaco fc", "Q180305"],
+  ["association sportive monaco football club", "Q180305"],
+  ["association sportive de monaco football club", "Q180305"]
+]);
+
 async function resolveFootball(name, type) {
+  if (type === "club") {
+    const knownClubId = knownClubAliases.get(normalizeName(name));
+    if (knownClubId) {
+      return {
+        id: knownClubId,
+        name: "AS Monaco FC",
+        source: "Wikidata",
+        entity: await entity(knownClubId)
+      };
+    }
+  }
   try {
     const data = type === "club"
       ? await theSportsDbGet("searchteams.php", { t: name })
@@ -440,10 +461,12 @@ async function verifyLink(clubName, playerName) {
   // Use Wikidata IDs for BOTH sides as a consistent fallback. This also checks
   // current clubs, which may not appear in TheSportsDB's former-teams endpoint.
   const [clubResults, playerResults] = await Promise.all([
-    wikidataSearch(clubName),
+    club.source === "Wikidata" ? Promise.resolve([]) : wikidataSearch(clubName),
     wikidataSearch(playerName)
   ]);
-  const wdClub = clubResults.find(x => normalizeName(x.label) === normalizeName(clubName)) || clubResults[0];
+  const wdClub = club.source === "Wikidata"
+    ? { id: club.id, label: club.name }
+    : (clubResults.find(x => normalizeName(x.label) === normalizeName(clubName)) || clubResults[0]);
   const wdPlayer = playerResults.find(x => normalizeName(x.label) === normalizeName(playerName)) || playerResults[0];
   if (!wdClub || !wdPlayer) {
     throw new Error("I couldn't verify both names in Wikidata. Try another spelling.");
