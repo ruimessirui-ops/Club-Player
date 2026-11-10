@@ -131,6 +131,14 @@ function advance(room) {
   while ((!room.players[room.turn].alive || !room.players[room.turn].connected) && tries <= room.players.length);
 }
 function normalizeName(s) { return clean(s).toLocaleLowerCase("en"); }
+// Compare football names independent of accents, punctuation and common legal suffixes.
+function normalizeFootballName(s) {
+  return String(s || "").normalize("NFD").replace(/[\\u0300-\\u036f]/g, "")
+    .toLocaleLowerCase("en")
+    .replace(/&/g, " and ")
+    .replace(/\\b(?:association football club|football club|futbol club|club de futbol|fc|afc|cf|sc|calcio|football|club)\\b/g, " ")
+    .replace(/[^a-z0-9]+/g, " ").trim().replace(/\\s+/g, " ");
+}
 function isWomensTeam(name, description = "") {
   return /\b(women|woman|womens|ladies|girls|femen|femminile)\b/i.test(String(name || "") + " " + String(description || ""));
 }
@@ -292,8 +300,11 @@ async function entity(id) {
   return result;
 }
 function labels(e) {
-  const out=[e.labels?.en?.value, ...(e.aliases?.en||[]).map(x=>x.value)];
-  return out.filter(Boolean).map(normalizeName);
+  const out = [
+    e.labels?.en?.value,
+    ...(e.aliases?.en || []).map(x => x.value)
+  ];
+  return [...new Set(out.filter(Boolean).map(normalizeFootballName))];
 }
 
 function claimIds(record, property) {
@@ -380,26 +391,42 @@ const knownClubAliases = new Map([
   ["association sportive de monaco football club", "Q180305"]
 ]);
 
-async function resolveFootball(name, type) {
-  if (type === "club") {
-    const knownClubId = knownClubAliases.get(normalizeName(name));
-    if (knownClubId) {
-      return {
-        id: knownClubId,
-        name: "AS Monaco FC",
-        source: "Wikidata",
-        entity: await entity(knownClubId)
-      };
+async function resolveWikidataEntity(name, type) {
+  const results = await wikidataSearch(name);
+  if (!results.length) throw new Error('I could not find "' + name + '" in the football database. Try another spelling.');
+  const records = await entities(results.map(item => item.id));
+  const candidates = results.map((item, index) => ({ item, record: records[index] }))
+    .filter(({ item, record }) => record && isFootballEntity(record, type) &&
+      !(type === "club" && (isWomensTeam(item.label, item.description) ||
+        isWomensTeam(record.labels?.en?.value, record.descriptions?.en?.value) ||
+        isReserveOrYouthTeam(item.label, item.description))));
+  const wanted = normalizeFootballName(name);
+  // Only accept a result whose canonical label or a recorded Wikidata alias
+  // matches the submitted name. Never use an unrelated first search result.
+  const exact = candidates.find(({ record }) => labels(record).includes(wanted));
+  if (!exact) {
+    if (type === "club" && results.some(item => isWomensTeam(item.label, item.description))) {
+      throw new Error("Women’s teams cannot be used in Club Player. Choose a men’s football club.");
     }
+    throw new Error('I could not confidently identify "' + name + '" as a ' +
+      (type === "club" ? "men’s football club" : "footballer") +
+      '. Try the club’s or player’s full name.');
   }
+  return {
+    id: exact.record.id || exact.item.id,
+    label: exact.record.labels?.en?.value || exact.item.label,
+    entity: exact.record
+  };
+}
+
+async function resolveFootball(name, type) {
   try {
     const data = type === "club"
       ? await theSportsDbGet("searchteams.php", { t: name })
       : await theSportsDbGet("searchplayers.php", { p: name });
     const rows = type === "club" ? (data.teams || []) : (data.player || []);
-    // Do not silently accept the first search result when it is a different
-    // person with the same/partial name (important for short names like Beto).
-    const entry = rows.find(row => normalizeName(type === "club" ? row.strTeam : row.strPlayer) === normalizeName(name));
+    // Require a canonical full-name match; partial search hits are unsafe.
+    const entry = rows.find(row => normalizeFootballName(type === "club" ? row.strTeam : row.strPlayer) === normalizeFootballName(name));
     const id = type === "club" ? entry?.idTeam : entry?.idPlayer;
     const label = type === "club" ? entry?.strTeam : entry?.strPlayer;
     if (type === "club" && isWomensTeam(label, entry?.strLeague)) {
@@ -409,13 +436,8 @@ async function resolveFootball(name, type) {
   } catch (error) {
     console.error("TheSportsDB resolve failed:", error.message);
   }
-  const results = await wikidataSearch(name);
-  const eligibleResults = type === "club" ? results.filter(x => !isWomensTeam(x.label, x.description)) : results;
-  const exact = eligibleResults.find(x => normalizeName(x.label) === normalizeName(name)) || eligibleResults[0];
-  if (!exact) throw new Error(type === "club" && results.some(x => isWomensTeam(x.label, x.description))
-    ? "Women’s teams cannot be used in Club Player. Choose a men’s football club."
-    : 'I could not find "' + name + '" in the football database. Try another spelling.');
-  return { id: exact.id, name: exact.label, source: "Wikidata", entity: await entity(exact.id) };
+  const exact = await resolveWikidataEntity(name, type);
+  return { id: exact.id, name: exact.label, source: "Wikidata", entity: exact.entity };
 }
 
 async function resolve(name) {
@@ -460,18 +482,18 @@ async function verifyLink(clubName, playerName) {
 
   // Use Wikidata IDs for BOTH sides as a consistent fallback. This also checks
   // current clubs, which may not appear in TheSportsDB's former-teams endpoint.
-  const [clubResults, playerResults] = await Promise.all([
-    club.source === "Wikidata" ? Promise.resolve([]) : wikidataSearch(clubName),
-    wikidataSearch(playerName)
+  const [wdClub, wdPlayer] = await Promise.all([
+    club.source === "Wikidata"
+      ? Promise.resolve({ id: club.id, label: club.name, entity: club.entity })
+      : resolveWikidataEntity(clubName, "club"),
+    player.source === "Wikidata"
+      ? Promise.resolve({ id: player.id, label: player.name, entity: player.entity })
+      : resolveWikidataEntity(playerName, "player")
   ]);
-  const wdClub = club.source === "Wikidata"
-    ? { id: club.id, label: club.name }
-    : (clubResults.find(x => normalizeName(x.label) === normalizeName(clubName)) || clubResults[0]);
-  const wdPlayer = playerResults.find(x => normalizeName(x.label) === normalizeName(playerName)) || playerResults[0];
-  if (!wdClub || !wdPlayer) {
-    throw new Error("I couldn't verify both names in Wikidata. Try another spelling.");
-  }
-  const [playerEntity, clubEntity] = await Promise.all([entity(wdPlayer.id), entity(wdClub.id)]);
+  const [playerEntity, clubEntity] = await Promise.all([
+    wdPlayer.entity ? Promise.resolve(wdPlayer.entity) : entity(wdPlayer.id),
+    wdClub.entity ? Promise.resolve(wdClub.entity) : entity(wdClub.id)
+  ]);
   if (!isFootballEntity(playerEntity, "player")) {
     throw new Error(wdPlayer.label + " is not recognised as an association football player.");
   }
@@ -505,7 +527,7 @@ async function verifyLink(clubName, playerName) {
   // Match against ALL of the player's P54 teams, not only entities with a
   // complete football-club description. This avoids rejecting clubs like Roma
   // when Wikidata's description/type metadata is incomplete.
-  const requested = normalizeName(clubName);
+  const requested = normalizeFootballName(clubName);
   let matchedTeam = loadedTeams.find(teamEntity => teamEntity.id === wdClub.id && !isNationalTeam(teamEntity)) || null;
   if (!matchedTeam) {
     matchedTeam = loadedTeams.find(teamEntity => {
