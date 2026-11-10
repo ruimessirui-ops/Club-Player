@@ -47,7 +47,8 @@ app.get("/api/search", async (req, res) => {
         !isMajorClubLeague(entry.strLeague)
       )) continue;
       const id = type === "club" ? entry.idTeam : entry.idPlayer;
-      const label = type === "club" ? entry.strTeam : entry.strPlayer;
+      const rawLabel = type === "club" ? entry.strTeam : entry.strPlayer;
+      const label = type === "club" ? cleanClubLabel(rawLabel) : rawLabel;
       if (id && label) {
         const country = type === "club" ? (entry.strCountry || "") : (entry.strNationality || "");
         const role = type === "club" ? "club" : "footballer";
@@ -135,7 +136,7 @@ function isWomensTeam(name, description = "") {
 }
 function isReserveOrYouthTeam(name, description = "") {
   const value = String(name || "") + " " + String(description || "");
-  return /\b(?:b team|team b|reserves?|ii|iii|u(?:1[0-9]|2[0-3])|under[- ]?(?:1[0-9]|2[0-3])|academy|youth|junior)\b/i.test(value) ||
+  return /\b(?:b team|team b|reserves?|next gen|ii|iii|u(?:1[0-9]|2[0-3])|under[- ]?(?:1[0-9]|2[0-3])|academy|youth|junior)\b/i.test(value) ||
     /(?:^|[\s-])(?:b|ii|iii)$/i.test(String(name || "").trim());
 }
 function isMajorClubLeague(league = "") {
@@ -143,9 +144,11 @@ function isMajorClubLeague(league = "") {
   if (!value) return false;
   return /premier league|english league championship|championship|la liga|primera division|serie a|bundesliga|ligue 1|eredivisie|primeira liga|liga portugal|scottish premiership|super lig|jupiler pro league|pro league|mls|major league soccer|brasileirao|campeonato brasileiro serie a|argentine primera|liga profesional|saudi pro league|j league|k league 1|a league men/.test(value);
 }
+function cleanClubLabel(name = "") {
+  return String(name).replace(/^[A-Z]{2}:?\s+/, "").trim();
+}
 function normalizeClubSuggestion(name = "") {
-  return String(name).toLowerCase()
-    .replace(/^(?:[a-z]{2}:?\s+)/i, "")
+  return cleanClubLabel(name).toLowerCase()
     .replace(/\b(?:football club|fc|afc|cf|sc|calcio|club)\b/g, "")
     .replace(/[^a-z0-9]+/g, "");
 }
