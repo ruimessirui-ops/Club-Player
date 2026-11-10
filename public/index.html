@@ -135,10 +135,10 @@ $('answer').addEventListener('input',()=>{
       const items=await r.json();
       if(request!==searchRequest || $('answer').value.trim()!==q)return;
       if(!r.ok) throw new Error(items.error || 'Search is temporarily unavailable.');
-      box.innerHTML=items.map(x=>{const flag=type==='club'&&x.country?countryFlag(x.country)+' ':'';
- const meta=type==='club'?[x.description,x.league].filter(Boolean).join(' · '):x.description;
- return '<button type="button" class="suggestion" data-label="'+esc(x.label)+'">'+flag+esc(x.label)+'<small>'+esc(meta||x.description)+'</small></button>';
-}).join('') || '<div class="suggestion"><small>No suggestions found. You can still type and submit your answer.</small></div>';
+      box.innerHTML=items.map(x=>{
+ const meta=type==='club'?[x.league,x.country].filter(Boolean).join(' · '):x.description;
+ return '<button type="button" class="suggestion" data-label="'+esc(x.label)+'">'+esc(x.label)+'<small>'+esc(meta||x.description)+'</small></button>';
+}).join('') || '<div class="suggestion"><small>No major-league suggestions found. You can still type and submit another club.</small></div>';
       box.classList.add('show');
       box.querySelectorAll('button').forEach(b=>b.onclick=()=>{$('answer').value=b.dataset.label;box.classList.remove('show');box.innerHTML='';});
     }catch(error){
