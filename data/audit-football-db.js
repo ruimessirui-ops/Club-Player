@@ -15,6 +15,6 @@ const missingPlayers = links.filter(x => !playerIds.has(x.playerId)).length;
 const missingClubs = links.filter(x => !clubIds.has(x.clubId)).length;
 const undated = links.filter(x => x.startYear == null && x.endYear == null).length;
 const clubsWithoutLinks = clubs.filter(c => !links.some(x => x.clubId === c.id)).length;
-const report = { clubs: clubs.length, players: players.length, careerLinks: links.length, datedLinks: links.length - undated, undatedLinks: undated, duplicatePlayerNameGroups: duplicateNameGroups, invalidDateLinks: invalidDates.length, orphanPlayerLinks: missingPlayers, orphanClubLinks: missingClubs, clubsWithoutCareerLinks: clubsWithoutLinks, importProgress: db.coverage?.importProgress || null };
+const report = { clubs: clubs.length, players: players.length, careerLinks: links.length, datedLinks: links.length - undated, undatedLinks: undated, duplicatePlayerNameGroups: duplicateNameGroups, invalidDateLinks: invalidDates.length, orphanPlayerLinks: missingPlayers, orphanClubLinks: missingClubs, clubsWithoutCareerLinks: clubsWithoutLinks, importProgress: db.coverage?.historicalImportProgress || db.coverage?.importProgress || null };
 console.log(JSON.stringify(report, null, 2));
 if (missingPlayers || missingClubs || invalidDates.length) process.exitCode = 1;
