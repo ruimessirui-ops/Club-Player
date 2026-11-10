@@ -393,10 +393,19 @@ const knownClubAliases = new Map([
 
 async function resolveWikidataEntity(name, type) {
   const results = await wikidataSearch(name);
-  if (!results.length) throw new Error('I could not find "' + name + '" in the football database. Try another spelling.');
-  const records = await entities(results.map(item => item.id));
-  const candidates = results.map((item, index) => ({ item, record: records[index] }))
-    .filter(({ item, record }) => record && isFootballEntity(record, type) &&
+  const knownId = type === "club" ? knownClubAliases.get(normalizeName(name)) : null;
+  const resultById = new Map(results.map(item => [item.id, item]));
+  const ids = [...new Set([...(knownId ? [knownId] : []), ...results.map(item => item.id)])];
+  if (!ids.length) throw new Error('I could not find "' + name + '" in the football database. Try another spelling.');
+  const records = await entities(ids);
+  const candidates = records.map((record, index) => ({
+    item: resultById.get(ids[index]) || {
+      id: ids[index],
+      label: record?.labels?.en?.value || "",
+      description: record?.descriptions?.en?.value || ""
+    },
+    record
+  })).filter(({ item, record }) => record && isFootballEntity(record, type) &&
       !(type === "club" && (isWomensTeam(item.label, item.description) ||
         isWomensTeam(record.labels?.en?.value, record.descriptions?.en?.value) ||
         isReserveOrYouthTeam(item.label, item.description))));
