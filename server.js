@@ -20,8 +20,12 @@ app.get("/api/search", async (req, res) => {
   const items = [];
   const seen = new Set();
   const addItem = item => {
-    if (type === "club" && isWomensTeam(item.label, item.description)) return;
-    const key = normalizeName(item.label || "");
+    if (type === "club" && (
+      isWomensTeam(item.label, item.description) ||
+      isReserveOrYouthTeam(item.label, item.description) ||
+      !isMajorClubLeague(item.league)
+    )) return;
+    const key = type === "club" ? normalizeClubSuggestion(item.label) : normalizeName(item.label || "");
     if (!key || seen.has(key)) return;
     seen.add(key);
     items.push(item);
@@ -37,7 +41,11 @@ app.get("/api/search", async (req, res) => {
     for (const entry of rows) {
       const sport = String(entry.strSport || "").toLowerCase();
       if (type === "club" && sport && sport !== "soccer" && sport !== "football") continue;
-      if (type === "club" && isWomensTeam(entry.strTeam, entry.strLeague)) continue;
+      if (type === "club" && (
+        isWomensTeam(entry.strTeam, entry.strLeague) ||
+        isReserveOrYouthTeam(entry.strTeam, entry.strLeague) ||
+        !isMajorClubLeague(entry.strLeague)
+      )) continue;
       const id = type === "club" ? entry.idTeam : entry.idPlayer;
       const label = type === "club" ? entry.strTeam : entry.strPlayer;
       if (id && label) {
@@ -46,6 +54,7 @@ app.get("/api/search", async (req, res) => {
         addItem({
           id: String(id), label, country,
           description: country ? country + " " + role : (type === "club" ? "Football club" : "Footballer"),
+          league: type === "club" ? (entry.strLeague || "") : "",
           source: "TheSportsDB"
         });
       }
@@ -57,9 +66,13 @@ app.get("/api/search", async (req, res) => {
   // Try Wikidata as well, so it can expand the small free-tier result set.
   try {
     const results = await wikidataAutocompleteSearch(q);
-    const excluded = /women|woman|femen|femminile|ladies|girls|youth|under[- ]?[0-9]{1,2}|reserve|academy|season|b team|ii team|iii team/i;
-    const candidates = results.slice(0, 50).filter(item =>
-      type !== "club" || !excluded.test((item.label || "") + " " + (item.description || ""))
+    const excluded = /women|woman|femen|femminile|ladies|girls|youth|under[- ]?[0-9]{1,2}|reserve|academy|season|b team|\bteam b\b|\bii\b|\biii\b/i;
+    // Club suggestions are deliberately limited to major-division teams from
+    // TheSportsDB. Wikidata remains available for player suggestions and for
+    // validating manually entered clubs, but its broad club search includes
+    // many obscure lower-division and reserve sides.
+    const candidates = type === "club" ? [] : results.slice(0, 50).filter(item =>
+      !excluded.test((item.label || "") + " " + (item.description || ""))
     );
     const records = await entities(candidates.map(item => item.id));
     for (let i = 0; i < candidates.length; i++) {
@@ -119,6 +132,22 @@ function advance(room) {
 function normalizeName(s) { return clean(s).toLocaleLowerCase("en"); }
 function isWomensTeam(name, description = "") {
   return /\b(women|woman|womens|ladies|girls|femen|femminile)\b/i.test(String(name || "") + " " + String(description || ""));
+}
+function isReserveOrYouthTeam(name, description = "") {
+  const value = String(name || "") + " " + String(description || "");
+  return /\b(?:b team|team b|reserves?|ii|iii|u(?:1[0-9]|2[0-3])|under[- ]?(?:1[0-9]|2[0-3])|academy|youth|junior)\b/i.test(value) ||
+    /(?:^|[\s-])(?:b|ii|iii)$/i.test(String(name || "").trim());
+}
+function isMajorClubLeague(league = "") {
+  const value = String(league || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  if (!value) return false;
+  return /premier league|english league championship|championship|la liga|primera division|serie a|bundesliga|ligue 1|eredivisie|primeira liga|liga portugal|scottish premiership|super lig|jupiler pro league|pro league|mls|major league soccer|brasileirao|campeonato brasileiro serie a|argentine primera|liga profesional|saudi pro league|j league|k league 1|a league men/.test(value);
+}
+function normalizeClubSuggestion(name = "") {
+  return String(name).toLowerCase()
+    .replace(/^(?:[a-z]{2}:?\s+)/i, "")
+    .replace(/\b(?:football club|fc|afc|cf|sc|calcio|club)\b/g, "")
+    .replace(/[^a-z0-9]+/g, "");
 }
 function handleWrongAnswer(room, player, ws, err) {
   const message = err?.message || "That answer could not be verified.";
