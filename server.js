@@ -73,30 +73,38 @@ app.get("/api/search", async (req, res) => {
   try {
     const results = await wikidataAutocompleteSearch(q);
     const excluded = /women|woman|femen|femminile|ladies|girls|youth|under[- ]?[0-9]{1,2}|reserve|academy|season|b team|\bteam b\b|\bii\b|\biii\b/i;
-    // Wikidata can fill gaps when a club name is abbreviated or misspelled.
-    // Only retain clearly typed football entities with a strong name match;
-    // this avoids accepting cities, stadiums or unrelated clubs.
+    // Wikidata search can return the official name even when the user typed
+    // a short form, translated name or typo. Compare against both labels and
+    // every recorded alias after loading the entity, not just its search title.
     const candidates = results.slice(0, 50).filter(item =>
-      !excluded.test((item.label || "") + " " + (item.description || "")) &&
-      (type !== "club" || footballNameScore(q, item.label) >= 0.72)
+      !excluded.test((item.label || "") + " " + (item.description || ""))
     );
     const records = await entities(candidates.map(item => item.id));
     for (let i = 0; i < candidates.length; i++) {
       const item = candidates[i];
-      if (!isFootballEntity(records[i], type)) continue;
+      const record = records[i];
+      if (!isFootballEntity(record, type)) continue;
       if (type === "club" && (
         isWomensTeam(item.label, item.description) ||
-        isReserveOrYouthTeam(item.label, item.description)
+        isWomensTeam(record.labels?.en?.value, record.descriptions?.en?.value) ||
+        isReserveOrYouthTeam(item.label, item.description) ||
+        isReserveOrYouthTeam(record.labels?.en?.value, record.descriptions?.en?.value)
       )) continue;
+      const matchScore = type === "club"
+        ? Math.max(footballNameScore(q, item.label), ...labels(record).map(alias => footballNameScore(q, alias)))
+        : 1;
+      if (type === "club" && matchScore < 0.72) continue;
       addItem({
         id: item.id,
-        label: item.label,
+        label: record.labels?.en?.value || item.label,
         country: "",
         league: "",
-        description: item.description || (type === "club" ? "Football club" : "Footballer"),
-        source: "Wikidata"
+        description: item.description || record.descriptions?.en?.value ||
+          (type === "club" ? "Football club" : "Footballer"),
+        source: "Wikidata",
+        _matchScore: matchScore
       });
-      if (items.length >= 10) break;
+      if (items.length >= 50) break;
     }
   } catch (error) {
     console.error("Wikidata " + type + " autocomplete failed:", error.message);
@@ -105,10 +113,14 @@ app.get("/api/search", async (req, res) => {
   // For clubs, show only the strongest canonical match rather than a list
   // that forces the player to choose between near-duplicates.
   if (type === "club" && items.length) {
-    items.sort((a, b) => footballNameScore(q, b.label) - footballNameScore(q, a.label));
-    const bestScore = footballNameScore(q, items[0].label);
+    items.sort((a, b) =>
+      (b._matchScore ?? footballNameScore(q, b.label)) -
+      (a._matchScore ?? footballNameScore(q, a.label))
+    );
+    const bestScore = items[0]._matchScore ?? footballNameScore(q, items[0].label);
     if (bestScore >= 0.68) items.splice(1);
     else items.length = 0;
+    for (const item of items) delete item._matchScore;
   }
 
   // Never keep empty results: a temporary outage must not poison future searches.
