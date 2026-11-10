@@ -23,7 +23,7 @@ app.get("/api/search", async (req, res) => {
     if (type === "club" && (
       isWomensTeam(item.label, item.description) ||
       isReserveOrYouthTeam(item.label, item.description) ||
-      !isMajorClubLeague(item.league)
+      (!isMajorClubLeague(item.league) && item.source !== "Wikidata")
     )) return;
     const key = type === "club" ? normalizeClubSuggestion(item.label) : normalizeName(item.label || "");
     if (!key || seen.has(key)) return;
@@ -35,7 +35,10 @@ app.get("/api/search", async (req, res) => {
   // secondary source, not a single point of failure for autocomplete.
   try {
     const endpoint = type === "club" ? "searchteams.php" : "searchplayers.php";
-    const params = type === "club" ? { t: q } : { p: q };
+    const canonicalAlias = type === "club"
+      ? [...knownClubAliases.entries()].find(([alias]) => normalizeFootballName(alias) === normalizeFootballName(q))?.[0]
+      : null;
+    const params = type === "club" ? { t: canonicalAlias || q } : { p: q };
     const data = await theSportsDbGet(endpoint, params);
     const rows = type === "club" ? (data.teams || []) : (data.player || []);
     for (const entry of rows) {
@@ -68,17 +71,21 @@ app.get("/api/search", async (req, res) => {
   try {
     const results = await wikidataAutocompleteSearch(q);
     const excluded = /women|woman|femen|femminile|ladies|girls|youth|under[- ]?[0-9]{1,2}|reserve|academy|season|b team|\bteam b\b|\bii\b|\biii\b/i;
-    // Club suggestions are deliberately limited to major-division teams from
-    // TheSportsDB. Wikidata remains available for player suggestions and for
-    // validating manually entered clubs, but its broad club search includes
-    // many obscure lower-division and reserve sides.
-    const candidates = type === "club" ? [] : results.slice(0, 50).filter(item =>
-      !excluded.test((item.label || "") + " " + (item.description || ""))
+    // Wikidata can fill gaps when a club name is abbreviated or misspelled.
+    // Only retain clearly typed football entities with a strong name match;
+    // this avoids accepting cities, stadiums or unrelated clubs.
+    const candidates = results.slice(0, 50).filter(item =>
+      !excluded.test((item.label || "") + " " + (item.description || "")) &&
+      (type !== "club" || footballNameScore(q, item.label) >= 0.72)
     );
     const records = await entities(candidates.map(item => item.id));
     for (let i = 0; i < candidates.length; i++) {
       const item = candidates[i];
       if (!isFootballEntity(records[i], type)) continue;
+      if (type === "club" && (
+        isWomensTeam(item.label, item.description) ||
+        isReserveOrYouthTeam(item.label, item.description)
+      )) continue;
       addItem({
         id: item.id,
         label: item.label,
@@ -165,7 +172,9 @@ function footballNameScore(input, candidate) {
   const a = normalizeFootballName(input), b = normalizeFootballName(candidate);
   if (!a || !b) return 0;
   if (a === b) return 1;
-  if (a.length >= 4 && (b.includes(a) || a.includes(b))) return 0.94;
+  if (Math.min(a.length, b.length) >= 6 &&
+      Math.min(a.length, b.length) / Math.max(a.length, b.length) >= 0.65 &&
+      (b.includes(a) || a.includes(b))) return 0.94;
   const edit = 1 - editDistance(a, b) / Math.max(a.length, b.length);
   const at = new Set(a.split(" ")), bt = new Set(b.split(" "));
   const overlap = 2 * [...at].filter(token => bt.has(token)).length / Math.max(1, at.size + bt.size);
