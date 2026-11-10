@@ -21,7 +21,10 @@ function iriToId(uri) { return String(uri || "").split("/").pop(); }
 function yearOf(value) {
   if (!value) return null;
   const match = String(value).match(/^([+-]?\d{4})/);
-  return match ? Number(match[1]) : null;
+  if (!match) return null;
+  const year = Number(match[1]);
+  const latestAllowedYear = new Date().getUTCFullYear() + 1;
+  return Number.isInteger(year) && year >= 1800 && year <= latestAllowedYear ? year : null;
 }
 async function runQuery(query, description) {
   const url = endpoint + "?query=" + encodeURIComponent(query) + "&format=json";
